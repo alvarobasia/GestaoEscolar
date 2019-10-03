@@ -1,0 +1,25 @@
+.back{
+	-fx-background-color: #81d2c7;
+}
+.lateral{
+	-fx-background-color: #9d75cb;
+}
+.texts{
+	-fx-text-fill: #c9fbff;
+}
+.voltar{
+	-fx-text-fill: red;
+}
+.voltar:hover{
+	-fx-text-fill: white;
+	-fx-background-color: red;
+}
+
+.cadastro{
+	-fx-background-color: #4dff3d;
+	-fx-border-color: white;
+}
+.cadastro:hover{
+	-fx-background-color: #1A1AFF;
+	-fx-text-fill: black;
+}
