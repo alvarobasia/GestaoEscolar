@@ -3,7 +3,7 @@ package entities.interfaces;
 
 import java.util.List;
 
-import entites.Person;
+import entities.models.Person;
 
 public interface PersonOperations {
 	void addPerson(Person p);

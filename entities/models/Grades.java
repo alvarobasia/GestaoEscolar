@@ -1,4 +1,4 @@
-package entites;
+package entities.models;
 
 public class Grades {
 	

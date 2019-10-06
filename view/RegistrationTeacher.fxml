@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane id="back" styleClass="back" stylesheets="@Registration.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TeacherRegistrationController">
+   <center>
+      <AnchorPane id="back" fx:id="back" maxHeight="700.0" maxWidth="800.0" minHeight="700.0" minWidth="500.0" prefHeight="700.0" prefWidth="800.0" styleClass="back" stylesheets="@Registration.css">
+         <children>
+            <Label layoutX="62.0" layoutY="442.0" prefHeight="26.0" prefWidth="290.0" styleClass="texts" text="Curso ministrado (opcional)">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="59.0" layoutY="291.0" prefHeight="26.0" prefWidth="211.0" styleClass="texts" text="Data de nascimento">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Button id="cadastro" fx:id="register" layoutX="132.0" layoutY="605.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="272.0" styleClass="cadastro" stylesheets="@Registration.css" text="Cadastrar Professor" textFill="WHITE">
+               <font>
+                  <Font name="Liberation Sans Bold" size="23.0" />
+               </font>
+            </Button>
+            <TextField layoutX="53.0" layoutY="187.0" prefHeight="26.0" prefWidth="222.0" />
+            <TextField id="texts" layoutX="53.0" layoutY="129.0" prefHeight="26.0" prefWidth="222.0" />
+            <ComboBox fx:id="cursos" accessibleRole="DATE_PICKER" layoutX="112.0" layoutY="481.0" prefWidth="150.0" />
+            <Label layoutX="61.0" layoutY="224.0" prefHeight="26.0" prefWidth="128.0" styleClass="texts" text="CPF">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="61.0" layoutY="96.0" prefHeight="26.0" prefWidth="101.0" styleClass="texts" text="Nome">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label id="texts" fx:id="Texts" alignment="CENTER" contentDisplay="CENTER" layoutX="31.0" layoutY="23.0" lineSpacing="1.0" prefHeight="51.0" prefWidth="585.0" styleClass="texts" stylesheets="@Registration.css" text="Registrar um Professor" textAlignment="CENTER">
+               <font>
+                  <Font name="Liberation Sans Bold" size="45.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="data" layoutX="53.0" layoutY="330.0" prefHeight="26.0" prefWidth="222.0" />
+            <TextField fx:id="cpf" layoutX="52.0" layoutY="258.0" onKeyReleased="#cpfFormatador" prefHeight="26.0" prefWidth="285.0" /> 
+            <Label layoutX="61.0" layoutY="161.0" prefHeight="26.0" prefWidth="128.0" styleClass="texts" text="Sobrenome">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="59.0" layoutY="366.0" prefHeight="26.0" prefWidth="211.0" styleClass="texts" text="Salario">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <TextField fx:id="salary" layoutX="52.0" layoutY="399.0" onKeyReleased="#salarioFormatador" prefHeight="26.0" prefWidth="221.0" />
+         </children>
+      </AnchorPane>
+   </center>
+   <left>
+      <Pane id="lateralBar" fx:id="lateralBar" opacity="0.78" prefHeight="700.0" prefWidth="246.0" styleClass="lateral" stylesheets="@Registration.css" BorderPane.alignment="CENTER">
+         <children>
+            <Button id="voltar" fx:id="backButton" layoutX="29.0" layoutY="27.0" mnemonicParsing="false" onAction="#voltarMenu" prefHeight="51.0" prefWidth="108.0" styleClass="voltar" stylesheets="@Registration.css" text="Voltar">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+   </left>
+</BorderPane>

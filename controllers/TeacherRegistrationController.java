@@ -27,7 +27,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class RegistrationController implements Initializable{
+public class TeacherRegistrationController implements Initializable{
 
 	
     @FXML
@@ -37,7 +37,7 @@ public class RegistrationController implements Initializable{
     private Button register;
 
     @FXML
-    private Label texts;
+    private Label Texts;
 
     @FXML
     private DatePicker data;
@@ -52,14 +52,17 @@ public class RegistrationController implements Initializable{
     private TextField cpf;
     
     @FXML
-    private ComboBox<Course> cursesOnComboBox;
+    private TextField salary;
+    
+    @FXML
+    private ComboBox<Course> cursos;
     
     private ObservableList<Course> lists;
 
     public void CourseList() {
     	List<Course> course = Main.ComboBoxUpdate();
     	lists = FXCollections.observableArrayList(course);
-    	cursesOnComboBox.setItems(lists);
+    	cursos.setItems(lists);
     }
     
     @FXML
@@ -70,6 +73,15 @@ public class RegistrationController implements Initializable{
     	tff.setTf(cpf);
     	tff.formatter();
     }
+    
+    @FXML
+    void salarioFormatador() {
+    	TextFieldFormatter t = new TextFieldFormatter();
+    	t.setMask("####,##");
+    	t.setCaracteresValidos("0123456789");
+    	t.setTf(salary);
+    	t.formatter();
+    }
     @FXML
     void voltarMenu() throws IOException {
     	//Stage sc = (Stage) voltar.getScene().getWindow();
@@ -77,7 +89,7 @@ public class RegistrationController implements Initializable{
     	//Main main = new Main();
     	//Stage stage = new Stage();
     	//main.start(stage);
-    	Parent root = (BorderPane)FXMLLoader.load(getClass().getResource("../view/ClassmateModel.fxml"));
+    	Parent root = (BorderPane)FXMLLoader.load(getClass().getResource("../view/TeacherModel.fxml"));
     	Stage sc = (Stage) backButton.getScene().getWindow();
     	Scene scene = new Scene(root, sc.getWidth(), sc.getHeight());
     	scene.getStylesheets().add(getClass().getResource("../view/application.css").toExternalForm());

@@ -27,12 +27,12 @@
                   <Font name="Laksaman Bold" size="78.0" />
                </font>
             </Label>
-            <Button id="btn" fx:id="aluno" contentDisplay="TOP" graphicTextGap="5.0" layoutX="251.0" layoutY="450.0" mnemonicParsing="false" onAction="#registrarAluno" prefHeight="34.0" prefWidth="299.0" styleClass="btn" stylesheets="@application.css" text="Gerenciar Alunos" textAlignment="CENTER" AnchorPane.leftAnchor="251.0">
+            <Button id="btn" fx:id="classmate" contentDisplay="TOP" graphicTextGap="5.0" layoutX="251.0" layoutY="450.0" mnemonicParsing="false" onAction="#moduloAluno" prefHeight="34.0" prefWidth="299.0" styleClass="btn" stylesheets="@application.css" text="Gerenciar Alunos" textAlignment="CENTER" AnchorPane.leftAnchor="251.0">
                <font>
                   <Font name="Liberation Sans" size="24.0" />
                </font>
             </Button>
-            <Button id="btn" fx:id="btn" layoutX="251.0" layoutY="516.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="299.0" styleClass="btn" stylesheets="@application.css" text="Gerenciar Professores" textAlignment="CENTER">
+            <Button id="btn" fx:id="teacher" layoutX="251.0" layoutY="516.0" mnemonicParsing="false"  onAction="#moduloProfessor" prefHeight="45.0" prefWidth="299.0" styleClass="btn" stylesheets="@application.css" text="Gerenciar Professores" textAlignment="CENTER">
                <font>
                   <Font name="Liberation Sans" size="22.0" />
                </font>

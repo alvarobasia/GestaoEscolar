@@ -13,6 +13,7 @@
 .voltar:hover{
 	-fx-text-fill: white;
 	-fx-background-color: red;
+	-fx-cursor: hand;
 }
 
 .cadastro{
@@ -22,4 +23,5 @@
 .cadastro:hover{
 	-fx-background-color: #1A1AFF;
 	-fx-text-fill: black;
+	-fx-cursor: hand;
 }

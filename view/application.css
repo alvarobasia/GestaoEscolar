@@ -4,8 +4,10 @@
 .btn:hover{
 	-fx-background-color:   #1a1aff;
 	-fx-text-fill: white;
+	-fx-cursor: hand;
 }
 .close:hover{
 	-fx-text-fill: white;
 	-fx-background-color:   red;
+	-fx-cursor: hand;
 }

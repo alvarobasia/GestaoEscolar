@@ -1,4 +1,4 @@
-package entites;
+package entities.models;
 
 import java.time.Duration;
 import java.util.Date;
@@ -57,7 +57,7 @@ public class Course {
 	
 	@Override
 	public String toString() {
-		return "Nome do curso: "+ this.courseName + ", " + "duração: " + this.getWorkLoad();	
+		return this.getCourseName();
 	}
 	
 }

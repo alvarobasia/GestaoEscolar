@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ClassmateModelController">
+	<center>
+		<AnchorPane fx:id="back" prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: #9d75cb;" stylesheets="@application.css">
+			<children>
+				<Button fx:id="newClassmate" onAction="#addClassmate" layoutX="89.0" layoutY="131.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="339.0" styleClass="btn" stylesheets="@application.css" text="Registar um Aluno" textAlignment="CENTER">
+               <font>
+                  <Font name="Liberation Sans" size="22.0" />
+               </font></Button>
+				<Button fx:id="changeAndDelete" layoutX="89.0" layoutY="370.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="339.0" styleClass="btn" stylesheets="@application.css" text="Excluir/Alterar um Aluno" textAlignment="CENTER">
+               <font>
+                  <Font name="Liberation Sans" size="22.0" />
+               </font></Button>
+				<Button fx:id="backButton" onAction="#backToMenu" layoutX="89.0" layoutY="598.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="339.0" styleClass="close" stylesheets="@application.css" text="Voltar" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font name="Liberation Sans" size="22.0" />
+               </font></Button>
+
+			</children>
+		</AnchorPane>
+	</center>
+	<left>
+		<Pane prefHeight="804.0" prefWidth="308.0" style="-fx-background-color: #1A1AFF;" BorderPane.alignment="CENTER" />
+	</left>
+</BorderPane>
