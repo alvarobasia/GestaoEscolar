@@ -8,15 +8,75 @@ import java.util.Set;
 public class Teacher extends Person{
 	private static int ID_CONT = 1;
 	private Double salary;
-	
+	private int teacherID;
 
-	Set<Course> provideCourses = new HashSet<Course>();
+	Set<Supplies> provideSupplies = new HashSet<Supplies>();
 	
-	public Teacher(String name, Date birthDate, Double salary, String cpf) {
-		super(name, birthDate, cpf);
+	public Teacher(String name, Date birthDate, Double salary, String cpf, char gender, Address address, String telNumber ) {
+		super(name, birthDate, cpf, gender, address, telNumber);
 		this.salary = salary;
+		this.teacherID = ID_CONT;
+		ID_CONT++;
 	}
 	
+	public Teacher(String name, Date birthDate, String cpf, char gender, Address address, String telNumber ) {
+		super(name, birthDate, cpf, gender, address, telNumber);
+		this.teacherID = ID_CONT;
+		ID_CONT++;
+	}
+	public Teacher(String name, Date birthDate, Double salary, String cpf, char gender, Address address) {
+		super(name, birthDate, cpf, gender, address);
+		this.salary = salary;
+		this.teacherID = ID_CONT;
+		ID_CONT++;
+	}
+	public Teacher(String name, Date birthDate, String cpf, char gender, Address address) {
+		super(name, birthDate, cpf, gender, address);
+		this.teacherID = ID_CONT;
+		ID_CONT++;
+	}
+	
+	public Teacher(String name, Date birthDate, Double salary, String cpf, char gender, String telNumber ) {
+		super(name, birthDate, cpf, gender, telNumber);
+		this.salary = salary;
+		this.teacherID = ID_CONT;
+		ID_CONT++;
+	}
+	
+	public Teacher(String name, Date birthDate, String cpf, char gender, String telNumber ) {
+		super(name, birthDate, cpf, gender, telNumber);
+		this.teacherID = ID_CONT;
+		ID_CONT++;
+	}
+	public Teacher(String name, Date birthDate, Double salary, String cpf, char gender) {
+		super(name, birthDate, cpf, gender);
+		this.salary = salary;
+		this.teacherID = ID_CONT;
+		ID_CONT++;
+	}
+	
+	public Teacher(String name, Date birthDate, String cpf, char gender) {
+		super(name, birthDate, cpf, gender);
+		this.teacherID = ID_CONT;
+		ID_CONT++;
+	}
+	public static int getID_CONT() {
+		return ID_CONT;
+	}
+
+	public static void setID_CONT(int iD_CONT) {
+		ID_CONT = iD_CONT;
+	}
+	
+	
+	public int getTeacherID() {
+		return teacherID;
+	}
+
+	public void setTeacherID(int teacherID) {
+		this.teacherID = teacherID;
+	}
+
 	public Double getSalary() {
 		return this.salary;
 	}
@@ -24,13 +84,13 @@ public class Teacher extends Person{
 	public void setSalary(Double salary) {
 		this.salary = salary;
 	}
-	public void addCourse(Course course) {
-		provideCourses.add(course);
+	public void addSupplie(Supplies supplies) {
+		provideSupplies.add(supplies);
 	}
 	
-	public Course removeCourse(Course course) {
-		Course removed = (Course) provideCourses.stream().filter(x -> x.getCourseID() == course.getCourseID());
-		provideCourses.remove(removed);
+	public Supplies removeCourse(Supplies supplies) {
+		Supplies removed = (Supplies) provideSupplies.stream().filter(x -> x.getSupplieID() == supplies.getSupplieID());
+		provideSupplies.remove(removed);
 		return removed;
 	}
 
@@ -91,12 +151,29 @@ public class Teacher extends Person{
 		sb.append("--------Informaçoẽs do Professor----------\n");
 		sb.append("Nome: " + this.getName()+ "\n");
 		sb.append("Identidade: " + this.getID()+ "\n");
-		sb.append("Salário "+ this.getSalary() + "\n");
+		if(super.getGender() == 'M')
+			sb.append("Gênero: Masculino" + "\n");
+		else
+			sb.append("Gênero: Feminino" + "\n");
+		if(super.getTelNumber() != null)
+			sb.append(super.getTelNumber() + "\n");
+		if(super.getAddress() != null) {
+			sb.append("Endereço: \n");
+			sb.append("Cidade: " + super.getAddress().getCity());
+			sb.append("Bairro: " + super.getAddress().getDistrict());
+			sb.append("Rua: " + super.getAddress().getStreet());
+			sb.append("Número: " + super.getAddress().getNumber());
+			if(super.getAddress().getComplement() != null) {
+				sb.append("Complemento: " + super.getAddress().getComplement());
+			}
+		}
+		if(this.salary != null) 
+			sb.append("Salário "+ this.getSalary() + "\n");
 		sb.append("Data de inclusão na faculdade: " + super.SDF.format(this.getDataJoin()) + "\n");
 		sb.append("Data de nascimento: " + super.SDF.format(this.getBirthDate()) + "\n");
 		sb.append("--------Cursos inscritos------------");
-		for(Course course : this.provideCourses) {
-			sb.append(course + " \n");
+		for(Supplies supplies : this.provideSupplies) {
+			sb.append(supplies + " \n");
 		}
 		return sb.toString();
 	}

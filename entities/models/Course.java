@@ -1,60 +1,43 @@
 package entities.models;
 
-import java.time.Duration;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class Course {
-	private static int COUNT = 0;
+	
 	private String courseName;
-	private Duration workLoad;
-	private int courseID;
-	private Teacher teacher;
-	Set<Classmate> list = new HashSet<Classmate>();
 	
-	public Course(String courseName, Date init, Date finish, Teacher teacher) {
-		this.courseID = COUNT;
-		COUNT++;
+	private List<Supplies> suppliesOnCurse = new ArrayList<Supplies>();
+
+	public Course(String courseName, List<Supplies> suppliesOnCurse) {
 		this.courseName = courseName;
-		this.workLoad = Duration.ofDays(init.getTime() - finish.getTime());
-		this.teacher = teacher;
+		this.suppliesOnCurse = suppliesOnCurse;
 	}
 	
-	public Set<Classmate> getlistOfStudents(){
-		return this.list;
-	}
-	
-	public void addStudent(Classmate classmate) {
-		list.add(classmate);
-	}
-	
-	public Teacher getTeacher() {
-		return teacher;
-	}
-
-	public void setTeacher(Teacher teacher) {
-		this.teacher = teacher;
-	}
-
 	public String getCourseName() {
 		return courseName;
 	}
+
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
 	}
-	public Duration getWorkLoad() {
-		return workLoad;
+
+	public List<Supplies> getSuppliesOnCurse() {
+		return suppliesOnCurse;
 	}
-	public void setWorkLoad(Duration workLoad) {
-		this.workLoad = workLoad;
-	}
-	public int getCourseID() {
-		return this.courseID;
+
+	public void setSuppliesOnCurse(List<Supplies> suppliesOnCurse) {
+		this.suppliesOnCurse = suppliesOnCurse;
 	}
 	
+	public void addSupplie(Supplies supplie) {
+		this.suppliesOnCurse.add(supplie);
+	}
+	public Supplies removeSupplie(Supplies supplie) {
+		int index = this.suppliesOnCurse.indexOf(supplie);
+		return this.suppliesOnCurse.remove(index);
+	}
+
 	@Override
 	public String toString() {
 		return this.getCourseName();

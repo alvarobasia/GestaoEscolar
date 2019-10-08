@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import entities.models.Course;
+import entities.models.Supplies;
 import entities.models.Teacher;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -44,9 +45,13 @@ public class Main extends Application {
 	}
 	
 	public static List<Course> ComboBoxUpdate() {
-			Teacher t = new Teacher("asa", new Date(), 15154d, "ASAS");
-			List<Course> courses = new ArrayList<Course>();
-			courses.add(new Course("Sistemas de Informação", new Date(), new Date(), t));
-			return courses;
-	    }
+		Teacher t = new Teacher("AA", new Date(), 18445d, "454", 'M');
+		List<Course> c = new ArrayList<Course>();
+		Supplies s = new Supplies("QQ", new Date(), new Date(), t);
+		List<Supplies> SD= new ArrayList<Supplies>();
+		SD.add(s);
+		Course course = new Course("si", SD);
+		c.add(course);
+		return c;
+	}
 }

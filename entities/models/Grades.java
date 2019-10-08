@@ -5,7 +5,7 @@ public class Grades {
 	float firstTest;
 	float secondTest;
 	float thirdTest;
-	Course course;
+	Supplies supplies;
 	
 	public Grades(){
 		
@@ -35,12 +35,12 @@ public class Grades {
 		this.thirdTest = thirdTest;
 	}
 
-	public Course getCourse() {
-		return course;
+	public Supplies getSupplies() {
+		return supplies;
 	}
 
-	public void setCourse(Course course) {
-		this.course = course;
+	public void setCourse(Supplies supplies) {
+		this.supplies = supplies;
 	}
 	
 }
