@@ -1,9 +1,11 @@
 package entities.models;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import entities.enums.Gender;
 
 public class Teacher extends Person{
 	private static int ID_CONT = 1;
@@ -12,50 +14,50 @@ public class Teacher extends Person{
 
 	Set<Supplies> provideSupplies = new HashSet<Supplies>();
 	
-	public Teacher(String name, Date birthDate, Double salary, String cpf, char gender, Address address, String telNumber ) {
+	public Teacher(String name, LocalDate birthDate, Double salary, String cpf, Gender gender, Address address, String telNumber ) {
 		super(name, birthDate, cpf, gender, address, telNumber);
 		this.salary = salary;
 		this.teacherID = ID_CONT;
 		ID_CONT++;
 	}
 	
-	public Teacher(String name, Date birthDate, String cpf, char gender, Address address, String telNumber ) {
+	public Teacher(String name, LocalDate birthDate, String cpf, Gender gender, Address address, String telNumber ) {
 		super(name, birthDate, cpf, gender, address, telNumber);
 		this.teacherID = ID_CONT;
 		ID_CONT++;
 	}
-	public Teacher(String name, Date birthDate, Double salary, String cpf, char gender, Address address) {
+	public Teacher(String name, LocalDate birthDate, Double salary, String cpf, Gender gender, Address address) {
 		super(name, birthDate, cpf, gender, address);
 		this.salary = salary;
 		this.teacherID = ID_CONT;
 		ID_CONT++;
 	}
-	public Teacher(String name, Date birthDate, String cpf, char gender, Address address) {
+	public Teacher(String name, LocalDate birthDate, String cpf, Gender gender, Address address) {
 		super(name, birthDate, cpf, gender, address);
 		this.teacherID = ID_CONT;
 		ID_CONT++;
 	}
 	
-	public Teacher(String name, Date birthDate, Double salary, String cpf, char gender, String telNumber ) {
+	public Teacher(String name, LocalDate birthDate, Double salary, String cpf, Gender gender, String telNumber ) {
 		super(name, birthDate, cpf, gender, telNumber);
 		this.salary = salary;
 		this.teacherID = ID_CONT;
 		ID_CONT++;
 	}
 	
-	public Teacher(String name, Date birthDate, String cpf, char gender, String telNumber ) {
+	public Teacher(String name, LocalDate birthDate, String cpf, Gender gender, String telNumber ) {
 		super(name, birthDate, cpf, gender, telNumber);
 		this.teacherID = ID_CONT;
 		ID_CONT++;
 	}
-	public Teacher(String name, Date birthDate, Double salary, String cpf, char gender) {
+	public Teacher(String name, LocalDate birthDate, Double salary, String cpf, Gender gender) {
 		super(name, birthDate, cpf, gender);
 		this.salary = salary;
 		this.teacherID = ID_CONT;
 		ID_CONT++;
 	}
 	
-	public Teacher(String name, Date birthDate, String cpf, char gender) {
+	public Teacher(String name, LocalDate birthDate, String cpf, Gender gender) {
 		super(name, birthDate, cpf, gender);
 		this.teacherID = ID_CONT;
 		ID_CONT++;
@@ -151,7 +153,7 @@ public class Teacher extends Person{
 		sb.append("--------Informaçoẽs do Professor----------\n");
 		sb.append("Nome: " + this.getName()+ "\n");
 		sb.append("Identidade: " + this.getID()+ "\n");
-		if(super.getGender() == 'M')
+		if(super.getGender() == Gender.valueOf("MASCULINO"))
 			sb.append("Gênero: Masculino" + "\n");
 		else
 			sb.append("Gênero: Feminino" + "\n");

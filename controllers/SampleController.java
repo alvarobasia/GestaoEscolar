@@ -19,6 +19,7 @@ import javafx.util.Duration;
 
 public class SampleController implements Initializable{
 
+	
 	@FXML
 	private AnchorPane back;
 

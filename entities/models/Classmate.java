@@ -1,9 +1,10 @@
 package entities.models;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
+
+import entities.enums.Gender;
 
 
 public class Classmate extends Person{
@@ -16,25 +17,25 @@ public class Classmate extends Person{
     List<Grades> grades = new ArrayList<Grades>();   
 	
 	
-	public Classmate(String name, Date birthDate, String cpf, char gender ,Course course, Address address, String telNumber) {
+	public Classmate(String name, LocalDate birthDate, String cpf, Gender gender ,Course course, Address address, String telNumber) {
 		super(name, birthDate, cpf, gender, address, telNumber);
 		this.course = course;
 		registrationGenerator();
 	}
 	
-	public Classmate(String name, Date birthDate, String cpf, char gender ,Course course, Address address) {
+	public Classmate(String name, LocalDate birthDate, String cpf, Gender gender ,Course course, Address address) {
 		super(name, birthDate, cpf, gender, address);
 		this.course = course;
 		registrationGenerator();
 	}
 	
-	public Classmate(String name, Date birthDate, String cpf, char gender ,Course course, String telNumber) {
+	public Classmate(String name, LocalDate birthDate, String cpf, Gender gender ,Course course, String telNumber) {
 		super(name, birthDate, cpf, gender,telNumber);
 		this.course = course;
 		registrationGenerator();
 	}
 	
-	public Classmate(String name, Date birthDate, String cpf, char gender ,Course course) {
+	public Classmate(String name, LocalDate birthDate, String cpf, Gender gender ,Course course) {
 		super(name, birthDate, cpf, gender);
 		this.course = course;
 		registrationGenerator();
@@ -42,10 +43,8 @@ public class Classmate extends Person{
 	
 	private void registrationGenerator() {
 		StringBuilder sb = new StringBuilder();
-		Calendar aux = Calendar.getInstance();
-		aux.setTime(this.getDataJoin());
-		sb.append(aux.get(Calendar.YEAR)-2000 + ".");
-		if((aux.get(Calendar.MONTH)+1) <= 6)
+		sb.append(this.getDataJoin().getYear()-2000 + ".");
+		if((this.getDataJoin().getMonthValue()+1) <= 6)
 			sb.append("01");
 		else
 			sb.append("02");
@@ -104,7 +103,7 @@ public class Classmate extends Person{
 		sb.append("--------Informaçoẽs do Professor----------\n");
 		sb.append("Nome: " + this.getName()+ "\n");
 		sb.append("Identidade: " + this.getID()+ "\n");
-		if(super.getGender() == 'M')
+		if(super.getGender() == Gender.valueOf("MASCULINO"))
 			sb.append("Gênero: Masculino" + "\n");
 		else
 			sb.append("Gênero: Feminino" + "\n");

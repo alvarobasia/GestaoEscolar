@@ -77,8 +77,8 @@ public class TeacherRegistrationController implements Initializable{
     @FXML
     void salarioFormatador() {
     	TextFieldFormatter t = new TextFieldFormatter();
-    	t.setMask("####,##");
-    	t.setCaracteresValidos("0123456789");
+    	t.setMask("'$####,##");
+    	t.setCaracteresValidos("0123456789R");
     	t.setTf(salary);
     	t.formatter();
     }

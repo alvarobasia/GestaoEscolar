@@ -6,16 +6,27 @@ public class Address {
 	private String district;
 	private String street;
 	private int number;
+	private int cep;
 	private Integer complement;
 	
-	public Address(String city, String district, String street, int number, Integer complement) {
+	public Address(String city, String district, String street, int number,int cep, Integer complement) {
 		super();
 		this.city = city;
 		this.district = district;
 		this.street = street;
 		this.number = number;
 		this.complement = complement;
+		this.cep = cep;
 	}
+	
+	public int getCep() {
+		return cep;
+	}
+
+	public void setCep(int cep) {
+		this.cep = cep;
+	}
+
 	public Address(String city, String district, String street, int number) {
 		super();
 		this.city = city;

@@ -4,10 +4,12 @@ package application;
 
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import entities.enums.Gender;
 import entities.models.Course;
 import entities.models.Supplies;
 import entities.models.Teacher;
@@ -45,7 +47,7 @@ public class Main extends Application {
 	}
 	
 	public static List<Course> ComboBoxUpdate() {
-		Teacher t = new Teacher("AA", new Date(), 18445d, "454", 'M');
+		Teacher t = new Teacher("AA", LocalDate.now(), 18445d, "454", Gender.valueOf("FEMININO"));
 		List<Course> c = new ArrayList<Course>();
 		Supplies s = new Supplies("QQ", new Date(), new Date(), t);
 		List<Supplies> SD= new ArrayList<Supplies>();

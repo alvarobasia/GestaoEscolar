@@ -1,10 +1,11 @@
 package entities.models;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
+import entities.enums.Gender;
 import entities.interfaces.PersonOperations;
 
 public abstract class Person implements PersonOperations{
@@ -12,10 +13,10 @@ public abstract class Person implements PersonOperations{
 	
 	private int ID;
 	private String name;
-	private Date dataJoin;
-	private Date birthDate;
+	private LocalDate dataJoin;
+	private LocalDate birthDate;
 	private String cpf;
-	private char gender;//M ou F
+	private Gender sex;
 	private Address address;
 	private String telNumber;
 	
@@ -24,43 +25,43 @@ public abstract class Person implements PersonOperations{
 		return ID;
 	}
 	
-	public Person(String name, Date birthDate, String cpf, char gender , Address address) {
+	public Person(String name, LocalDate birthDate, String cpf, Gender gender , Address address) {
 		this.name = name;
-		this.dataJoin = new Date();
+		this.dataJoin = LocalDate.now();
 		this.birthDate = birthDate;
 		this.ID = this.generateID();
 		this.cpf = cpf;
 		this.address = address;
-		this.gender = gender;
+		this.sex = gender;
 	}
 	
-	public Person(String name, Date birthDate, String cpf, char gender) {
+	public Person(String name, LocalDate birthDate, String cpf, Gender gender) {
 		this.name = name;
-		this.dataJoin = new Date();
+		this.dataJoin = LocalDate.now();
 		this.birthDate = birthDate;
 		this.ID = this.generateID();
 		this.cpf = cpf;
-		this.gender = gender;
+		this.sex = gender;
 	}
 	
-	public Person(String name, Date birthDate, String cpf, char gender, String telNUmber) {
+	public Person(String name, LocalDate birthDate, String cpf, Gender gender, String telNUmber) {
 		this.name = name;
-		this.dataJoin = new Date();
+		this.dataJoin = LocalDate.now();
 		this.birthDate = birthDate;
 		this.ID = this.generateID();
 		this.cpf = cpf;
 		this.telNumber = telNUmber;
-		this.gender = gender;
+		this.sex = gender;
 	}
 	
-	public Person(String name, Date birthDate, String cpf, char gender , Address address, String telNUmber) {
+	public Person(String name, LocalDate birthDate, String cpf, Gender gender , Address address, String telNUmber) {
 		this.name = name;
-		this.dataJoin = new Date();
+		this.dataJoin = LocalDate.now();
 		this.birthDate = birthDate;
 		this.ID = this.generateID();
 		this.cpf = cpf;
 		this.address = address;
-		this.gender = gender;
+		this.sex = gender;
 		this.telNumber = telNUmber;
 	}
 	
@@ -79,12 +80,12 @@ public abstract class Person implements PersonOperations{
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-	public char getGender() {
-		return gender;
+	public Gender getGender() {
+		return sex;
 	}
 	
-	public void setGender(char gender) {
-		this.gender = gender;
+	public void setGender(Gender gender) {
+		this.sex = gender;
 	}
 	public String getCpf() {
 		return cpf;
@@ -102,19 +103,19 @@ public abstract class Person implements PersonOperations{
 		this.name = name;
 	}
 	
-	public Date getDataJoin() {
+	public LocalDate getDataJoin() {
 		return dataJoin;
 	}
 	
-	public void setDataJoin(Date dataJoin) {
+	public void setDataJoin(LocalDate dataJoin) {
 		this.dataJoin = dataJoin;
 	}
 	
-	public Date getBirthDate() {
+	public LocalDate getBirthDate() {
 		return birthDate;
 	}
 	
-	public void setBirthDate(Date birthDate) {
+	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
 	

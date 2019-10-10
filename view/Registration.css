@@ -25,3 +25,7 @@
 	-fx-text-fill: black;
 	-fx-cursor: hand;
 }
+.error{
+	-fx-text-fill: red;
+	visibility: false;
+}
