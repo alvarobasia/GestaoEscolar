@@ -8,7 +8,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TeacherModelController">
 	<center>
-		<AnchorPane fx:id="back" prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: #9d75cb;" stylesheets="@application.css">
+		<AnchorPane fx:id="back" prefHeight="500.0" prefWidth="500.0" styleClass="back" stylesheets="@application.css">
 			<children>
 				<Button fx:id="newTeacher"  layoutX="89.0" layoutY="131.0" mnemonicParsing="false" onAction="#addTeacher" prefHeight="65.0" prefWidth="339.0" styleClass="btn" stylesheets="@application.css" text="Registar um Professor" textAlignment="CENTER">
                <font>
@@ -27,6 +27,6 @@
 		</AnchorPane>
 	</center>
 	<left>
-		<Pane prefHeight="804.0" prefWidth="308.0" style="-fx-background-color: #1A1AFF;" BorderPane.alignment="CENTER" />
+		<Pane prefHeight="804.0" prefWidth="308.0" style="-fx-background-color: #f27d12;" BorderPane.alignment="CENTER" />
 	</left>
 </BorderPane>

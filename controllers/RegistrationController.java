@@ -207,7 +207,14 @@ public class RegistrationController implements Initializable{
     private void textValidate(){
     	if(!fieldName.getText().isEmpty() &&  (fieldCpf.getText().length() == 14 || fieldCpf.getText().length() == 15) && 
     	   !fieldNickName.getText().isEmpty() && data.getValue() != null && cursesOnComboBox.getValue() != null )
+    		if(fieldCity.getText().isEmpty() && fieldCep.getText().isEmpty() && fieldDistrict.getText().isEmpty() &&
+    				fieldStreet.getText().isEmpty() && fieldNumber.getText().isEmpty())
     		register.setDisable(false);
+    		else if(!fieldCity.getText().isEmpty() && !fieldCep.getText().isEmpty() && !fieldDistrict.getText().isEmpty() &&
+    				!fieldStreet.getText().isEmpty() && !fieldNumber.getText().isEmpty())
+    		register.setDisable(false);	
+    		else
+    		register.setDisable(true);	
     	else
     		register.setDisable(true);
     }

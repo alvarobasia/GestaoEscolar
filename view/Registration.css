@@ -1,11 +1,11 @@
 .back{
-	-fx-background-color: #81d2c7;
+	-fx-background-color: #dde8b9;
 }
 .lateral{
-	-fx-background-color: #9d75cb;
+	-fx-background-color: #f27d12;
 }
 .texts{
-	-fx-text-fill: #c9fbff;
+	-fx-text-fill: #000;
 }
 .voltar{
 	-fx-text-fill: red;
@@ -17,11 +17,11 @@
 }
 
 .cadastro{
-	-fx-background-color: #4dff3d;
+	-fx-background-color: #533a71;
 	-fx-border-color: white;
 }
 .cadastro:hover{
-	-fx-background-color: #1A1AFF;
+	-fx-background-color: #f27d12;
 	-fx-text-fill: black;
 	-fx-cursor: hand;
 }

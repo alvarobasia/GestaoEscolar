@@ -73,11 +73,11 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <RadioButton fx:id="MASCULINO" layoutX="255.0" layoutY="436.0" mnemonicParsing="false" selected="true" text="Masculino " textFill="WHITE">
+            <RadioButton fx:id="MASCULINO" layoutX="255.0" layoutY="436.0" mnemonicParsing="false" selected="true" text="Masculino " textFill="#000">
                <toggleGroup>
                   <ToggleGroup fx:id="sex" />
                </toggleGroup></RadioButton>
-            <RadioButton fx:id="FEMININO" layoutX="354.0" layoutY="436.0" mnemonicParsing="false" text="Feminino" textFill="WHITE" toggleGroup="$sex" />
+            <RadioButton fx:id="FEMININO" layoutX="354.0" layoutY="436.0" mnemonicParsing="false" text="Feminino" textFill="#000" toggleGroup="$sex" />
             <Line fx:id="layout" endX="100.0" endY="9.0" layoutX="371.0" layoutY="189.0" startX="100.0" startY="320.0" stroke="WHITE" />
             <Label id="texts" fx:id="address" alignment="CENTER" contentDisplay="CENTER" layoutX="492.0" layoutY="124.0" lineSpacing="1.0" prefHeight="51.0" prefWidth="220.0" styleClass="texts" stylesheets="@Registration.css" text="Endereço" textAlignment="CENTER">
                <font>
@@ -119,12 +119,12 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <TextField id="texts" fx:id="fieldCity" layoutX="659.0" layoutY="186.0" prefHeight="26.0" prefWidth="127.0" />
-            <TextField id="texts" fx:id="fieldDistrict" layoutX="659.0" layoutY="236.0" prefHeight="26.0" prefWidth="127.0" />
-            <TextField id="texts" fx:id="fieldStreet" layoutX="659.0" layoutY="282.0" prefHeight="26.0" prefWidth="127.0" />
-            <TextField id="texts" fx:id="fieldNumber" layoutX="659.0" layoutY="329.0" prefHeight="26.0" prefWidth="127.0" />
+            <TextField id="texts" fx:id="fieldCity" layoutX="659.0" layoutY="186.0" onKeyPressed="#textValidate" onKeyReleased="#textValidate" onKeyTyped="#textValidate" prefHeight="26.0" prefWidth="127.0" />
+            <TextField id="texts" fx:id="fieldDistrict" layoutX="659.0" layoutY="236.0" onKeyPressed="#textValidate" onKeyReleased="#textValidate" onKeyTyped="#textValidate" prefHeight="26.0" prefWidth="127.0" />
+            <TextField id="texts" fx:id="fieldStreet" layoutX="659.0" layoutY="282.0" onKeyPressed="#textValidate" onKeyReleased="#textValidate" onKeyTyped="#textValidate" prefHeight="26.0" prefWidth="127.0" />
+            <TextField id="texts" fx:id="fieldNumber" layoutX="659.0" layoutY="329.0" onKeyPressed="#textValidate" onKeyReleased="#textValidate" onKeyTyped="#textValidate" prefHeight="26.0" prefWidth="127.0" />
             <TextField id="texts" fx:id="fieldComplement" layoutX="659.0" layoutY="384.0" prefHeight="26.0" prefWidth="127.0" />
-            <TextField id="texts" fx:id="fieldCep" layoutX="659.0" layoutY="432.0" prefHeight="26.0" prefWidth="127.0" />
+            <TextField id="texts" fx:id="fieldCep" layoutX="659.0" layoutY="432.0" onKeyPressed="#textValidate" onKeyReleased="#textValidate" onKeyTyped="#textValidate" prefHeight="26.0" prefWidth="127.0" />
             <Label fx:id="errorName1" layoutX="61.0" layoutY="212.0" prefHeight="14.0" prefWidth="452.0" styleClass="error" stylesheets="@Registration.css" text="Digite um nome ou sobrenome com caracteres validos">
                <font>
                   <Font size="11.0" />
