@@ -2,6 +2,7 @@ package entities.models;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import entities.enums.Gender;
 import entities.interfaces.PersonOperations;
 
 public abstract class Person implements PersonOperations{
-	protected final SimpleDateFormat SDF = new SimpleDateFormat("dd/MM/yyyy");
+	protected final DateTimeFormatter SDF = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	
 	private int ID;
 	private String name;

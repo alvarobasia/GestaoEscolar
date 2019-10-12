@@ -64,4 +64,18 @@ public abstract class Validatefields {
 				}
 		return true;
 	}
+	
+	public static boolean isTelValid(String string) {
+		if(string.length() == 0 || string.length() < 14)
+			return false;
+		string = string.replaceAll("[^0-9]", "");
+		
+		if(string.length() != 11)
+			return false;
+		return true;
+	}
+	
+	public static String formatNumbers(String string) {
+		return string.replaceAll("[^0-9]", "");
+	}
 }

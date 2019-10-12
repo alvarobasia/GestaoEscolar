@@ -20,28 +20,28 @@ public class Classmate extends Person{
 	public Classmate(String name, LocalDate birthDate, String cpf, Gender gender ,Course course, Address address, String telNumber) {
 		super(name, birthDate, cpf, gender, address, telNumber);
 		this.course = course;
-		registrationGenerator();
+		//registrationGenerator();
 	}
 	
 	public Classmate(String name, LocalDate birthDate, String cpf, Gender gender ,Course course, Address address) {
 		super(name, birthDate, cpf, gender, address);
 		this.course = course;
-		registrationGenerator();
+		//registrationGenerator();
 	}
 	
 	public Classmate(String name, LocalDate birthDate, String cpf, Gender gender ,Course course, String telNumber) {
 		super(name, birthDate, cpf, gender,telNumber);
 		this.course = course;
-		registrationGenerator();
+		//registrationGenerator();
 	}
 	
 	public Classmate(String name, LocalDate birthDate, String cpf, Gender gender ,Course course) {
 		super(name, birthDate, cpf, gender);
 		this.course = course;
-		registrationGenerator();
+		//registrationGenerator();
 	}
 	
-	private void registrationGenerator() {
+	/*private void registrationGenerator() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(this.getDataJoin().getYear()-2000 + ".");
 		if((this.getDataJoin().getMonthValue()+1) <= 6)
@@ -55,7 +55,7 @@ public class Classmate extends Person{
 		sb.append(COUNT);
 		this.registration = sb.toString();
 	}
-	
+	*/
 	public Course getCourse() {
 		return course;
 	}
@@ -103,26 +103,27 @@ public class Classmate extends Person{
 		sb.append("--------Informaçoẽs do Professor----------\n");
 		sb.append("Nome: " + this.getName()+ "\n");
 		sb.append("Identidade: " + this.getID()+ "\n");
+		sb.append("Cpf: " + this.getCpf()+ "\n");
 		if(super.getGender() == Gender.valueOf("MASCULINO"))
 			sb.append("Gênero: Masculino" + "\n");
 		else
 			sb.append("Gênero: Feminino" + "\n");
 		if(super.getTelNumber() != null)
-			sb.append(super.getTelNumber() + "\n");
+			sb.append("Telefone: "  + super.getTelNumber() + "\n");
 		if(super.getAddress() != null) {
 			sb.append("Endereço: \n");
-			sb.append("Cidade: " + super.getAddress().getCity());
-			sb.append("Bairro: " + super.getAddress().getDistrict());
-			sb.append("Rua: " + super.getAddress().getStreet());
-			sb.append("Número: " + super.getAddress().getNumber());
+			sb.append("Cidade: " + super.getAddress().getCity() + "\n");
+			sb.append("Bairro: " + super.getAddress().getDistrict() + "\n");
+			sb.append("Rua: " + super.getAddress().getStreet() + "\n");
+			sb.append("Número: " + super.getAddress().getNumber() + "\n");
 			if(super.getAddress().getComplement() != null) {
-				sb.append("Complemento: " + super.getAddress().getComplement());
+				sb.append("Complemento: " + super.getAddress().getComplement() + "\n");
 			}
 		}
-		sb.append("Data de inclusão na faculdade: " + super.SDF.format(this.getDataJoin()) + "\n");
-		sb.append("Data de nascimento: " + super.SDF.format(this.getBirthDate()) + "\n");
 		sb.append("Curso: " + this.getCourse() + "\n");
 		sb.append("Matrícula: "+ this.getRegistration() + "\n");
+		sb.append("Data de nascimento: " + super.SDF.format(super.getBirthDate()) + "\n");
+		sb.append("Data de inscrição : " + super.SDF.format(super.getDataJoin())  + "\n");
 		return sb.toString();
 	}
 

@@ -27,12 +27,13 @@ public class Address {
 		this.cep = cep;
 	}
 
-	public Address(String city, String district, String street, int number) {
+	public Address(String city, String district, String street, int number, int cep) {
 		super();
 		this.city = city;
 		this.district = district;
 		this.street = street;
 		this.number = number;
+		this.cep = cep;
 	}
 	
 	public String getCity() {
@@ -64,6 +65,12 @@ public class Address {
 	}
 	public void setComplement(Integer complement) {
 		this.complement = complement;
+	}
+
+	@Override
+	public String toString() {
+		return "Address [city=" + city + ", district=" + district + ", street=" + street + ", number=" + number
+				+ ", cep=" + cep + ", complement=" + complement + "]";
 	}
 	
 	
