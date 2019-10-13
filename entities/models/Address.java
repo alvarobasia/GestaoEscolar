@@ -7,9 +7,9 @@ public class Address {
 	private String street;
 	private int number;
 	private int cep;
-	private Integer complement;
+	private String complement;
 	
-	public Address(String city, String district, String street, int number,int cep, Integer complement) {
+	public Address(String city, String district, String street, int number,int cep, String complement) {
 		super();
 		this.city = city;
 		this.district = district;
@@ -60,10 +60,10 @@ public class Address {
 	public void setNumber(int number) {
 		this.number = number;
 	}
-	public Integer getComplement() {
+	public String getComplement() {
 		return complement;
 	}
-	public void setComplement(Integer complement) {
+	public void setComplement(String complement) {
 		this.complement = complement;
 	}
 

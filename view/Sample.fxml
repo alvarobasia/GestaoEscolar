@@ -50,7 +50,7 @@
                   </font>
                </tooltip>
             </Button>
-            <Button id="btn" fx:id="btn" layoutX="251.0" layoutY="589.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="299.0" styleClass="btn" stylesheets="@application.css" text="Gerenciar Cursos" textAlignment="CENTER">
+            <Button id="btn" fx:id="course" layoutX="251.0" layoutY="589.0" mnemonicParsing="false" onAction="#moduloCursos" prefHeight="45.0" prefWidth="299.0" styleClass="btn" stylesheets="@application.css" text="Gerenciar Cursos" textAlignment="CENTER">
                <font>
                   <Font name="Liberation Sans" size="22.0" />
                </font>

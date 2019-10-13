@@ -20,42 +20,44 @@ public class Classmate extends Person{
 	public Classmate(String name, LocalDate birthDate, String cpf, Gender gender ,Course course, Address address, String telNumber) {
 		super(name, birthDate, cpf, gender, address, telNumber);
 		this.course = course;
-		//registrationGenerator();
+		registrationGenerator();
 	}
 	
 	public Classmate(String name, LocalDate birthDate, String cpf, Gender gender ,Course course, Address address) {
 		super(name, birthDate, cpf, gender, address);
 		this.course = course;
-		//registrationGenerator();
+		registrationGenerator();
 	}
 	
 	public Classmate(String name, LocalDate birthDate, String cpf, Gender gender ,Course course, String telNumber) {
 		super(name, birthDate, cpf, gender,telNumber);
 		this.course = course;
-		//registrationGenerator();
+		registrationGenerator();
 	}
 	
 	public Classmate(String name, LocalDate birthDate, String cpf, Gender gender ,Course course) {
 		super(name, birthDate, cpf, gender);
 		this.course = course;
-		//registrationGenerator();
+		registrationGenerator();
 	}
 	
-	/*private void registrationGenerator() {
+	private void registrationGenerator() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(this.getDataJoin().getYear()-2000 + ".");
 		if((this.getDataJoin().getMonthValue()+1) <= 6)
 			sb.append("01");
 		else
 			sb.append("02");
+		sb.append(".");
 		int digitos = Integer.toString(COUNT).length();
 		digitos = 4 - digitos;
 		for(int i = 0; i < digitos; i++)
 			sb.append("0");
 		sb.append(COUNT);
 		this.registration = sb.toString();
+		COUNT++;
 	}
-	*/
+	
 	public Course getCourse() {
 		return course;
 	}

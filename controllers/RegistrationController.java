@@ -16,6 +16,7 @@ import entities.models.Address;
 import entities.models.Classmate;
 import entities.models.Course;
 import entities.models.Person;
+import entities.services.ConnectJDCB;
 import entities.services.TextFieldFormatter;
 import entities.services.Validatefields;
 import entities.services.ViaCEP;
@@ -220,11 +221,7 @@ public class RegistrationController implements Initializable {
 				fieldCity.setText(vC.getLocalidade());
 				fieldDistrict.setText(vC.getBairro());
 				fieldStreet.setText(vC.getLogradouro());
-			} else {
-				fieldCity.setText("");
-				fieldDistrict.setText("");
-				fieldStreet.setText("");
-			}
+			} 
 		} catch (ViaCEPException e) {
 			errorCep.setText(e.getMessage());
 			errorCep.setVisible(true);
@@ -245,7 +242,7 @@ public class RegistrationController implements Initializable {
 	}
 
 	@FXML
-	private void register() {
+	private void register() throws Exception {
 		errorCpf.setVisible(false);
 		errorName1.setVisible(false);
 		errorName2.setVisible(false);
@@ -313,12 +310,15 @@ public class RegistrationController implements Initializable {
 		
 	private void registerWithAdressClassmate(int[] op ,String name, String cpf, LocalDate date, Course course, RadioButton gender) {
 		Address address;
-		Person classmate;
+		Classmate classmate;
 		if(op[1]==1 && op[2]==1) {
 			address = new Address(fieldCity.getText(), fieldDistrict.getText(), fieldStreet.getText(), 
-				Integer.parseInt(fieldNumber.getText()), Integer.parseInt(fieldCep.getText()), Integer.parseInt(fieldComplement.getText()));
+				Integer.parseInt(fieldNumber.getText()), Integer.parseInt(fieldCep.getText()), fieldComplement.getText());
+			String sql = ConnectJDCB.generateAdressTable();
+			ConnectJDCB.creatNewTable(sql);
+			ConnectJDCB.insertAdress(address);
 			classmate = new Classmate(name, date, cpf, Gender.valueOf(gender.getId()), course, address, fieldTel.getText());
-			System.out.println(classmate);
+			System.out.println(classmate.getRegistration());
 		}
 		
 		if(op[1]==0 && op[2]==1) {

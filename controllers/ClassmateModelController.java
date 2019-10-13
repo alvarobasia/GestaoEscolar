@@ -38,6 +38,8 @@ public class ClassmateModelController {
     @FXML
     void addClassmate() throws IOException {
     	Stage sc = (Stage) newClassmate.getScene().getWindow();
+    	sc.setWidth(1900);
+    	sc.setHeight(1900);
 		Parent root = (BorderPane) FXMLLoader.load(getClass().getResource("../view/Registration.fxml"));
 		Scene scene = new Scene(root, sc.getWidth(), sc.getHeight());
 		scene.getStylesheets().add(getClass().getResource("../view/Registration.css").toExternalForm());
