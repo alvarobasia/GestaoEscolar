@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RegistrationSuppliesController">
+   <center>
+      <AnchorPane fx:id="back" prefHeight="900.0" prefWidth="900.0" styleClass="back" stylesheets="@Registration.css" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="texts" layoutX="55.0" layoutY="63.0" prefHeight="51.0" prefWidth="492.0" styleClass="texts" stylesheets="@Registration.css" text="Registrar uma materia">
+               <font>
+                  <Font name="Liberation Sans Bold" size="45.0" />
+               </font>
+            </Label>
+            <Label fx:id="supplie" layoutX="30.0" layoutY="179.0" prefHeight="21.0" prefWidth="177.0" styleClass="texts" stylesheets="@Registration.css" text="Nome da materia:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="id" layoutX="30.0" layoutY="278.0" prefHeight="21.0" prefWidth="177.0" styleClass="texts" stylesheets="@Registration.css" text="Codigo da materia:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="duration" layoutX="30.0" layoutY="379.0" prefHeight="21.0" prefWidth="177.0" styleClass="texts" stylesheets="@Registration.css" text="Duraçao em horas:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Line fx:id="layout" endX="-100.0" endY="383.0" layoutX="517.0" layoutY="165.0" startX="-100.0" />
+            <Label fx:id="init" layoutX="432.0" layoutY="179.0" prefHeight="21.0" prefWidth="177.0" styleClass="texts" stylesheets="@Registration.css" text="Começa em:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="finish" layoutX="432.0" layoutY="457.0" prefHeight="21.0" prefWidth="177.0" styleClass="texts" stylesheets="@Registration.css" text="Termina em:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="teacher" layoutX="30.0" layoutY="488.0" prefHeight="21.0" prefWidth="214.0" styleClass="texts" stylesheets="@Registration.css" text="Professor ministrante:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="fieldSupplie" layoutX="191.0" layoutY="177.0" prefHeight="26.0" prefWidth="214.0" />
+            <TextField fx:id="fieldId" layoutX="194.0" layoutY="276.0" prefHeight="26.0" prefWidth="214.0" />
+            <TextField fx:id="fieldDuration" layoutX="194.0" layoutY="377.0" prefHeight="26.0" prefWidth="46.0" />
+            <Label fx:id="aux" layoutX="244.0" layoutY="380.0" prefHeight="21.0" prefWidth="41.0" styleClass="texts" stylesheets="@Registration.css" text="hrs">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="fieldInit" layoutX="547.0" layoutY="177.0" />
+            <DatePicker fx:id="fieldFinish" layoutX="547.0" layoutY="455.0" />
+            <ComboBox fx:id="fieldTeacher" layoutX="233.0" layoutY="486.0" prefWidth="150.0" />
+            <Label fx:id="info" layoutX="30.0" layoutY="512.0" prefHeight="21.0" prefWidth="310.0" stylesheets="@Registration.css" text="Obs: Cada materia deve obrigatoriamente ter um professor">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Button fx:id="cadastro" layoutX="304.0" layoutY="644.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="209.0" styleClass="cadastro" stylesheets="@Registration.css" text="Cadastrar" textFill="WHITE">
+            <font>
+                  <Font name="Liberation Sans Bold" size="23.0" />
+               </font>
+            </Button>
+         </children></AnchorPane>
+   </center>
+   <left>
+      <Pane fx:id="lateralBar" prefHeight="800.0" prefWidth="306.0" styleClass="lateral" stylesheets="@Registration.css" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="backButton" layoutX="77.0" layoutY="54.0" mnemonicParsing="false" onAction="#backToModel" prefHeight="56.0" prefWidth="133.0" styleClass="voltar" stylesheets="@Registration.css" text="Voltar" textFill="RED">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
+         </children></Pane>
+   </left>
+</BorderPane>

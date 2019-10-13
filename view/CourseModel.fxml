@@ -18,7 +18,7 @@
                <font>
                   <Font name="Liberation Sans" size="22.0" />
                </font></Button>
-            <Button fx:id="newSupplie" layoutX="78.0" layoutY="172.0" mnemonicParsing="false" styleClass="btn" stylesheets="@application.css" text="Adicionar uma materia">
+            <Button fx:id="newSupplie" layoutX="78.0" layoutY="172.0" mnemonicParsing="false" onAction="#addSupplie" styleClass="btn" stylesheets="@application.css" text="Adicionar uma materia">
                <font>
                   <Font name="Liberation Sans" size="22.0" />
                </font></Button>

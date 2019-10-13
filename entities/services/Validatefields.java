@@ -78,4 +78,14 @@ public abstract class Validatefields {
 	public static String formatNumbers(String string) {
 		return string.replaceAll("[^0-9]", "");
 	}
+	
+	public static boolean isOnlyNumbers(String string) {
+		
+		try {
+			Integer.parseInt(string);
+			return true;
+		}catch (Exception e) {
+			return false;
+		}
+	}
 }

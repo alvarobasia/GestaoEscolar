@@ -3,19 +3,17 @@ package controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import application.Main;
 import entities.enums.Gender;
 import entities.exeptions.DataExeption;
 import entities.exeptions.InvalidCharacterExeption;
 import entities.exeptions.InvalidCpfExeption;
+import entities.exeptions.NumbersExeption;
 import entities.models.Address;
 import entities.models.Classmate;
 import entities.models.Course;
-import entities.models.Person;
 import entities.services.ConnectJDCB;
 import entities.services.TextFieldFormatter;
 import entities.services.Validatefields;
@@ -113,6 +111,9 @@ public class RegistrationController implements Initializable {
 	@FXML
 	private Label errorCep;
 
+	@FXML
+	private Label errorNumber;
+	
 	@FXML
 	private TextField fieldName;
 
@@ -247,6 +248,7 @@ public class RegistrationController implements Initializable {
 		errorName1.setVisible(false);
 		errorName2.setVisible(false);
 		errorDate.setVisible(false);
+		errorNumber.setVisible(false);
 		try {
 			String name = fieldName.getText() + " " + fieldNickName.getText();
 			String cpf = fieldCpf.getText();
@@ -261,16 +263,19 @@ public class RegistrationController implements Initializable {
 
 			if (date.isAfter(LocalDate.now()))
 				throw new DataExeption("Você deve colocar uma data válida");
-
+			
 			cpf = Validatefields.formatNumbers(cpf);
 			int[] result = registrationOptionsClassmate();
 			
 		
-			if(result[0] == 1)
+			if(result[0] == 1) {
+				if(!Validatefields.isOnlyNumbers(fieldNumber.getText())) 
+					throw new NumbersExeption("Número Inválido");
+					
 				registerWithAdressClassmate(result, name, cpf, date, course, aws);
-			else 
+			}else 
 				registerWithoutAdressClassmate(result, name, cpf, date, course, aws);
-
+			
 			
 		} catch (InvalidCharacterExeption e) {
 			errorName1.setText(e.getMessage());
@@ -283,6 +288,9 @@ public class RegistrationController implements Initializable {
 		} catch (DataExeption e) {
 			errorDate.setText(e.getMessage());
 			errorDate.setVisible(true);
+		}catch (NumbersExeption e) {
+			errorNumber.setText(e.getMessage());
+			errorNumber.setVisible(true);
 		}
 	}
 
@@ -350,8 +358,8 @@ public class RegistrationController implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		CourseList();
 		register.setDisable(true);
-	}
+		CourseList();
+		}
 
 }

@@ -150,6 +150,7 @@
                   <Font size="11.0" />
                </font>
             </Label>
+            <Label fx:id="errorNumber" layoutX="506.0" layoutY="354.0" prefHeight="16.0" prefWidth="275.0" styleClass="error" stylesheets="@Registration.css" />
          </children>
       </AnchorPane>
    </center>

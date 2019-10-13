@@ -1,28 +1,40 @@
 package entities.models;
 
-import java.time.Duration;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.Set;
 
 
 
+
 public class Supplies {
-	private static int COUNT = 0;
 	private String supplieName;
-	private Duration workLoad;
-	private int supplieID;
+	private int workLoad;
+	private long duration;
+	private String supplieID;
 	private Teacher teacher;
 	Set<Classmate> list = new HashSet<Classmate>();
 	
-	public Supplies(String supplieName, Date init, Date finish, Teacher teacher) {
-		this.supplieID = COUNT;
-		COUNT++;
+	public Supplies(String supplieName, String id,LocalDate init, LocalDate finish, Teacher teacher, int workLoad) {
+		this.supplieID = id;
 		this.supplieName = supplieName;
-		this.workLoad = Duration.ofDays(init.getTime() - finish.getTime());
+		this.workLoad  = workLoad;
+		this.duration = ChronoUnit.DAYS.between(init, finish);
 		this.teacher = teacher;
 	}
 	
+	
+	public long getDuration() {
+		return duration;
+	}
+
+
+	public void setDuration(long duration) {
+		this.duration = duration;
+	}
+
+
 	public Set<Classmate> getlistOfStudents(){
 		return this.list;
 	}
@@ -45,13 +57,13 @@ public class Supplies {
 	public void setSupplieName(String courseName) {
 		this.supplieName = courseName;
 	}
-	public Duration getWorkLoad() {
+	public int getWorkLoad() {
 		return workLoad;
 	}
-	public void setWorkLoad(Duration workLoad) {
+	public void setWorkLoad(int workLoad) {
 		this.workLoad = workLoad;
 	}
-	public int getSupplieID() {
+	public String getSupplieID() {
 		return this.supplieID;
 	}
 	

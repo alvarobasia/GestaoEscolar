@@ -6,9 +6,7 @@ package application;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
 import entities.enums.Gender;
 import entities.models.Course;
 import entities.models.Supplies;
@@ -17,7 +15,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -48,13 +45,25 @@ public class Main extends Application {
 	}
 	
 	public static List<Course> ComboBoxUpdate() {
-		Teacher t = new Teacher("AA", LocalDate.now(), 18445d, "454", Gender.valueOf("FEMININO"));
+		Teacher t = teacher();
 		List<Course> c = new ArrayList<Course>();
-		Supplies s = new Supplies("QQ", new Date(), new Date(), t);
+		Supplies s = new Supplies("QQ","q", LocalDate.now(), LocalDate.now(), t, 50);
 		List<Supplies> SD= new ArrayList<Supplies>();
 		SD.add(s);
 		Course course = new Course("si", SD);
 		c.add(course);
+		return c;
+	}
+	
+	public static Teacher teacher(){
+		Teacher t;
+		return  t = new Teacher("AA", LocalDate.now(), 18445d, "454", Gender.valueOf("FEMININO"));
+	}
+	
+	public static List<Teacher> teacherUpdate() {
+		Teacher t = teacher();
+		List<Teacher> c = new ArrayList<Teacher>();
+		c.add(t);
 		return c;
 	}
 }
