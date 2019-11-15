@@ -1,4 +1,4 @@
-package application;
+package app;
 
 
 
@@ -18,7 +18,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -52,7 +51,7 @@ public class Main extends Application {
         SaveTeachers saveTeachers = SaveTeachers.getInstance();
         Teacher t = saveTeachers.getTeacher(0);
         List<Course> c = new ArrayList<Course>();
-        Supplies s = new Supplies("QQ","q", LocalDate.now(), LocalDate.now(), t, 50);
+        Supplies s = new Supplies("QQ","q", t, 50, 8);
         List<Supplies> SD= new ArrayList<Supplies>();
         SD.add(s);
         Course course = new Course("Sistemas de informação", SD);

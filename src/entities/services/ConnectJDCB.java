@@ -7,10 +7,11 @@ import java.time.format.DateTimeFormatter;
 import entities.exeptions.infoBancoExeption;
 import entities.models.Address;
 import entities.models.Classmate;
+import entities.models.Supplies;
 import org.jetbrains.annotations.NotNull;
 
 public class ConnectJDCB {
-	private final static String url = "jdbc:sqlite:C:\\Users\\alvar\\IdeaProjects\\trabalhofinal\\GestaoEscolar\\src\\banco\\banco.db";
+	private final static String url = "jdbc:sqlite:C:\\Users\\alvar\\IdeaProjects\\trabalhofinal\\GestaoEscolar\\src\\dataBase\\banco.db";
 	private static Connection conn = null;
 	 
     public static Connection connect() throws infoBancoExeption {
@@ -41,6 +42,9 @@ public class ConnectJDCB {
     public static void insertAdress(@NotNull Address address) throws infoBancoExeption {
     	connect();
     	int insertRows = 0;
+    	String complement = null;
+    	if(address.getComplement() != null)
+    		complement = address.getComplement();
     	PreparedStatement ps = null;
     	String sql = "INSERT INTO Endereco(cidade, bairro, rua, numero, cep, complemento) VALUES(?,?,?,?,?,?)";
     	try {
@@ -50,10 +54,8 @@ public class ConnectJDCB {
     		ps.setString(3, address.getStreet());
     		ps.setInt(4, address.getNumber());
     		ps.setInt(5, address.getCep());
-    		if(address.getComplement() != null)
-    			ps.setString(6, address.getComplement());
-    		else
-    			ps.setString(6, null);
+    		ps.setString(6, complement);
+
     		insertRows = ps.executeUpdate();
     		System.out.println(insertRows);
     	}catch (SQLException e) {
@@ -120,12 +122,36 @@ public class ConnectJDCB {
 			desconect();
 		}
 	}
+
+	public static void insertSuplies(@NotNull Supplies supplies) throws infoBancoExeption {
+		connect();
+		int insertRows = 0;
+		PreparedStatement ps = null;
+		String sql = "INSERT INTO Materias(nome, codigo, professor_cpf, professor_nome, max_faltas, aprovacao) " +
+				"VALUES(?,?,?,?,?,?)";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, supplies.getSupplieName());
+			ps.setString(2, supplies.getSupplieID());
+			ps.setString(3, supplies.getTeacher().getCpf());
+			ps.setString(4, supplies.getTeacher().getName());
+			ps.setInt(5, supplies.getMaxGap());
+			ps.setFloat(6, supplies.getAprovedGrade());
+			insertRows = ps.executeUpdate();
+			System.out.println(insertRows);
+		}catch (SQLException e) {
+			System.out.println(e.getMessage());
+			System.out.println("lll");
+			throw new infoBancoExeption("Erro ao salvar no banco de dados");
+		}finally {
+			desconect();
+		}
+	}
     public static void creatNewTable(String string) throws infoBancoExeption {
     	connect();
     	try {
     		Statement statement = conn.createStatement();
     		statement.execute(string);
-    		System.out.println("as");
     	}catch (SQLException e) {
 			System.out.println(e.getMessage());
 			throw new infoBancoExeption("Erro ao salvar no banco de dados");
@@ -166,9 +192,18 @@ public class ConnectJDCB {
 				"tel varchar(20) default null," + "\n" +
 		       "id integer not null primary key autoincrement," + "\n"+
 				"foreign key (id_endereco) references Endereco(id));" ;
-
-
 		return sb;
 	}
+    @NotNull
+    public static String generateSuppliesTable() {
+        String sb = "create table if not exists Materias (" + "\n" +
+                "nome varchar(30) not null," + "\n" +
+                "codigo varchar(30) not null primary key," + "\n" +
+                "professor_cpf varchar(11) not null," + "\n" +
+                "professor_nome varchar(50) not null," + "\n" +
+                "max_faltas integer not null," + "\n" +
+                "aprovacao integer not null);" + "\n" ;
+        return sb;
+    }
 
 }

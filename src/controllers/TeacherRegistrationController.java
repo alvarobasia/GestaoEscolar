@@ -7,7 +7,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import application.Main;
+import app.Main;
 import entities.models.Course;
 import entities.services.TextFieldFormatter;
 import javafx.collections.FXCollections;

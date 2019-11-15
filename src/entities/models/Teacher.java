@@ -149,35 +149,35 @@ public class Teacher extends Person{
 
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("--------Informaçoẽs do Professor----------\n");
-		sb.append("Nome: " + this.getName()+ "\n");
-		sb.append("Identidade: " + this.getID()+ "\n");
-		if(super.getGender() == Gender.valueOf("MASCULINO"))
-			sb.append("Gênero: Masculino" + "\n");
-		else
-			sb.append("Gênero: Feminino" + "\n");
-		if(super.getTelNumber() != null)
-			sb.append(super.getTelNumber() + "\n");
-		if(super.getAddress() != null) {
-			sb.append("Endereço: \n");
-			sb.append("Cidade: " + super.getAddress().getCity());
-			sb.append("Bairro: " + super.getAddress().getDistrict());
-			sb.append("Rua: " + super.getAddress().getStreet());
-			sb.append("Número: " + super.getAddress().getNumber());
-			if(super.getAddress().getComplement() != null) {
-				sb.append("Complemento: " + super.getAddress().getComplement());
-			}
-		}
-		if(this.salary != null) 
-			sb.append("Salário "+ this.getSalary() + "\n");
-		sb.append("Data de inclusão na faculdade: " + super.SDF.format(this.getDataJoin()) + "\n");
-		sb.append("Data de nascimento: " + super.SDF.format(this.getBirthDate()) + "\n");
-		sb.append("--------Cursos inscritos------------");
-		for(Supplies supplies : this.provideSupplies) {
-			sb.append(supplies + " \n");
-		}
-		return sb.toString();
+//		StringBuilder sb = new StringBuilder();
+//		sb.append("--------Informaçoẽs do Professor----------\n");
+//		sb.append("Nome: " + this.getName()+ "\n");
+//		sb.append("Identidade: " + this.getID()+ "\n");
+//		if(super.getGender() == Gender.valueOf("MASCULINO"))
+//			sb.append("Gênero: Masculino" + "\n");
+//		else
+//			sb.append("Gênero: Feminino" + "\n");
+//		if(super.getTelNumber() != null)
+//			sb.append(super.getTelNumber() + "\n");
+//		if(super.getAddress() != null) {
+//			sb.append("Endereço: \n");
+//			sb.append("Cidade: " + super.getAddress().getCity());
+//			sb.append("Bairro: " + super.getAddress().getDistrict());
+//			sb.append("Rua: " + super.getAddress().getStreet());
+//			sb.append("Número: " + super.getAddress().getNumber());
+//			if(super.getAddress().getComplement() != null) {
+//				sb.append("Complemento: " + super.getAddress().getComplement());
+//			}
+//		}
+//		if(this.salary != null)
+//			sb.append("Salário "+ this.getSalary() + "\n");
+//		sb.append("Data de inclusão na faculdade: " + super.SDF.format(this.getDataJoin()) + "\n");
+//		sb.append("Data de nascimento: " + super.SDF.format(this.getBirthDate()) + "\n");
+//		sb.append("--------Cursos inscritos------------");
+//		for(Supplies supplies : this.provideSupplies) {
+//			sb.append(supplies + " \n");
+//		}
+		return this.getName();
 	}
 
 	

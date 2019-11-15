@@ -10,28 +10,34 @@ import java.util.Set;
 
 public class Supplies {
 	private String supplieName;
-	private int workLoad;
-	private long duration;
 	private String supplieID;
 	private Teacher teacher;
+	private float aprovedGrade;
+	private int maxGap;
+
 	Set<Classmate> list = new HashSet<Classmate>();
 	
-	public Supplies(String supplieName, String id,LocalDate init, LocalDate finish, Teacher teacher, int workLoad) {
+	public Supplies(String supplieName, String id, Teacher teacher, float aprovedGrade, int maxGap) {
 		this.supplieID = id;
 		this.supplieName = supplieName;
-		this.workLoad  = workLoad;
-		this.duration = ChronoUnit.DAYS.between(init, finish);
+		this.aprovedGrade = aprovedGrade;
+		this.maxGap = maxGap;
 		this.teacher = teacher;
 	}
-	
-	
-	public long getDuration() {
-		return duration;
+
+	public void setAprovedGrade(float aprovedGrade) {
+		this.aprovedGrade = aprovedGrade;
 	}
 
+	public float getAprovedGrade(){
+		return this.aprovedGrade;
+	}
+	public int getMaxGap() {
+		return maxGap;
+	}
 
-	public void setDuration(long duration) {
-		this.duration = duration;
+	public void setMaxGap(int maxGap) {
+		this.maxGap = maxGap;
 	}
 
 
@@ -56,12 +62,6 @@ public class Supplies {
 	}
 	public void setSupplieName(String courseName) {
 		this.supplieName = courseName;
-	}
-	public int getWorkLoad() {
-		return workLoad;
-	}
-	public void setWorkLoad(int workLoad) {
-		this.workLoad = workLoad;
 	}
 	public String getSupplieID() {
 		return this.supplieID;

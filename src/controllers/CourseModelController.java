@@ -57,8 +57,8 @@ public class CourseModelController {
 	void addSupplie() throws IOException {
 		Parent root = (BorderPane)FXMLLoader.load(getClass().getResource("../view/RegistrationSupplies.fxml"));
     	Stage sc = (Stage) backButton.getScene().getWindow();
-    	sc.setWidth(1900);
-    	sc.setHeight(1900);
+    	sc.setWidth(800);
+    	sc.setHeight(850);
     	Scene scene = new Scene(root, sc.getWidth(), sc.getHeight());
     	scene.getStylesheets().add(getClass().getResource("../view/Registration.css").toExternalForm());
 		sc.setScene(scene);
