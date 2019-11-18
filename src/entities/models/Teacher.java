@@ -6,62 +6,32 @@ import java.util.List;
 import java.util.Set;
 
 import entities.enums.Gender;
+import entities.enums.Nomination;
 
 public class Teacher extends Person{
 	private static int ID_CONT = 1;
 	private Double salary;
 	private int teacherID;
+	private Nomination nomination;
 
-	Set<Supplies> provideSupplies = new HashSet<Supplies>();
+	//Set<Supplies> provideSupplies = new HashSet<Supplies>();
 	
-	public Teacher(String name, LocalDate birthDate, Double salary, String cpf, Gender gender, Address address, String telNumber ) {
-		super(name, birthDate, cpf, gender, address, telNumber);
-		this.salary = salary;
-		this.teacherID = ID_CONT;
-		ID_CONT++;
-	}
-	
-	public Teacher(String name, LocalDate birthDate, String cpf, Gender gender, Address address, String telNumber ) {
-		super(name, birthDate, cpf, gender, address, telNumber);
-		this.teacherID = ID_CONT;
-		ID_CONT++;
-	}
-	public Teacher(String name, LocalDate birthDate, Double salary, String cpf, Gender gender, Address address) {
-		super(name, birthDate, cpf, gender, address);
-		this.salary = salary;
-		this.teacherID = ID_CONT;
-		ID_CONT++;
-	}
-	public Teacher(String name, LocalDate birthDate, String cpf, Gender gender, Address address) {
-		super(name, birthDate, cpf, gender, address);
-		this.teacherID = ID_CONT;
-		ID_CONT++;
-	}
-	
-	public Teacher(String name, LocalDate birthDate, Double salary, String cpf, Gender gender, String telNumber ) {
-		super(name, birthDate, cpf, gender, telNumber);
-		this.salary = salary;
-		this.teacherID = ID_CONT;
-		ID_CONT++;
-	}
-	
-	public Teacher(String name, LocalDate birthDate, String cpf, Gender gender, String telNumber ) {
-		super(name, birthDate, cpf, gender, telNumber);
-		this.teacherID = ID_CONT;
-		ID_CONT++;
-	}
-	public Teacher(String name, LocalDate birthDate, Double salary, String cpf, Gender gender) {
+	public Teacher(String name, LocalDate birthDate, Double salary, String cpf, Gender gender, Nomination nomination) {
 		super(name, birthDate, cpf, gender);
 		this.salary = salary;
+		this.nomination = nomination;
 		this.teacherID = ID_CONT;
 		ID_CONT++;
 	}
 	
-	public Teacher(String name, LocalDate birthDate, String cpf, Gender gender) {
+	public Teacher(String name, LocalDate birthDate, String cpf, Gender gender, Nomination nomination) {
 		super(name, birthDate, cpf, gender);
+		this.nomination = nomination;
 		this.teacherID = ID_CONT;
 		ID_CONT++;
 	}
+
+
 	public static int getID_CONT() {
 		return ID_CONT;
 	}
@@ -69,8 +39,15 @@ public class Teacher extends Person{
 	public static void setID_CONT(int iD_CONT) {
 		ID_CONT = iD_CONT;
 	}
-	
-	
+
+	public Nomination getNomination() {
+		return nomination;
+	}
+
+	public void setNomination(Nomination nomination) {
+		this.nomination = nomination;
+	}
+
 	public int getTeacherID() {
 		return teacherID;
 	}
@@ -86,15 +63,7 @@ public class Teacher extends Person{
 	public void setSalary(Double salary) {
 		this.salary = salary;
 	}
-	public void addSupplie(Supplies supplies) {
-		provideSupplies.add(supplies);
-	}
-	
-	public Supplies removeCourse(Supplies supplies) {
-		Supplies removed = (Supplies) provideSupplies.stream().filter(x -> x.getSupplieID().equals(supplies.getSupplieID()));
-		provideSupplies.remove(removed);
-		return removed;
-	}
+
 
 	@Override
 	protected int generateID() {

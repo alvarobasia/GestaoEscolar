@@ -4,11 +4,9 @@ package controllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
-import app.Main;
-import entities.models.Course;
+
 import entities.services.TextFieldFormatter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,11 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -29,7 +23,8 @@ import javafx.stage.Stage;
 
 public class TeacherRegistrationController implements Initializable{
 
-	
+    final private ObservableList options = FXCollections.observableArrayList();
+
     @FXML
     private AnchorPane back;
 
@@ -50,21 +45,49 @@ public class TeacherRegistrationController implements Initializable{
 
     @FXML
     private TextField cpf;
-    
+
     @FXML
     private TextField salary;
-    
-    @FXML
-    private ComboBox<Course> cursos;
-    
-    private ObservableList<Course> lists;
 
-    public void CourseList() {
-    	List<Course> course = Main.ComboBoxUpdate();
-    	lists = FXCollections.observableArrayList(course);
-    	cursos.setItems(lists);
+    @FXML
+    private ListView disponivel;
+
+    ListView listViewPREV = new ListView(options);
+    ListView listViewPOS= new ListView();
+
+    @FXML
+    private ListView selecionadas;
+
+    @FXML
+    private Button colocar;
+
+    @FXML
+    private Button tirar;
+
+    @FXML
+    private ToggleGroup Gender;
+
+    @FXML
+    private RadioButton masc;
+
+    @FXML
+    private RadioButton fem;
+
+    @FXML
+    private ToggleGroup Grau;
+
+    @FXML
+    private RadioButton B;
+
+    @FXML
+    private RadioButton Mr;
+
+    @FXML
+    private RadioButton Dr;
+
+    void fillListView(){
+
     }
-    
     @FXML
     void cpfFormatador() {
     	TextFieldFormatter tff = new TextFieldFormatter();
@@ -73,7 +96,7 @@ public class TeacherRegistrationController implements Initializable{
     	tff.setTf(cpf);
     	tff.formatter();
     }
-    
+
     @FXML
     void salarioFormatador() {
     	TextFieldFormatter t = new TextFieldFormatter();
@@ -95,13 +118,12 @@ public class TeacherRegistrationController implements Initializable{
     	scene.getStylesheets().add(getClass().getResource("../view/application.css").toExternalForm());
 		sc.setScene(scene);
 		sc.show();
-    	
+
     }
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		CourseList();
-	
+
 	}
-	
+
 }

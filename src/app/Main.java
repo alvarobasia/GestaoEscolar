@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import entities.enums.Gender;
+import entities.enums.Nomination;
 import entities.models.Course;
 import entities.models.Supplies;
 import entities.models.Teacher;
@@ -60,7 +61,7 @@ public class Main extends Application {
     }
 
     public static void teacher(){
-        Teacher t = new Teacher("AA", LocalDate.now(), 18445d, "454", Gender.valueOf("FEMININO"));
+        Teacher t = new Teacher("AA", LocalDate.now(), 18445d, "454", Gender.valueOf("FEMININO"), Nomination.BACHARELADO);
         SaveTeachers saveTeachers = SaveTeachers.getInstance();
         saveTeachers.add(t);
     }
