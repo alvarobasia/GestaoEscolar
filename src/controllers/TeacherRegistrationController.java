@@ -113,11 +113,8 @@ public class TeacherRegistrationController implements Initializable{
     	//Stage stage = new Stage();
     	//main.start(stage);
     	Parent root = (BorderPane)FXMLLoader.load(getClass().getResource("../view/TeacherModel.fxml"));
-    	Stage sc = (Stage) backButton.getScene().getWindow();
-    	Scene scene = new Scene(root, sc.getWidth(), sc.getHeight());
-    	scene.getStylesheets().add(getClass().getResource("../view/application.css").toExternalForm());
-		sc.setScene(scene);
-		sc.show();
+        AssistentScene.getScene(backButton,root);
+
 
     }
 

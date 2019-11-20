@@ -15,9 +15,11 @@ import entities.models.Teacher;
 import entities.services.SaveTeachers;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
@@ -26,10 +28,12 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            primaryStage.setX(0);
-            primaryStage.setY(0);
-            primaryStage.setWidth(800);
-            primaryStage.setHeight(850);
+            Screen screen = Screen.getPrimary();
+            Rectangle2D bounds = screen.getVisualBounds();
+            primaryStage.setX(bounds.getMinX());
+            primaryStage.setY(bounds.getMinY());
+            primaryStage.setWidth(bounds.getWidth());
+            primaryStage.setHeight(bounds.getHeight());
             Parent root = (BorderPane)FXMLLoader.load(getClass().getResource("../view/Sample.fxml"));
             Scene scene = new Scene(root,primaryStage.getWidth(),primaryStage.getHeight());
             scene.getStylesheets().add(getClass().getResource("../view/application.css").toExternalForm());

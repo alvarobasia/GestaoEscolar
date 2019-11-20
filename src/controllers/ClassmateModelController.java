@@ -28,22 +28,12 @@ public class ClassmateModelController {
     @FXML
     void backToMenu() throws IOException {
     	Parent root = (BorderPane)FXMLLoader.load(getClass().getResource("../view/Sample.fxml"));
-    	Stage sc = (Stage) backButton.getScene().getWindow();
-    	Scene scene = new Scene(root, sc.getWidth(), sc.getHeight());
-    	scene.getStylesheets().add(getClass().getResource("../view/Registration.css").toExternalForm());
-		sc.setScene(scene);
-		sc.show();
+    	AssistentScene.getScene(backButton,root);
     }
-    
+
     @FXML
     void addClassmate() throws IOException {
-    	Stage sc = (Stage) newClassmate.getScene().getWindow();
-    	sc.setWidth(1900);
-    	sc.setHeight(1900);
-		Parent root = (BorderPane) FXMLLoader.load(getClass().getResource("../view/Registration.fxml"));
-		Scene scene = new Scene(root, sc.getWidth(), sc.getHeight());
-		scene.getStylesheets().add(getClass().getResource("../view/Registration.css").toExternalForm());
-		sc.setScene(scene);
-		sc.show();
+        Parent root = (BorderPane) FXMLLoader.load(getClass().getResource("../view/Registration.fxml"));
+        AssistentScene.getScene(newClassmate,root);
     }
 }

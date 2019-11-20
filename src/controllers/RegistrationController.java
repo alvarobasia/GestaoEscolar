@@ -188,17 +188,8 @@ public class RegistrationController implements Initializable {
 
 	@FXML
 	void voltarMenu() throws IOException {
-		// Stage sc = (Stage) voltar.getScene().getWindow();
-		// sc.close();
-		// Main main = new Main();
-		// Stage stage = new Stage();
-		// main.start(stage);
 		Parent root = (BorderPane) FXMLLoader.load(getClass().getResource("../view/ClassmateModel.fxml"));
-		Stage sc = (Stage) backButton.getScene().getWindow();
-		Scene scene = new Scene(root, sc.getWidth(), sc.getHeight());
-		scene.getStylesheets().add(getClass().getResource("../view/application.css").toExternalForm());
-		sc.setScene(scene);
-		sc.show();
+		AssistentScene.getScene(backButton,root);
 
 
 	}

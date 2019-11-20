@@ -62,22 +62,15 @@ public class SampleController implements Initializable{
 
 	@FXML
 	void moduloAluno() throws IOException {
-		Stage sc = (Stage) classmate.getScene().getWindow();
 		Parent root = (BorderPane) FXMLLoader.load(getClass().getResource("../view/ClassmateModel.fxml"));
-		Scene scene = new Scene(root, sc.getWidth(), sc.getHeight());
-		scene.getStylesheets().add(getClass().getResource("../view/application.css").toExternalForm());
-		sc.setScene(scene);
-		sc.show();
+		AssistentScene.getScene(classmate,root);
 	}
 	
 	@FXML
 	void moduloProfessor() throws IOException {
-		Stage sc = (Stage) teacher.getScene().getWindow();
 		Parent root = (BorderPane) FXMLLoader.load(getClass().getResource("../view/TeacherModel.fxml"));
-		Scene scene = new Scene(root, sc.getWidth(), sc.getHeight());
-		scene.getStylesheets().add(getClass().getResource("../view/application.css").toExternalForm());
-		sc.setScene(scene);
-		sc.show();
+		AssistentScene.getScene(teacher,root);
+
 	}
 	
 	@FXML

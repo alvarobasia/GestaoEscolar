@@ -160,11 +160,7 @@ public class RegistrationSuppliesController implements Initializable{
 	@FXML
 	void backToModel() throws IOException {
 		Parent root = (BorderPane) FXMLLoader.load(getClass().getResource("../view/CourseModel.fxml"));
-		Stage sc = (Stage) backButton.getScene().getWindow();
-		Scene scene = new Scene(root, sc.getWidth(), sc.getHeight());
-		scene.getStylesheets().add(getClass().getResource("../view/application.css").toExternalForm());
-		sc.setScene(scene);
-		sc.show();
+		AssistentScene.getScene(backButton,root);
 
 	}
 
