@@ -327,9 +327,11 @@ public class RegistrationController implements Initializable {
 	private void registerWithAdressClassmate(@NotNull int[] op , String name, String cpf, LocalDate date, Course course, RadioButton gender) throws infoBancoExeption {
 		Address address;
 		Classmate classmate;
+		SaveClassemate saveClassemate = SaveClassemate.getInstance();
 		if(op[1]==1 && op[2]==1) {
 			address = new Address(fieldCity.getText(), fieldDistrict.getText(), fieldStreet.getText(), 
 				Integer.parseInt(fieldNumber.getText()), Integer.parseInt(fieldCep.getText()), fieldComplement.getText());
+
 			ConnectJDCB.creatNewTable(ConnectJDCB.generateAdressTable());
 			ConnectJDCB.insertAdress(address);
 			SaveAdresses saveAdresses = SaveAdresses.getInstance();
@@ -338,6 +340,7 @@ public class RegistrationController implements Initializable {
 			ConnectJDCB.creatNewTable(ConnectJDCB.generateClassmateTable());
 			ConnectJDCB.insertClassmate(classmate);
 			System.out.println(classmate.getRegistration());
+			saveClassemate.add(classmate);
 		}
 		if(op[1]==1 && op[2]==0) {
 			address = new Address(fieldCity.getText(), fieldDistrict.getText(), fieldStreet.getText(),
@@ -350,6 +353,7 @@ public class RegistrationController implements Initializable {
 			ConnectJDCB.creatNewTable(ConnectJDCB.generateClassmateTable());
 			ConnectJDCB.insertClassmate(classmate);
 			System.out.println(classmate.getRegistration());
+            saveClassemate.add(classmate);
 		}
 		
 		if(op[1]==0 && op[2]==1) {
@@ -363,6 +367,7 @@ public class RegistrationController implements Initializable {
 			ConnectJDCB.creatNewTable(ConnectJDCB.generateClassmateTable());
 			ConnectJDCB.insertClassmate(classmate);
 			System.out.println(classmate);
+            saveClassemate.add(classmate);
 		}
 		
 		if(op[1]==0 && op[2]==0) {
@@ -376,20 +381,24 @@ public class RegistrationController implements Initializable {
 			ConnectJDCB.creatNewTable(ConnectJDCB.generateClassmateTable());
 			ConnectJDCB.insertClassmate(classmate);
 			System.out.println(classmate);
+            saveClassemate.add(classmate);
 		}
 	}
 	
 	private void registerWithoutAdressClassmate(int[] op ,String name, String cpf, LocalDate date, Course course, RadioButton gender) throws infoBancoExeption {
 		Classmate classmate;
+        SaveClassemate saveClassemate = SaveClassemate.getInstance();
 		if(op[2] == 1) {
 			classmate = new Classmate(name, date, cpf, Gender.valueOf(gender.getId()), course, fieldTel.getText());
 			ConnectJDCB.creatNewTable(ConnectJDCB.generateClassmateTable());
 			ConnectJDCB.insertClassmate(classmate);
+            saveClassemate.add(classmate);
 		}
 		else {
 			classmate = new Classmate(name, date, cpf, Gender.valueOf(gender.getId()), course);
 			ConnectJDCB.creatNewTable(ConnectJDCB.generateClassmateTable());
 			ConnectJDCB.insertClassmate(classmate);
+            saveClassemate.add(classmate);
 		}
 	}
 	

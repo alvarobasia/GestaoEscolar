@@ -3,6 +3,7 @@ package entities.models;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -71,5 +72,17 @@ public class Supplies {
 	public String toString() {
 		return this.getSupplieName();
 	}
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Supplies supplies = (Supplies) o;
+		return Objects.equals(supplieID, supplies.supplieID);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(supplieID);
+	}
 }

@@ -46,25 +46,13 @@ public class CourseModelController {
 	@FXML
 	void backToMenu() throws IOException {
 		Parent root = (BorderPane)FXMLLoader.load(getClass().getResource("../view/Sample.fxml"));
-    	Stage sc = (Stage) backButton.getScene().getWindow();
-		sc.setHeight(backButton.getScene().getWindow().getHeight());
-		sc.setWidth(backButton.getScene().getWindow().getWidth());
-    	Scene scene = new Scene(root, sc.getWidth(), sc.getHeight());
-    	scene.getStylesheets().add(getClass().getResource("../view/Registration.css").toExternalForm());
-		sc.setScene(scene);
-		sc.show();
+		AssistentScene.getScene(backButton,root);
 	}
 	
 	@FXML
 	void addSupplie() throws IOException {
 		Parent root = (BorderPane)FXMLLoader.load(getClass().getResource("../view/RegistrationSupplies.fxml"));
-    	Stage sc = (Stage) newSupplie.getScene().getWindow();
-		sc.setHeight(newSupplie.getScene().getWindow().getHeight());
-		sc.setWidth(newSupplie.getScene().getWindow().getWidth());
-    	Scene scene = new Scene(root, sc.getWidth(), sc.getHeight());
-    	scene.getStylesheets().add(getClass().getResource("../view/Registration.css").toExternalForm());
-		sc.setScene(scene);
-		sc.show();
+        AssistentScene.getScene(newSupplie,root);
 	}
 
 	

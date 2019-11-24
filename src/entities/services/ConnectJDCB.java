@@ -137,8 +137,13 @@ public class ConnectJDCB {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, supplies.getSupplieName());
 			ps.setString(2, supplies.getSupplieID());
-			ps.setString(3, supplies.getTeacher().getCpf());
-			ps.setString(4, supplies.getTeacher().getName());
+			if(supplies.getTeacher() !=  null) {
+				ps.setString(3, supplies.getTeacher().getCpf());
+				ps.setString(4, supplies.getTeacher().getName());
+			}else {
+				ps.setString(3,null);
+				ps.setString(4, null);
+			}
 			ps.setInt(5, supplies.getMaxGap());
 			ps.setFloat(6, supplies.getAprovedGrade());
 			insertRows = ps.executeUpdate();
@@ -152,10 +157,11 @@ public class ConnectJDCB {
 		}
 	}
 
-	public static List<? super Supplies> getAllSupplies() throws infoBancoExeption {
+	public static void getAllSupplies() throws infoBancoExeption {
 		connect();
 		Supplies supplies = null;
-		List<? super Supplies> list = new ArrayList<>();
+		SaveSupplie saveSupplie = SaveSupplie.getInstance();
+		List<Supplies> aux = saveSupplie.getRegister();
 		String sql = "SELECT * FROM Materias";
 		try (Statement stmt = conn.createStatement();
 			 ResultSet rs = stmt.executeQuery(sql)) {
@@ -166,13 +172,14 @@ public class ConnectJDCB {
 				Integer maxgap = rs.getInt("max_faltas");
 				float aproved = rs.getInt("aprovacao");
 				supplies = new Supplies(name, codigo, null, aproved, maxgap);
-				list.add(supplies);
+				if(!saveSupplie.getRegister().contains(supplies))
+					saveSupplie.add(supplies);
 			}
 		} catch (SQLException e) {
 			System.out.println(e);
+		}finally {
+			desconect();
 		}
-	return list;
-
 	}
 
    public static void creatNewTable(String string) throws infoBancoExeption {
@@ -227,12 +234,23 @@ public class ConnectJDCB {
         String sb = "create table if not exists Materias (" + "\n" +
                 "nome varchar(30) not null," + "\n" +
                 "codigo varchar(30) not null primary key," + "\n" +
-                "professor_cpf varchar(11) not null," + "\n" +
-                "professor_nome varchar(50) not null," + "\n" +
+                "professor_cpf varchar(11) default null," + "\n" +
+                "professor_nome varchar(50) default null," + "\n" +
                 "max_faltas integer not null," + "\n" +
                 "aprovacao integer not null);" + "\n" ;
         return sb;
     }
 
+    public static String generateTeacherTable(){
+		String sb = "create table if not exists Professores (" + "\n" +
+				"nome varchar(30) not null," + "\n" +
+				"id varchar(30) not null primary key," + "\n" +
+				"cpf varchar(11) not null," + "\n" +
+				"nascimento date not null," + "\n" +
+				"genero varchar(11) not null," + "\n" +
+				"nomeacao varchar(11) not null," + "\n" +
+				"salario integer default null);" + "\n" ;
+		return sb;
+	}
 
 }

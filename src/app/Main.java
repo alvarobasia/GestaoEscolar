@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -34,6 +35,7 @@ public class Main extends Application {
             primaryStage.setY(bounds.getMinY());
             primaryStage.setWidth(bounds.getWidth());
             primaryStage.setHeight(bounds.getHeight());
+            primaryStage.getIcons().add(new Image("file:C:\\Users\\alvar\\IdeaProjects\\trabalhofinal\\src\\images\\es.png"));
             Parent root = (BorderPane)FXMLLoader.load(getClass().getResource("../view/Sample.fxml"));
             Scene scene = new Scene(root,primaryStage.getWidth(),primaryStage.getHeight());
             scene.getStylesheets().add(getClass().getResource("../view/application.css").toExternalForm());

@@ -122,8 +122,16 @@ public class RegistrationSuppliesController implements Initializable{
 			if (!Validatefields.isOnlyNumbers(aprovedField.getText()))
 				throw new DataExeption("Digite apenas numeros");
 			Teacher teacher = fieldTeacher.getValue();
-			Supplies supplies = new Supplies(fieldSupplie.getText(),fieldId.getText(), teacher,
-					Float.parseFloat(aprovedField.getText()),Integer.parseInt(gepsField.getText()));
+            System.out.println(teacher);
+			Supplies supplies;
+			if(teacher!= null) {
+			    supplies = new Supplies(fieldSupplie.getText(), fieldId.getText(), teacher,
+                        Float.parseFloat(aprovedField.getText()), Integer.parseInt(gepsField.getText()));
+            }
+			else {
+                supplies = new Supplies(fieldSupplie.getText(), fieldId.getText(), null,
+                        Float.parseFloat(aprovedField.getText()), Integer.parseInt(gepsField.getText()));
+            }
 			SaveSupplie saveSupplie = SaveSupplie.getInstance();
 			saveSupplie.add(supplies);
 			ConnectJDCB.creatNewTable(ConnectJDCB.generateSuppliesTable());
@@ -152,7 +160,7 @@ public class RegistrationSuppliesController implements Initializable{
 	 private boolean validateFields(){
 		Teacher teacher = fieldTeacher.getValue();
 		if(fieldSupplie.getText().isEmpty() || fieldId.getText().isEmpty() || gepsField.getText().isEmpty() ||
-		aprovedField.getText().isEmpty() || teacher == null)
+		aprovedField.getText().isEmpty())
 			return false;
 		return true;
 	 }
