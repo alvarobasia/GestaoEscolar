@@ -4,14 +4,17 @@ package app;
 
 
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import entities.enums.Gender;
 import entities.enums.Nomination;
+import entities.exeptions.infoBancoExeption;
 import entities.models.Course;
 import entities.models.Supplies;
 import entities.models.Teacher;
+import entities.services.ConnectJDCB;
 import entities.services.SaveTeachers;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -48,7 +51,12 @@ public class Main extends Application {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws infoBancoExeption {
+        String[] table = {ConnectJDCB.generateTeacherTable(), ConnectJDCB.generateClassmateTable(),
+                ConnectJDCB.generateSuppliesTable(), ConnectJDCB.generateAdressTable()};
+        for (String s: table) {
+            ConnectJDCB.creatNewTable(s);
+        }
         teacher();
         launch(args);
     }
@@ -66,9 +74,10 @@ public class Main extends Application {
         return c;
     }
 
-    public static void teacher(){
-        Teacher t = new Teacher("AA", LocalDate.now(), 18445d, "454", Gender.valueOf("FEMININO"), Nomination.BACHARELADO);
+    public static void teacher() throws infoBancoExeption {
+        Teacher t = new Teacher("AA", LocalDate.now(), 18445f, "454", Gender.valueOf("FEMININO"), Nomination.BACHARELADO);
         SaveTeachers saveTeachers = SaveTeachers.getInstance();
+        ConnectJDCB.insertTeacher(t);
         saveTeachers.add(t);
     }
 

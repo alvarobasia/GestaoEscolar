@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import entities.exeptions.infoBancoExeption;
 import entities.models.Address;
 import entities.models.Classmate;
@@ -126,19 +127,115 @@ public class ConnectJDCB {
 			desconect();
 		}
 	}
+	public static int getLestIdClass() throws infoBancoExeption, SQLException {
+		String result = null;
+		int r = 5;
+		connect();
 
+		String sql = "SELECT COUNT (*) FROM Alunos ORDER BY matricula DESC " ;
+		try (Statement stmt = conn.createStatement();
+			 ResultSet rs = stmt.executeQuery(sql)) {
+			 r = rs.getInt(1);
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		if(r == 0) {
+			desconect();
+			return 1;
+		}
+		sql = "SELECT * FROM Alunos ORDER BY matricula DESC " ;
+		try (Statement stmt = conn.createStatement();
+			 ResultSet rs = stmt.executeQuery(sql)) {
+			result = rs.getString("matricula");
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		desconect();
+		System.out.println(r);
+		String i = result.replace('.','#');
+		System.out.println(i);
+		String[] y = i.split("#");
+		return Integer.parseInt(y[2])+ 1;
+	}
+	public static void insertTeacher(@NotNull Teacher teacher) throws infoBancoExeption{
+	    connect();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String data = formatter.format(teacher.getBirthDate());
+        String entrada = formatter.format(teacher.getDataJoin());
+        Float salary = null;
+        String sql;
+        if(teacher.getSalary() != null) {
+            salary = teacher.getSalary();
+            sql = "INSERT INTO Professores(nome, id, cpf, nascimento, entrada, genero, nomeacao, salario) " +
+                    "VALUES(?,?,?,?,?,?,?,?)";
+        }else {
+			sql = "INSERT INTO Professores(nome, id, cpf, nascimento, entrada, genero, nomeacao) " +
+					"VALUES(?,?,?,?,?,?,?)";
+		}
+	    int insertRows =0;
+	    PreparedStatement ps = null;
+        try {
+	        ps = conn.prepareStatement(sql);
+	        ps.setString(1, teacher.getName());
+	        ps.setInt(2, teacher.getTeacherID());
+	        ps.setString(3, teacher.getCpf());
+	        ps.setString(4, data );
+	        ps.setString(5, entrada);
+	        ps.setString(6, teacher.getGender().toString());
+	        ps.setString(7, teacher.getNomination().toString());
+	        if(salary != null)
+	            ps.setFloat(8,  salary);
+	        insertRows = ps.executeUpdate();
+            System.out.println(insertRows);
+        } catch (SQLException e) {
+            //e.printStackTrace();
+            System.out.println(e.getMessage());
+        }finally {
+	        desconect();
+        }
+    }
+
+    public static int getTeacherId() throws infoBancoExeption {
+		String result = null;
+		int r = 0;
+		connect();
+
+		String sql = "SELECT COUNT (*) FROM Professores ORDER BY id DESC " ;
+		try (Statement stmt = conn.createStatement();
+			 ResultSet rs = stmt.executeQuery(sql)) {
+			r = rs.getInt(1);
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		System.out.println("yyy"+ r);
+		if(r == 0) {
+			desconect();
+			return 1;
+		}
+		sql = "SELECT id, MAX (id) FROM Professores " ;
+		try (Statement stmt = conn.createStatement();
+			 ResultSet rs = stmt.executeQuery(sql)) {
+			result = rs.getString("id");
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		desconect();
+		System.out.println(result+"ttt");
+		System.out.println(r + "ooo");
+		return Integer.parseInt(result)+1;
+	}
 	public static void insertSuplies(@NotNull Supplies supplies) throws infoBancoExeption {
 		connect();
 		int insertRows = 0;
 		PreparedStatement ps = null;
-		String sql = "INSERT INTO Materias(nome, codigo, professor_cpf, professor_nome, max_faltas, aprovacao) " +
+		String sql = "INSERT INTO Materias(nome, codigo, id_prof, professor_nome, max_faltas, aprovacao) " +
 				"VALUES(?,?,?,?,?,?)";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, supplies.getSupplieName());
 			ps.setString(2, supplies.getSupplieID());
 			if(supplies.getTeacher() !=  null) {
-				ps.setString(3, supplies.getTeacher().getCpf());
+				ps.setInt(3, supplies.getTeacher().getTeacherID());
 				ps.setString(4, supplies.getTeacher().getName());
 			}else {
 				ps.setString(3,null);
@@ -156,7 +253,18 @@ public class ConnectJDCB {
 			desconect();
 		}
 	}
+	public static void ligaProfMat(String nome, int id, String codigo) throws infoBancoExeption {
+		connect();
 
+		String sql = "SELECT Materias.codigo FROM Materias WHERE codigo ="+ codigo;
+		try (Statement stmt = conn.createStatement();
+			 ResultSet rs = stmt.executeQuery(sql)) {
+		} catch (SQLException e) {
+			System.out.println(e);
+		}finally {
+			desconect();
+		}
+	}
 	public static void getAllSupplies() throws infoBancoExeption {
 		connect();
 		Supplies supplies = null;
@@ -234,19 +342,21 @@ public class ConnectJDCB {
         String sb = "create table if not exists Materias (" + "\n" +
                 "nome varchar(30) not null," + "\n" +
                 "codigo varchar(30) not null primary key," + "\n" +
-                "professor_cpf varchar(11) default null," + "\n" +
+                "id_prof integer default null," + "\n" +
                 "professor_nome varchar(50) default null," + "\n" +
                 "max_faltas integer not null," + "\n" +
-                "aprovacao integer not null);" + "\n" ;
+                "aprovacao integer not null," + "\n" +
+				"foreign key (id_prof) references Professor(id));" ;
         return sb;
     }
 
     public static String generateTeacherTable(){
 		String sb = "create table if not exists Professores (" + "\n" +
 				"nome varchar(30) not null," + "\n" +
-				"id varchar(30) not null primary key," + "\n" +
-				"cpf varchar(11) not null," + "\n" +
+				"id integer not null primary key," + "\n" +
+				"cpf varchar(20) not null," + "\n" +
 				"nascimento date not null," + "\n" +
+                "entrada date not null," + "\n" +
 				"genero varchar(11) not null," + "\n" +
 				"nomeacao varchar(11) not null," + "\n" +
 				"salario integer default null);" + "\n" ;

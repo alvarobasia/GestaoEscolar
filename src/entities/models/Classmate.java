@@ -1,16 +1,29 @@
 package entities.models;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import entities.enums.Gender;
+import entities.exeptions.infoBancoExeption;
+import entities.services.ConnectJDCB;
 
 
 public class Classmate extends Person{
 	
     private String registration;
-    private static int COUNT = 1 ;
+    private static int COUNT;
+
+	static {
+		try {
+			COUNT = ConnectJDCB.getLestIdClass();
+		} catch (entities.exeptions.infoBancoExeption | SQLException infoBancoExeption) {
+			infoBancoExeption.printStackTrace();
+		}
+	}
+
+	;
 	
     Course course;
     

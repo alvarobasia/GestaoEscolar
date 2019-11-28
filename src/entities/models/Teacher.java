@@ -7,17 +7,31 @@ import java.util.Set;
 
 import entities.enums.Gender;
 import entities.enums.Nomination;
+import entities.exeptions.infoBancoExeption;
+import entities.services.ConnectJDCB;
+import org.w3c.dom.ls.LSOutput;
 
 public class Teacher extends Person{
-	private static int ID_CONT = 1;
-	private Double salary;
+	private static int ID_CONT;
+
+	static {
+		try {
+			ID_CONT = ConnectJDCB.getTeacherId();
+			System.out.println(ID_CONT+"IIII");
+		} catch (entities.exeptions.infoBancoExeption infoBancoExeption) {
+			infoBancoExeption.printStackTrace();
+		}
+	}
+
+	private Float salary;
 	private int teacherID;
 	private Nomination nomination;
 
 	//Set<Supplies> provideSupplies = new HashSet<Supplies>();
 	
-	public Teacher(String name, LocalDate birthDate, Double salary, String cpf, Gender gender, Nomination nomination) {
+	public Teacher(String name, LocalDate birthDate, Float salary, String cpf, Gender gender, Nomination nomination) {
 		super(name, birthDate, cpf, gender);
+		System.out.println("qwer"+ ID_CONT);
 		this.salary = salary;
 		this.nomination = nomination;
 		this.teacherID = ID_CONT;
@@ -26,6 +40,7 @@ public class Teacher extends Person{
 	
 	public Teacher(String name, LocalDate birthDate, String cpf, Gender gender, Nomination nomination) {
 		super(name, birthDate, cpf, gender);
+		System.out.println("qwer"+ ID_CONT);
 		this.nomination = nomination;
 		this.teacherID = ID_CONT;
 		ID_CONT++;
@@ -56,21 +71,14 @@ public class Teacher extends Person{
 		this.teacherID = teacherID;
 	}
 
-	public Double getSalary() {
+	public Float getSalary() {
 		return this.salary;
 	}
 	
-	public void setSalary(Double salary) {
+	public void setSalary(Float salary) {
 		this.salary = salary;
 	}
 
-
-	@Override
-	protected int generateID() {
-		int finalID = ID_CONT;
-		ID_CONT++;
-		return finalID;
-	}
 
 	@Override
 	public Person removePerson(List<Person> p, int id) {
@@ -114,6 +122,11 @@ public class Teacher extends Person{
 			c++;
 		}
 		return null;
+	}
+
+	@Override
+	protected int generateID() {
+		return 0;
 	}
 
 	@Override

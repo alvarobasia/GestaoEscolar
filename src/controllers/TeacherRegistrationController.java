@@ -9,11 +9,14 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 
+import entities.enums.Gender;
+import entities.enums.Nomination;
 import entities.exeptions.DataExeption;
 import entities.exeptions.InvalidCharacterExeption;
 import entities.exeptions.InvalidCpfExeption;
 import entities.exeptions.infoBancoExeption;
 import entities.models.Supplies;
+import entities.models.Teacher;
 import entities.services.ConnectJDCB;
 import entities.services.SaveSupplie;
 import entities.services.TextFieldFormatter;
@@ -28,6 +31,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import entities.exeptions.infoBancoExeption;
 
 public class TeacherRegistrationController implements Initializable{
 
@@ -121,7 +125,6 @@ public class TeacherRegistrationController implements Initializable{
 
     @FXML
    private void register(){
-        RadioButton gender = (RadioButton) Gender.getSelectedToggle();
         if(fieldsValidate())
             register.setDisable(false);
         else
@@ -155,17 +158,18 @@ public class TeacherRegistrationController implements Initializable{
         String Cpf = cpf.getText();
         RadioButton gender = (RadioButton) Gender.getSelectedToggle();
         RadioButton grau = (RadioButton) Grau.getSelectedToggle();
-        String name = getCorectName(gender,grau);
+        String name = fieldName.getText() + ' ' + filedNick.getText();
+        String nameFinal = getCorectName(gender,grau);
         String sex, g;
-        Integer Salary =null;
+        Float Salary =null;
         if(!salary.getText().equals("")) {
-            Salary = Integer.parseInt(Validatefields.formatNumbers(salary.getText()));
+            Salary =Float.parseFloat(Validatefields.formatNumbers(salary.getText()));
         }
 
-        if(gender.getId() == "masc"){
-            sex = "MASCULINO";
-        }else {
+        if(gender.getId().equals("fem")){
             sex = "FEMININO";
+        }else {
+            sex = "MASCULINO";
         }
         if(grau.getId() == "B")
             g = "BACHARELADO";
@@ -184,13 +188,30 @@ public class TeacherRegistrationController implements Initializable{
             if (nascimeto.isAfter(LocalDate.now()))
                 throw new DataExeption("Você deve colocar uma data válida");
 
+            Teacher teacher;
+            System.out.println(Salary);
+            if(Salary == null)
+                teacher = new Teacher(nameFinal,nascimeto,null,Cpf, entities.enums.Gender.valueOf(sex), Nomination.valueOf(g));
+            else
+                teacher = new Teacher(nameFinal,nascimeto,Salary,Cpf, entities.enums.Gender.valueOf(sex), Nomination.valueOf(g));
+            System.out.println(teacher.getTeacherID()+"qqq");
+            String table = ConnectJDCB.generateTeacherTable();
+            ConnectJDCB.creatNewTable(table);
+            ConnectJDCB.insertTeacher(teacher);
+           List<Supplies> supplies = selecionadas.getItems();
+           for (Supplies s : supplies) {
+
+           }
+
         }catch (InvalidCharacterExeption e){
             erroName.setVisible(true);
             erroNick.setVisible(true);
         }catch (InvalidCpfExeption e){
             erroCPF.setVisible(true);
-        }catch (DataExeption e){
+        }catch (DataExeption e) {
             erroData.setVisible(true);
+        } catch (infoBancoExeption e) {
+            e.printStackTrace();
         }
 
 
@@ -207,12 +228,23 @@ public class TeacherRegistrationController implements Initializable{
             selecionadas.getItems().add(supplies1);
         }
     }
+
+    @FXML
+    private void retirarMateria(){
+        List<Supplies> supplies = selecionadas.getSelectionModel().getSelectedItems();
+        ObservableList<Supplies> remove = FXCollections.observableArrayList(supplies);
+        for(Supplies s : remove){
+            selecionadas.getItems().remove(s);
+        }
+    }
     private void fillListView() throws infoBancoExeption {
             SaveSupplie saveSupplie = SaveSupplie.getInstance();
             List<Supplies> t = (List<Supplies>) saveSupplie.getRegister();
             lists  = FXCollections.observableArrayList(t);
             disponivel.setItems(lists);
     }
+
+
     @FXML
     void cpfFormatador() {
     	TextFieldFormatter tff = new TextFieldFormatter();
@@ -246,6 +278,7 @@ public class TeacherRegistrationController implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
         disponivel.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        selecionadas.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         register.setDisable(true);
         erroName.setVisible(false);
         erroNick.setVisible(false);

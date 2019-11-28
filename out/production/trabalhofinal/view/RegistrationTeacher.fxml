@@ -83,7 +83,7 @@
                <font>
                   <Font size="36.0" />
                </font></Button>
-            <Button fx:id="tirar" layoutX="525.0" layoutY="337.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="76.0" styleClass="cadastro" text="&lt;">
+            <Button fx:id="tirar" layoutX="525.0" layoutY="337.0" mnemonicParsing="false" onAction="#retirarMateria" prefHeight="59.0" prefWidth="76.0" styleClass="cadastro" text="&lt;">
                <font>
                   <Font size="36.0" />
                </font></Button>
