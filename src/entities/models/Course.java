@@ -6,12 +6,11 @@ import java.util.List;
 public class Course {
 	
 	private String courseName;
-	
-	private List<Supplies> suppliesOnCurse = new ArrayList<Supplies>();
+	private Integer duration = 0;
 
-	public Course(String courseName, List<Supplies> suppliesOnCurse) {
+	public Course(String courseName, int duration) {
 		this.courseName = courseName;
-		this.suppliesOnCurse = suppliesOnCurse;
+		this.duration = duration;
 	}
 	
 	public String getCourseName() {
@@ -22,20 +21,12 @@ public class Course {
 		this.courseName = courseName;
 	}
 
-	public List<Supplies> getSuppliesOnCurse() {
-		return suppliesOnCurse;
+	public Integer getDuration() {
+		return duration;
 	}
 
-	public void setSuppliesOnCurse(List<Supplies> suppliesOnCurse) {
-		this.suppliesOnCurse = suppliesOnCurse;
-	}
-	
-	public void addSupplie(Supplies supplie) {
-		this.suppliesOnCurse.add(supplie);
-	}
-	public Supplies removeSupplie(Supplies supplie) {
-		int index = this.suppliesOnCurse.indexOf(supplie);
-		return this.suppliesOnCurse.remove(index);
+	public void setDuration(Integer duration) {
+		this.duration = duration;
 	}
 
 	@Override

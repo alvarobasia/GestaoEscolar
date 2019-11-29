@@ -254,11 +254,15 @@ public class ConnectJDCB {
 		}
 	}
 	public static void ligaProfMat(String nome, int id, String codigo) throws infoBancoExeption {
-		connect();
-
-		String sql = "SELECT Materias.codigo FROM Materias WHERE codigo ="+ codigo;
-		try (Statement stmt = conn.createStatement();
-			 ResultSet rs = stmt.executeQuery(sql)) {
+		String sql = "UPDATE Materias SET id_prof = ?, professor_nome = ?" +
+                "WHERE codigo ="+ codigo;
+        PreparedStatement ps = null;
+        connect();
+		try {
+		        ps = conn.prepareStatement(sql);
+                ps.setInt(1, id);
+                ps.setString(2, nome);
+                ps.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println(e);
 		}finally {
@@ -276,12 +280,18 @@ public class ConnectJDCB {
 			while (rs.next()) {
 				String name = rs.getString("nome");
 				String codigo = rs.getString("codigo");
-				String profCpf = rs.getString("professor_cpf");
+				String profCpf = rs.getString("id_prof");
+                String nome = rs.getString("professor_nome");
 				Integer maxgap = rs.getInt("max_faltas");
 				float aproved = rs.getInt("aprovacao");
-				supplies = new Supplies(name, codigo, null, aproved, maxgap);
-				if(!saveSupplie.getRegister().contains(supplies))
-					saveSupplie.add(supplies);
+                supplies = new Supplies(name, codigo, null, aproved, maxgap);
+				if(profCpf == null) {
+                    if (!saveSupplie.getRegister().contains(supplies))
+                        saveSupplie.add(supplies);
+                }else {
+				    if (saveSupplie.getRegister().contains(supplies))
+				        saveSupplie.getRegister().remove(supplies);
+                }
 			}
 		} catch (SQLException e) {
 			System.out.println(e);

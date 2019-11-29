@@ -55,5 +55,10 @@ public class CourseModelController {
         AssistentScene.getScene(newSupplie,root);
 	}
 
+	@FXML
+	void addCourse() throws IOException{
+		Parent root = (BorderPane)FXMLLoader.load(getClass().getResource("../view/RegistrationCourse.fxml"));
+		AssistentScene.getScene(newCourse, root);
+	}
 	
 }

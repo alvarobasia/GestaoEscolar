@@ -3,7 +3,7 @@ package entities.services;
 public abstract class Validatefields {
 
 	public static boolean isAllLettes(String string) {
-		return string.matches("[A-Z a-z Çç]{" + string.length() + "}");
+		return string.matches("[A-Z a-z ÇçáÁéÉíÍÓóÚúãÃõÕ]{" + string.length() + "}");
 	}
 
 	public static boolean isCpfValid(String string) {

@@ -1,6 +1,5 @@
 package entities.services;
 
-import entities.models.Person;
 import entities.models.Teacher;
 import org.jetbrains.annotations.Contract;
 
@@ -20,7 +19,7 @@ public class SaveTeachers {
 
     public Teacher getTeacher(int num){ return teachersList.get(num);}
 
-    public List<? extends Person> getRegister(){ return this.teachersList; }
+    public List<Teacher> getRegister(){ return this.teachersList; }
 
     @Contract(pure = true)
     public static SaveTeachers getInstance(){

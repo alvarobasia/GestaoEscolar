@@ -17,10 +17,7 @@ import entities.exeptions.InvalidCpfExeption;
 import entities.exeptions.infoBancoExeption;
 import entities.models.Supplies;
 import entities.models.Teacher;
-import entities.services.ConnectJDCB;
-import entities.services.SaveSupplie;
-import entities.services.TextFieldFormatter;
-import entities.services.Validatefields;
+import entities.services.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -200,9 +197,20 @@ public class TeacherRegistrationController implements Initializable{
             ConnectJDCB.insertTeacher(teacher);
            List<Supplies> supplies = selecionadas.getItems();
            for (Supplies s : supplies) {
-
+                ConnectJDCB.ligaProfMat(teacher.getName(),teacher.getTeacherID(),s.getSupplieID());
            }
+           SaveTeachers t = SaveTeachers.getInstance();
+           t.getRegister().add(teacher);
 
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Cadastro de Professores");
+            alert.setHeaderText("O professor foi cadastrado com sucesso!");
+            alert.show();
+            try {
+                voltarMenu();
+            }catch (Exception e){
+                System.out.println(e);
+            }
         }catch (InvalidCharacterExeption e){
             erroName.setVisible(true);
             erroNick.setVisible(true);
@@ -212,6 +220,10 @@ public class TeacherRegistrationController implements Initializable{
             erroData.setVisible(true);
         } catch (infoBancoExeption e) {
             e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro no banco de dados");
+            alert.setHeaderText(e.getMessage());
+            alert.show();
         }
 
 

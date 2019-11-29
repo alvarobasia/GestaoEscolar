@@ -69,7 +69,7 @@ public class Main extends Application {
         Supplies s = new Supplies("QQ","q", t, 50, 8);
         List<Supplies> SD= new ArrayList<Supplies>();
         SD.add(s);
-        Course course = new Course("Sistemas de informação", SD);
+        Course course = new Course("Sistemas de informação",5);
         c.add(course);
         return c;
     }
