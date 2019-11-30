@@ -80,7 +80,6 @@ public abstract class Validatefields {
 	}
 	
 	public static boolean isOnlyNumbers(String string) {
-		
 		try {
 			Integer.parseInt(string);
 			return true;

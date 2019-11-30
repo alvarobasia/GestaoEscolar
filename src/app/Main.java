@@ -51,35 +51,19 @@ public class Main extends Application {
         }
     }
 
-    public static void main(String[] args) throws infoBancoExeption {
-        String[] table = {ConnectJDCB.generateTeacherTable(), ConnectJDCB.generateClassmateTable(),
+    public static void main(String[] args) throws infoBancoExeption, SQLException {
+        String[] table = {ConnectJDCB.generateCourseTable(), ConnectJDCB.generateTeacherTable(), ConnectJDCB.generateClassmateTable(),
                 ConnectJDCB.generateSuppliesTable(), ConnectJDCB.generateAdressTable()};
         for (String s: table) {
             ConnectJDCB.creatNewTable(s);
         }
-        teacher();
+        try {
+            ConnectJDCB.getAllTeachers();
+        } catch (entities.exeptions.infoBancoExeption infoBancoExeption) {
+            infoBancoExeption.printStackTrace();
+        }
+
+        ConnectJDCB.getAllCourses();
         launch(args);
     }
-
-    @NotNull
-    public static List<Course> ComboBoxUpdate() {
-        SaveTeachers saveTeachers = SaveTeachers.getInstance();
-        Teacher t = saveTeachers.getTeacher(0);
-        List<Course> c = new ArrayList<Course>();
-        Supplies s = new Supplies("QQ","q", t, 50, 8);
-        List<Supplies> SD= new ArrayList<Supplies>();
-        SD.add(s);
-        Course course = new Course("Sistemas de informação",5);
-        c.add(course);
-        return c;
-    }
-
-    public static void teacher() throws infoBancoExeption {
-        Teacher t = new Teacher("AA", LocalDate.now(), 18445f, "454", Gender.valueOf("FEMININO"), Nomination.BACHARELADO);
-        SaveTeachers saveTeachers = SaveTeachers.getInstance();
-        ConnectJDCB.insertTeacher(t);
-        saveTeachers.add(t);
-    }
-
-
 }

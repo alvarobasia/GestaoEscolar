@@ -10,7 +10,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CourseRegistrationController">
    <center>
-      <AnchorPane  prefHeight="900.0" prefWidth="900.0" styleClass="back" stylesheets="@Registration.css" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="900.0" prefWidth="900.0" styleClass="back" stylesheets="@Registration.css" BorderPane.alignment="CENTER">
          <children>
             <Label fx:id="texts" layoutX="55.0" layoutY="63.0" prefHeight="51.0" prefWidth="492.0" styleClass="texts" stylesheets="@Registration.css" text="Registrar um curso">
                <font>
@@ -29,7 +29,7 @@
             </Label>
             <TextField fx:id="fieldcourse" layoutX="155.0" layoutY="179.0" onAction="#textValidate" onInputMethodTextChanged="#textValidate" onKeyPressed="#textValidate" onKeyReleased="#textValidate" onKeyTyped="#textValidate" prefHeight="26.0" prefWidth="214.0" />
             <TextField fx:id="fieldseme" layoutX="293.0" layoutY="276.0" onAction="#textValidate" onInputMethodTextChanged="#textValidate" onKeyPressed="#textValidate" onKeyReleased="#textValidate" onKeyTyped="#textValidate" prefHeight="26.0" prefWidth="49.0" />
-            <Button fx:id="cadastro" layoutX="304.0" layoutY="644.0" mnemonicParsing="false"  prefHeight="55.0" prefWidth="209.0" styleClass="cadastro" stylesheets="@Registration.css" text="Cadastrar" textFill="WHITE">
+            <Button fx:id="cadastro" layoutX="304.0" layoutY="644.0" mnemonicParsing="false" onAction="#register" prefHeight="55.0" prefWidth="209.0" styleClass="cadastro" stylesheets="@Registration.css" text="Cadastrar" textFill="WHITE">
             <font>
                   <Font name="Liberation Sans Bold" size="23.0" />
                </font>
@@ -49,7 +49,7 @@
    <left>
       <Pane fx:id="lateralBar" prefHeight="800.0" prefWidth="306.0" styleClass="lateral" stylesheets="@Registration.css" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="backButton" layoutX="77.0" layoutY="54.0" mnemonicParsing="false"  prefHeight="56.0" prefWidth="133.0" styleClass="voltar" stylesheets="@Registration.css" text="Voltar" textFill="RED">
+            <Button fx:id="backButton" layoutX="77.0" layoutY="54.0" mnemonicParsing="false" onAction="#voltarMenu" prefHeight="56.0" prefWidth="133.0" styleClass="voltar" stylesheets="@Registration.css" text="Voltar" textFill="RED">
                <font>
                   <Font size="24.0" />
                </font>

@@ -2,16 +2,16 @@ package entities.services;
 
  
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import entities.enums.Gender;
+import entities.enums.Nomination;
 import entities.exeptions.infoBancoExeption;
-import entities.models.Address;
-import entities.models.Classmate;
-import entities.models.Supplies;
-import entities.models.Teacher;
+import entities.models.*;
 import org.jetbrains.annotations.NotNull;
 
 public class ConnectJDCB {
@@ -253,6 +253,24 @@ public class ConnectJDCB {
 			desconect();
 		}
 	}
+
+	public static void insertCourse(Course course) throws infoBancoExeption {
+		connect();
+		String sql = "INSERT INTO Cursos(nome, duracao)" +
+				"VALUES(?,?)";
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, course.getCourseName());
+			ps.setInt(2, course.getDuration());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new infoBancoExeption("Erro no banco de dados");
+		}
+
+	}
+
 	public static void ligaProfMat(String nome, int id, String codigo) throws infoBancoExeption {
 		String sql = "UPDATE Materias SET id_prof = ?, professor_nome = ?" +
                 "WHERE codigo ="+ codigo;
@@ -300,7 +318,55 @@ public class ConnectJDCB {
 		}
 	}
 
-   public static void creatNewTable(String string) throws infoBancoExeption {
+	public static void getAllTeachers() throws infoBancoExeption {
+		connect();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		Teacher teacher = null;
+		SaveTeachers saveTeachers = SaveTeachers.getInstance();
+		List<Teacher> aux = saveTeachers.getRegister();
+		String sql = "SELECT * FROM Professores";
+		try (Statement stmt = conn.createStatement();
+			 ResultSet rs = stmt.executeQuery(sql)) {
+			while (rs.next()) {
+				String name = rs.getString("nome");
+				Integer codigo = rs.getInt("id");
+				String profCpf = rs.getString("cpf");
+				String data = rs.getString("nascimento");
+				String entrada = rs.getString("entrada");
+				String genero = rs.getString("genero");
+				String nomeacao = rs.getString("nomeacao");
+				Float salario = rs.getFloat("salario");
+				teacher = new Teacher(name, LocalDate.parse(data, formatter), salario, profCpf, Gender.valueOf(genero), Nomination.valueOf(nomeacao));
+				System.out.println(!saveTeachers.getRegister().contains(teacher));
+				saveTeachers.add(teacher);
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+		}finally {
+			desconect();
+		}
+	}
+	public static void getAllCourses() throws infoBancoExeption, SQLException {
+		connect();
+		Course course = null;
+	    SaveCourses saveCourses = SaveCourses.getInstance();
+		String sql = "SELECT * FROM Cursos";
+		try(Statement ps = conn.createStatement();
+		ResultSet rs = ps.executeQuery(sql)){
+			while (rs.next()){
+				String nome = rs.getString("nome");
+				Integer duracao = rs.getInt("duracao");
+				course = new Course(nome, duracao);
+				saveCourses.add(course);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			desconect();
+		}
+
+	}
+	public static void creatNewTable(String string) throws infoBancoExeption {
     	connect();
     	try {
     		Statement statement = conn.createStatement();
@@ -372,5 +438,11 @@ public class ConnectJDCB {
 				"salario integer default null);" + "\n" ;
 		return sb;
 	}
-
+	public static String generateCourseTable(){
+		String sb = "create table if not exists Cursos (" + "\n" +
+				"nome varchar(30) not null," + "\n" +
+				"duracao integer not null," + "\n" +
+				"id integer not null primary key autoincrement);";
+		return sb;
+	}
 }

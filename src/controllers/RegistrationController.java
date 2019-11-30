@@ -22,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
@@ -162,8 +163,8 @@ public class RegistrationController implements Initializable {
 	private ObservableList<Course> lists;
 
 	public void CourseList() {
-		List<Course> course = Main.ComboBoxUpdate();
-		lists = FXCollections.observableArrayList(course);
+		List<Course> courses = SaveCourses.getInstance().getRegister();
+		lists = FXCollections.observableArrayList(courses);
 		cursesOnComboBox.setItems(lists);
 	}
 
