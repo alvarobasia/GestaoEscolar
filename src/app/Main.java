@@ -15,6 +15,7 @@ import entities.models.Course;
 import entities.models.Supplies;
 import entities.models.Teacher;
 import entities.services.ConnectJDCB;
+import entities.services.SaveSupplie;
 import entities.services.SaveTeachers;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -64,6 +65,12 @@ public class Main extends Application {
         }
 
         ConnectJDCB.getAllCourses();
+        ConnectJDCB.getAllSupplies();
+        for (Teacher R : SaveTeachers.getInstance().getRegister())
+            System.out.println("qq"+R.getName());
+
+        for (Supplies R : SaveSupplie.getInstance().getRegister())
+            System.out.println("oo"+R.getSupplieID());
         launch(args);
     }
 }

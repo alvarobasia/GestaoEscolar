@@ -272,8 +272,9 @@ public class ConnectJDCB {
 	}
 
 	public static void ligaProfMat(String nome, int id, String codigo) throws infoBancoExeption {
+		String k = "\'"+codigo+"\'";
 		String sql = "UPDATE Materias SET id_prof = ?, professor_nome = ?" +
-                "WHERE codigo ="+ codigo;
+                "WHERE codigo ="+ k;
         PreparedStatement ps = null;
         connect();
 		try {
@@ -290,6 +291,7 @@ public class ConnectJDCB {
 	public static void getAllSupplies() throws infoBancoExeption {
 		connect();
 		Supplies supplies = null;
+		List<Teacher> t1 = SaveTeachers.getInstance().getRegister();
 		SaveSupplie saveSupplie = SaveSupplie.getInstance();
 		List<Supplies> aux = saveSupplie.getRegister();
 		String sql = "SELECT * FROM Materias";
@@ -302,13 +304,28 @@ public class ConnectJDCB {
                 String nome = rs.getString("professor_nome");
 				Integer maxgap = rs.getInt("max_faltas");
 				float aproved = rs.getInt("aprovacao");
-                supplies = new Supplies(name, codigo, null, aproved, maxgap);
 				if(profCpf == null) {
+					supplies = new Supplies(name, codigo, null, aproved, maxgap);
                     if (!saveSupplie.getRegister().contains(supplies))
                         saveSupplie.add(supplies);
+                    else {
+						saveSupplie.getRegister().remove(supplies);
+						saveSupplie.add(supplies);
+					}
                 }else {
-				    if (saveSupplie.getRegister().contains(supplies))
-				        saveSupplie.getRegister().remove(supplies);
+					for(Teacher a : t1){
+						System.out.println("tt"+ a.getTeacherID() + "rr"+profCpf);
+						if(a.getTeacherID() == Integer.parseInt(profCpf)) {
+							supplies = new Supplies(name, codigo, a, aproved, maxgap);
+							if (!saveSupplie.getRegister().contains(supplies))
+								saveSupplie.add(supplies);
+							else {
+								saveSupplie.getRegister().remove(supplies);
+								saveSupplie.add(supplies);
+							}
+							break;
+						}
+					}
                 }
 			}
 		} catch (SQLException e) {
@@ -336,7 +353,7 @@ public class ConnectJDCB {
 				String genero = rs.getString("genero");
 				String nomeacao = rs.getString("nomeacao");
 				Float salario = rs.getFloat("salario");
-				teacher = new Teacher(name, LocalDate.parse(data, formatter), salario, profCpf, Gender.valueOf(genero), Nomination.valueOf(nomeacao));
+				teacher = new Teacher(name, LocalDate.parse(data, formatter), salario, profCpf, Gender.valueOf(genero), Nomination.valueOf(nomeacao), codigo);
 				System.out.println(!saveTeachers.getRegister().contains(teacher));
 				saveTeachers.add(teacher);
 			}

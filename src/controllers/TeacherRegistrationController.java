@@ -235,6 +235,8 @@ public class TeacherRegistrationController implements Initializable{
         List<Supplies> supplies = disponivel.getSelectionModel().getSelectedItems();
         ObservableList<Supplies> put = FXCollections.observableArrayList(supplies);
         for(Supplies supplies1 : put){
+            if(disponivel.getItems().contains(supplies1))
+                disponivel.getItems().remove(supplies1);
             if(selecionadas.getItems().contains(supplies1))
                 continue;
             selecionadas.getItems().add(supplies1);
@@ -247,13 +249,18 @@ public class TeacherRegistrationController implements Initializable{
         ObservableList<Supplies> remove = FXCollections.observableArrayList(supplies);
         for(Supplies s : remove){
             selecionadas.getItems().remove(s);
+            disponivel.getItems().add(s);
         }
     }
     private void fillListView() throws infoBancoExeption {
             SaveSupplie saveSupplie = SaveSupplie.getInstance();
-            List<Supplies> t = (List<Supplies>) saveSupplie.getRegister();
+            List<Supplies> t =  saveSupplie.getRegister();
             lists  = FXCollections.observableArrayList(t);
-            disponivel.setItems(lists);
+            for(Supplies s : lists){
+                System.out.println("Prof -> " + s.getTeacher()+ "Materia ->"+ s.getSupplieName());
+                if(s.getTeacher() ==  null)
+                    disponivel.getItems().add(s);
+            }
     }
 
 
@@ -289,6 +296,9 @@ public class TeacherRegistrationController implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+        for (Supplies s : disponivel.getItems()){
+            disponivel.getItems().remove(s);
+        }
         disponivel.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         selecionadas.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         register.setDisable(true);
