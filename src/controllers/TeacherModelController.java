@@ -43,4 +43,9 @@ public class TeacherModelController {
 
     }
 
+    @FXML
+    void change() throws IOException {
+        Parent root = (BorderPane) FXMLLoader.load(getClass().getResource("../view/AltTeacher.fxml"));
+        AssistentScene.getScene(changeAndDelete,root);
+    }
 }

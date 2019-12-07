@@ -103,7 +103,7 @@ public class AltClassmateController implements Initializable {
         });
         cpf.setCellFactory(TextFieldTableCell.forTableColumn());
         cpf.setOnEditCommit(e -> {
-            e.getTableView().getItems().get(e.getTablePosition().getRow()).setName(e.getNewValue());
+            e.getTableView().getItems().get(e.getTablePosition().getRow()).setCpf(e.getNewValue());
         });
         matricula.setCellFactory(TextFieldTableCell.forTableColumn());
         matricula.setEditable(false);
@@ -114,6 +114,7 @@ public class AltClassmateController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         table();
         tabela.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         exc.setOnAction(e ->{

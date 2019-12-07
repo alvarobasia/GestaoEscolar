@@ -337,6 +337,35 @@ public class ConnectJDCB {
 		}
 	}
 
+	public static void deleteTeacher(Teacher teacher) throws infoBancoExeption {
+		connect();
+		String sql = "DELETE FROM Professores WHERE id ="+ teacher.getTeacherID();
+		System.out.println(sql);
+		connect();
+		try(PreparedStatement ps = conn.prepareStatement(sql)){
+			ps.executeUpdate();
+		}catch (SQLException e){
+			e.printStackTrace();
+		}finally {
+			desconect();
+		}
+	}
+
+	public static void updateTeacher(Teacher teacher) throws infoBancoExeption {
+		connect();
+		String sql = "UPDATE Professores SET  nome = ?, cpf = ?, salario = ?" +
+				"WHERE id ="+ teacher.getTeacherID();
+		try(PreparedStatement ps = conn.prepareStatement(sql)){
+			ps.setString(1, teacher.getName());
+			ps.setString(2,teacher.getCpf());
+			ps.setFloat(3,teacher.getSalary());
+			ps.executeUpdate();
+		}catch (SQLException e){
+			e.printStackTrace();
+		}finally {
+			desconect();
+		}
+	}
 	public static void deleteClassmate(Classmate classmate) throws infoBancoExeption {
 		connect();
 		int end = -1;
@@ -374,6 +403,7 @@ public class ConnectJDCB {
 			desconect();
 		}
 	}
+
 	public static void updateClassmate(Classmate classmate, String name, String cpf) throws infoBancoExeption {
 		connect();
 		String result = "\""+ classmate.getRegistration()+"\"";
