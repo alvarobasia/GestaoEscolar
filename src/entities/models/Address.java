@@ -1,5 +1,7 @@
 package entities.models;
 
+import java.util.Objects;
+
 public class Address {
 	
 	private String city;
@@ -8,7 +10,7 @@ public class Address {
 	private int number;
 	private int cep;
 	private String complement;
-	
+	private Integer id;
 	public Address(String city, String district, String street, int number,int cep, String complement) {
 		super();
 		this.city = city;
@@ -18,7 +20,16 @@ public class Address {
 		this.complement = complement;
 		this.cep = cep;
 	}
-	
+	public Address(String city, String district, String street, int number,int cep, String complement, Integer id) {
+		super();
+		this.city = city;
+		this.district = district;
+		this.street = street;
+		this.number = number;
+		this.complement = complement;
+		this.cep = cep;
+		this.id = id;
+	}
 	public int getCep() {
 		return cep;
 	}
@@ -72,6 +83,25 @@ public class Address {
 		return "Address [city=" + city + ", district=" + district + ", street=" + street + ", number=" + number
 				+ ", cep=" + cep + ", complement=" + complement + "]";
 	}
-	
-	
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id){
+		this.id = id;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Address address = (Address) o;
+		return Objects.equals(id, address.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
 }

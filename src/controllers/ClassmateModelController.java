@@ -36,4 +36,10 @@ public class ClassmateModelController {
         Parent root = (BorderPane) FXMLLoader.load(getClass().getResource("../view/Registration.fxml"));
         AssistentScene.getScene(newClassmate,root);
     }
+
+    @FXML
+    void change() throws IOException {
+        Parent root = (BorderPane) FXMLLoader.load(getClass().getResource("../view/AltClassmate.fxml"));
+        AssistentScene.getScene(newClassmate,root);
+    }
 }

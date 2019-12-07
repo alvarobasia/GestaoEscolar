@@ -74,6 +74,7 @@ public class ConnectJDCB {
 		connect();
 		int endereco = -1;
 		String number = null;
+
 		if (classmate.getAddress() != null) {
 			String sql = "SELECT id, MAX(id) FROM Endereco";
 			try (Statement stmt = conn.createStatement();
@@ -84,6 +85,7 @@ public class ConnectJDCB {
 			}
 
 		}
+
 		if (classmate.getTelNumber() != null)
 			number = classmate.getTelNumber();
 		//	String cpf = classmate.getCpf();
@@ -103,7 +105,7 @@ public class ConnectJDCB {
 		int insertRows = 0;
 		PreparedStatement ps = null;
 		String sql = "INSERT INTO Alunos(nome,matricula,nascimento,data_de_entrada," +
-				"cpf,genero,curso,id_turma,id_endereco,id_notas,tel) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+				"cpf,genero,curso,id_curso,id_turma,id_endereco,id_notas,tel) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 		System.out.println(classmate.getID());
 		try {
 			ps = conn.prepareStatement(sql);
@@ -114,10 +116,11 @@ public class ConnectJDCB {
 			ps.setString(5, classmate.getCpf());
 			ps.setString(6, classmate.getGender().toString());
 			ps.setString(7, classmate.getCourse().toString());
-			ps.setInt(8, 8);
-			ps.setInt(9, endereco);
-			ps.setInt(10, 8);
-			ps.setString(11, number);
+			ps.setInt(8,classmate.getCourse().getId());
+			ps.setInt(9, 8);
+			ps.setInt(10, endereco);
+			ps.setInt(11, 8);
+			ps.setString(12, number);
 			insertRows = ps.executeUpdate();
 			System.out.println(insertRows);
 		} catch (SQLException e) {
@@ -195,6 +198,35 @@ public class ConnectJDCB {
         }
     }
 
+	public static int getCourseId() throws infoBancoExeption {
+		String result = null;
+		int r = 0;
+		connect();
+
+		String sql = "SELECT COUNT (*) FROM Cursos ORDER BY id DESC " ;
+		try (Statement stmt = conn.createStatement();
+			 ResultSet rs = stmt.executeQuery(sql)) {
+			r = rs.getInt(1);
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		System.out.println("yyy"+ r);
+		if(r == 0) {
+			desconect();
+			return 1;
+		}
+		sql = "SELECT id, MAX (id) FROM Cursos " ;
+		try (Statement stmt = conn.createStatement();
+			 ResultSet rs = stmt.executeQuery(sql)) {
+			result = rs.getString("id");
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		desconect();
+		System.out.println(result+"ttt");
+		System.out.println(r + "ooo");
+		return Integer.parseInt(result)+1;
+	}
     public static int getTeacherId() throws infoBancoExeption {
 		String result = null;
 		int r = 0;
@@ -270,7 +302,23 @@ public class ConnectJDCB {
 		}
 
 	}
-
+	public static void insertClassroom(Classroom classroom) throws infoBancoExeption {
+		connect();
+		PreparedStatement ps = null;
+		String sql = "INSERT INTO Turma(nome, id, materia, turno) VALUES(?,?,?,?)";
+		try{
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, classroom.getRoom());
+			ps.setString(2,classroom.getID());
+			ps.setString(3,classroom.getSupplies().getSupplieID());
+			ps.setString(4,classroom.getTurn().toString());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			desconect();
+		}
+	}
 	public static void ligaProfMat(String nome, int id, String codigo) throws infoBancoExeption {
 		String k = "\'"+codigo+"\'";
 		String sql = "UPDATE Materias SET id_prof = ?, professor_nome = ?" +
@@ -284,6 +332,135 @@ public class ConnectJDCB {
                 ps.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println(e);
+		}finally {
+			desconect();
+		}
+	}
+
+	public static void deleteClassmate(Classmate classmate) throws infoBancoExeption {
+		connect();
+		int end = -1;
+		String result = "\""+ classmate.getRegistration()+"\"";
+		if(classmate.getAddress() != null) {
+			String s = "SELECT id_endereco FROM Alunos WHERE matricula ="+ result;
+			try (Statement stmt = conn.createStatement();
+				 ResultSet rs = stmt.executeQuery(s)){
+				 end = rs.getInt("id_endereco");
+			}catch (SQLException e){
+				e.printStackTrace();
+			}finally {
+				desconect();
+			}
+		}
+		if(end != -1){
+			String t = "DELETE FROM Endereco WHERE id ="+ end;
+			connect();
+			try(PreparedStatement ps = conn.prepareStatement(t)){
+				ps.executeUpdate();
+			}catch (SQLException e){
+				e.printStackTrace();
+			}finally {
+				desconect();
+			}
+		}
+		String sql = "DELETE FROM Alunos WHERE matricula ="+" "+result;
+		System.out.println(sql);
+		connect();
+		try(PreparedStatement ps = conn.prepareStatement(sql)){
+			ps.executeUpdate();
+		}catch (SQLException e){
+			e.printStackTrace();
+		}finally {
+			desconect();
+		}
+	}
+	public static void updateClassmate(Classmate classmate, String name, String cpf) throws infoBancoExeption {
+		connect();
+		String result = "\""+ classmate.getRegistration()+"\"";
+		String sql = "UPDATE Alunos SET  nome = ?, cpf = ?" +
+				"WHERE matricula ="+ result;
+		try(PreparedStatement ps = conn.prepareStatement(sql)){
+			ps.setString(1, name);
+			ps.setString(2,cpf);
+			ps.executeUpdate();
+		}catch (SQLException e){
+			e.printStackTrace();
+		}finally {
+			desconect();
+		}
+	}
+	public static void getAllAdress() throws infoBancoExeption {
+		connect();
+		Address address = null;
+		List<Address> a = SaveAdresses.getInstance().getRegister();
+		SaveAdresses saveAdresses = SaveAdresses.getInstance();
+		String sql =  "SELECT * FROM Endereco";
+		try (Statement stmt = conn.createStatement();
+			 ResultSet rs = stmt.executeQuery(sql)){
+			while (rs.next()){
+				String city = rs.getString("cidade");
+				String bairro = rs.getString("bairro");
+				String street = rs.getString("rua");
+				Integer numero = rs.getInt("numero");
+				Integer cep = rs.getInt("cep");
+				String comp = rs.getString("complemento");
+				Integer id = rs.getInt("id");
+				address = new Address(city, bairro,street,numero,cep,city,id);
+				if(!a.contains(address))
+					saveAdresses.add(address);
+			}
+		}catch (SQLException e){
+			e.printStackTrace();
+		}finally {
+			desconect();
+		}
+	}
+	public static void getAllClassmates() throws infoBancoExeption{
+		connect();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		Classmate classmate = null;
+		List<Classmate> a = SaveClassemate.getInstance().getRegister();
+		SaveClassemate saveClassemate = SaveClassemate.getInstance();
+		List<Course> saveCourses = SaveCourses.getInstance().getRegister();
+		Course course = null;
+		List<Address> saveAdress = SaveAdresses.getInstance().getRegister();
+		Address address = null;
+		String sql =  "SELECT * FROM Alunos";
+		try (Statement stmt = conn.createStatement();
+			 ResultSet rs = stmt.executeQuery(sql)){
+			while (rs.next()){
+				String nome = rs.getString("nome");
+				String mat = rs.getString("matricula");
+				String nascimento = rs.getString("nascimento");
+				String cpf = rs.getString("cpf");
+				String genero = rs.getString("genero");
+				Integer curso = rs.getInt("id_curso");
+				Integer endereco = rs.getInt("id_endereco");
+				String tel = rs.getString("tel");
+				Integer id = rs.getInt("id");
+				for (Course c : saveCourses){
+					if(c.getId() == curso){
+						course = c;
+						break;
+					}
+				}
+				if(endereco != -1){
+
+					for (Address c : saveAdress){
+						if(c.getId().equals(endereco)){
+							address = c;
+							break;
+						}
+					}
+					classmate = new Classmate(nome,LocalDate.parse(nascimento,formatter),cpf,Gender.valueOf(genero),course,address,tel,mat);
+				}else {
+					classmate = new Classmate(nome,LocalDate.parse(nascimento,formatter),cpf,Gender.valueOf(genero),course,null,tel,mat);
+				}
+				if(!a.contains(classmate))
+					saveClassemate.add(classmate);
+			}
+		}catch (SQLException e){
+			e.printStackTrace();
 		}finally {
 			desconect();
 		}
@@ -373,7 +550,8 @@ public class ConnectJDCB {
 			while (rs.next()){
 				String nome = rs.getString("nome");
 				Integer duracao = rs.getInt("duracao");
-				course = new Course(nome, duracao);
+				Integer id = rs.getInt("id");
+				course = new Course(nome, duracao, id);
 				saveCourses.add(course);
 			}
 		} catch (SQLException e) {
@@ -460,6 +638,15 @@ public class ConnectJDCB {
 				"nome varchar(30) not null," + "\n" +
 				"duracao integer not null," + "\n" +
 				"id integer not null primary key autoincrement);";
+		return sb;
+	}
+	public static String generateClassroomTable(){
+		String sb = "create table if not exists Turma (" + "\n" +
+				"nome varchar(30) not null," + "\n" +
+				"id varchar(30) primary key not null," + "\n" +
+				"materia varchar(30) not null," + "\n" +
+				"turno varchar(30) not null," + "\n" +
+				"foreign key(materia) references Materias(codigo));";
 		return sb;
 	}
 }

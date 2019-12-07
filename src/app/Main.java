@@ -54,7 +54,7 @@ public class Main extends Application {
 
     public static void main(String[] args) throws infoBancoExeption, SQLException {
         String[] table = {ConnectJDCB.generateCourseTable(), ConnectJDCB.generateTeacherTable(), ConnectJDCB.generateClassmateTable(),
-                ConnectJDCB.generateSuppliesTable(), ConnectJDCB.generateAdressTable()};
+                ConnectJDCB.generateSuppliesTable(), ConnectJDCB.generateAdressTable(), ConnectJDCB.generateClassroomTable()};
         for (String s: table) {
             ConnectJDCB.creatNewTable(s);
         }
@@ -63,9 +63,10 @@ public class Main extends Application {
         } catch (entities.exeptions.infoBancoExeption infoBancoExeption) {
             infoBancoExeption.printStackTrace();
         }
-
+        ConnectJDCB.getAllAdress();
         ConnectJDCB.getAllCourses();
         ConnectJDCB.getAllSupplies();
+        ConnectJDCB.getAllClassmates();
         for (Teacher R : SaveTeachers.getInstance().getRegister())
             System.out.println("qq"+R.getName());
 

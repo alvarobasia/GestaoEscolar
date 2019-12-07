@@ -1,27 +1,28 @@
 package controllers;
 
+import entities.enums.Turn;
 import entities.exeptions.infoBancoExeption;
+import entities.models.Classroom;
 import entities.models.Course;
 import entities.models.Supplies;
 import entities.models.Teacher;
 import entities.services.ConnectJDCB;
+import entities.services.SaveClassrooms;
 import entities.services.SaveCourses;
 import entities.services.SaveSupplie;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.Parent;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -103,7 +104,35 @@ public class ClassroomRegistrationController implements Initializable {
 
     @FXML
     void register() {
+        Classroom classroom;
+        String name = fieldClass.getText();
+        String ID = filedID.getText();
+        RadioButton aw = (RadioButton)turno.getSelectedToggle();
+        Supplies supplies = suplliesOnComboBox.getValue();
+        if(supplies.getTeacher() == null)
+            classroom = new Classroom(name, ID, supplies, Turn.valueOf(aw.getId()));
+        else
+            classroom = new Classroom(name, ID, supplies,Turn.valueOf(aw.getId()) ,supplies.getTeacher());
 
+        try{
+            SaveClassrooms.getInstance().add(classroom);
+            ConnectJDCB.insertClassroom(classroom);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Cadastro de Cursos");
+            alert.setHeaderText("O curso foi cadastrado com sucesso!");
+            alert.show();
+            try {
+                voltarMenu();
+            }catch (Exception e){
+                System.out.println(e);
+            }
+        } catch (entities.exeptions.infoBancoExeption e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro no banco de dados");
+            alert.setHeaderText(e.getMessage());
+            alert.show();
+        }
     }
 
     private boolean validator(){
@@ -164,8 +193,9 @@ public class ClassroomRegistrationController implements Initializable {
     }
 
     @FXML
-    void voltarMenu() {
-
+    void voltarMenu() throws IOException {
+        Parent root = (BorderPane) FXMLLoader.load(getClass().getResource("../view/CourseModel.fxml"));
+        AssistentScene.getScene(backButton,root);
     }
 
     @Override

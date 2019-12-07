@@ -14,7 +14,7 @@
                <font>
                   <Font name="Liberation Sans" size="22.0" />
                </font></Button>
-				<Button fx:id="changeAndDelete" layoutX="89.0" layoutY="370.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="339.0" styleClass="btn" stylesheets="@application.css" text="Excluir/Alterar um Aluno" textAlignment="CENTER">
+				<Button fx:id="changeAndDelete" onAction="#change" layoutX="89.0" layoutY="370.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="339.0" styleClass="btn" stylesheets="@application.css" text="Excluir/Alterar um Aluno" textAlignment="CENTER">
                <font>
                   <Font name="Liberation Sans" size="22.0" />
                </font></Button>

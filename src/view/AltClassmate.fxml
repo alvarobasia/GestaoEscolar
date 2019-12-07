@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AltClassmateController">
+   <center>
+      <AnchorPane fx:id="ba" prefHeight="900.0" prefWidth="900.0" styleClass="back" stylesheets="@Registration.css" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="texts" layoutX="55.0" layoutY="63.0" prefHeight="51.0" prefWidth="492.0" styleClass="texts" stylesheets="@Registration.css" text="Alterar/Excluir um aluno:">
+               <font>
+                  <Font name="Liberation Sans Bold" size="45.0" />
+               </font>
+            </Label>
+            <TableView fx:id="tabela" editable="true" layoutX="6.0" layoutY="124.0" prefHeight="343.0" prefWidth="887.0" tableMenuButtonVisible="true">
+              <columns>
+                <TableColumn fx:id="nome" prefWidth="205.0" text="Nome" />
+                <TableColumn fx:id="cpf" prefWidth="152.0" text="CPF" />
+                  <TableColumn fx:id="matricula" prefWidth="209.0" text="Matrícula" />
+                  <TableColumn fx:id="nascimento" prefWidth="160.0" text="Telefone" />
+                  <TableColumn fx:id="curso" prefWidth="160.0" text="Curso" />
+              </columns>
+            </TableView>
+            <Button fx:id="exc" layoutX="274.0" layoutY="501.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="108.0" styleClass="voltar" stylesheets="@Registration.css" text="Excluir">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
+            <Button fx:id="alt" layoutX="450.0" layoutY="501.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="108.0" styleClass="cadastro" stylesheets="@Registration.css" text="Alterar">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
+         </children></AnchorPane>
+   </center>
+   <left>
+      <Pane fx:id="lateralBar" prefHeight="800.0" prefWidth="306.0" styleClass="lateral" stylesheets="@Registration.css" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="backButton" layoutX="77.0" layoutY="54.0" mnemonicParsing="false" onAction="#voltarMenu" prefHeight="56.0" prefWidth="133.0" styleClass="voltar" stylesheets="@Registration.css" text="Voltar" textFill="RED">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
+         </children></Pane>
+   </left>
+</BorderPane>

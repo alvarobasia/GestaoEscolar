@@ -1,5 +1,6 @@
 package entities.models;
 
+import java.awt.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -8,6 +9,8 @@ import java.util.List;
 import entities.enums.Gender;
 import entities.exeptions.infoBancoExeption;
 import entities.services.ConnectJDCB;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
 
 
 public class Classmate extends Person{
@@ -35,6 +38,11 @@ public class Classmate extends Person{
 		this.course = course;
 		registrationGenerator();
 	}
+    public Classmate(String name, LocalDate birthDate, String cpf, Gender gender ,Course course, Address address, String telNumber, String registration) {
+        super(name, birthDate, cpf, gender, address, telNumber);
+        this.course = course;
+        this.registration = registration;
+    }
 	
 	public Classmate(String name, LocalDate birthDate, String cpf, Gender gender ,Course course, Address address) {
 		super(name, birthDate, cpf, gender, address);
@@ -70,6 +78,7 @@ public class Classmate extends Person{
 		this.registration = sb.toString();
 		COUNT++;
 	}
+
 	
 	public Course getCourse() {
 		return course;
@@ -111,8 +120,8 @@ public class Classmate extends Person{
 	public Integer searchPersonByCPF(List<? extends Person> list, String cpf) {
 		return null;
 	}
-	
-	@Override
+
+    @Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("--------Informaçoẽs do Professor----------\n");
