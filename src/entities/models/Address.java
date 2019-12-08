@@ -2,6 +2,10 @@ package entities.models;
 
 import java.util.Objects;
 
+/**
+ * Entidade Endereço
+ * @author Alvaro Basilio
+ */
 public class Address {
 	
 	private String city;

@@ -1,14 +1,16 @@
 package entities.models;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
+
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 
 
-
+/**
+ * Entidade Materia
+ * @author Alvaro Basilio
+ */
 public class Supplies {
 	private String supplieName;
 	private String supplieID;

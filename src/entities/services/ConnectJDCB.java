@@ -4,10 +4,8 @@ package entities.services;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import entities.enums.Gender;
 import entities.enums.Nomination;
 import entities.enums.Situation;
@@ -16,10 +14,19 @@ import entities.exeptions.infoBancoExeption;
 import entities.models.*;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Classe que faz todas as conexões com banco de dados SQLite utilizando JDBC api
+ * @author Alvaro Basilio
+ */
 public class ConnectJDCB {
 	private final static String url = "jdbc:sqlite:C:\\Users\\alvar\\IdeaProjects\\trabalhofinal\\GestaoEscolar\\src\\dataBase\\banco.db";
 	private static Connection conn = null;
 
+	/**
+	 * Metodo para conectar ao banco
+	 * @return Connection retorna uma conexão
+	 * @throws infoBancoExeption
+	 */
 	public static Connection connect() throws infoBancoExeption {
 		try {
 			conn = DriverManager.getConnection(url);
@@ -33,6 +40,10 @@ public class ConnectJDCB {
 		return null;
 	}
 
+	/**
+	 * Metodo para desconectar ao banco de dados
+	 * @throws infoBancoExeption
+	 */
 	public static void desconect() throws infoBancoExeption {
 		try {
 			if (!conn.isClosed() && conn != null) {
@@ -45,6 +56,10 @@ public class ConnectJDCB {
 		}
 	}
 
+	/**
+	 * Insere um endereço no banco
+	 * @throws infoBancoExeption
+	 */
 	public static void insertAdress(@NotNull Address address) throws infoBancoExeption {
 		connect();
 		int insertRows = 0;
@@ -72,6 +87,10 @@ public class ConnectJDCB {
 		}
 	}
 
+	/**
+	 * Insere um aluno no banco
+	 * @throws infoBancoExeption
+	 */
 	public static void insertClassmate(@NotNull Classmate classmate) throws infoBancoExeption {
 		connect();
 		int endereco = -1;
@@ -130,6 +149,13 @@ public class ConnectJDCB {
 			desconect();
 		}
 	}
+
+	/**
+	 * Obtem a ultima matricula registrada
+	 * @return int ultima matricula registrada
+	 * @throws infoBancoExeption
+	 * @throws SQLException
+	 */
 	public static int getLestIdClass() throws infoBancoExeption, SQLException {
 		String result = null;
 		int r = 5;
@@ -160,6 +186,10 @@ public class ConnectJDCB {
 		String[] y = i.split("#");
 		return Integer.parseInt(y[2])+ 1;
 	}
+	/**
+	 * Insere um professor no banco
+	 * @throws infoBancoExeption
+	 */
 	public static void insertTeacher(@NotNull Teacher teacher) throws infoBancoExeption{
 	    connect();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -198,6 +228,11 @@ public class ConnectJDCB {
         }
     }
 
+	/**
+	 * Obtem o ultimo id do curso
+	 * @return int id do curso
+	 * @throws infoBancoExeption
+	 */
 	public static int getCourseId() throws infoBancoExeption {
 		String result = null;
 		int r = 0;
@@ -227,6 +262,12 @@ public class ConnectJDCB {
 		System.out.println(r + "ooo");
 		return Integer.parseInt(result)+1;
 	}
+
+	/**
+	 * Obtem o ultimo id do professor
+	 * @return ind id professor
+	 * @throws infoBancoExeption
+	 */
     public static int getTeacherId() throws infoBancoExeption {
 		String result = null;
 		int r = 0;
@@ -256,6 +297,10 @@ public class ConnectJDCB {
 		System.out.println(r + "ooo");
 		return Integer.parseInt(result)+1;
 	}
+	/**
+	 * Insere uma materia no banco
+	 * @throws infoBancoExeption
+	 */
 	public static void insertSuplies(@NotNull Supplies supplies) throws infoBancoExeption {
 		connect();
 		int insertRows = 0;
@@ -285,7 +330,10 @@ public class ConnectJDCB {
 			desconect();
 		}
 	}
-
+	/**
+	 * Insere um curso no banco
+	 * @throws infoBancoExeption
+	 */
 	public static void insertCourse(Course course) throws infoBancoExeption {
 		connect();
 		String sql = "INSERT INTO Cursos(nome, duracao)" +
@@ -302,6 +350,10 @@ public class ConnectJDCB {
 		}
 
 	}
+	/**
+	 * Insere uma sala no banco
+	 * @throws infoBancoExeption
+	 */
 	public static void insertClassroom(Classroom classroom) throws infoBancoExeption {
 		connect();
 		PreparedStatement ps = null;
@@ -319,6 +371,11 @@ public class ConnectJDCB {
 			desconect();
 		}
 	}
+
+	/**
+	 * Altera o banco para ligar a tabela professor com materia
+	 * @throws infoBancoExeption
+	 */
 	public static void ligaProfMat(String nome, int id, String codigo) throws infoBancoExeption {
 		String k = "\'"+codigo+"\'";
 		String sql = "UPDATE Materias SET id_prof = ?, professor_nome = ?" +
@@ -337,6 +394,11 @@ public class ConnectJDCB {
 		}
 	}
 
+	/**
+	 * Deleta uma nota
+	 * @param grades
+	 * @throws infoBancoExeption
+	 */
 	public static void deleteGrade(Grades grades) throws infoBancoExeption {
 		connect();
 		String result = "\""+ grades.getMatricula()+"\"";
@@ -350,6 +412,12 @@ public class ConnectJDCB {
 			desconect();
 		}
 	}
+
+	/**
+	 * Deleta um professor
+	 * @param teacher
+	 * @throws infoBancoExeption
+	 */
 	public static void deleteTeacher(Teacher teacher) throws infoBancoExeption {
 		connect();
 		String t = "UPDATE Materias SET  id_prof  = NULL, Materias.professor_nome = NULL " +
@@ -371,7 +439,11 @@ public class ConnectJDCB {
 		}
 	}
 
-
+	/**
+	 * Altera um professor
+	 * @param teacher
+	 * @throws infoBancoExeption
+	 */
 	public static void updateTeacher(Teacher teacher) throws infoBancoExeption {
 		connect();
 		String sql = "UPDATE Professores SET  nome = ?, cpf = ?, salario = ?" +
@@ -387,11 +459,18 @@ public class ConnectJDCB {
 			desconect();
 		}
 	}
+
+	/**
+	 * Altera uma nota
+	 * @param grades
+	 * @throws infoBancoExeption
+	 */
 	public static void updateGrade(Grades grades) throws infoBancoExeption {
 		connect();
 		String result = "\""+ grades.getMatricula()+"\"";
+		String r = "\""+ grades.getSala()+"\"";
 		String sql = "UPDATE Notas SET  faltas = ?, nota = ?, situacao = ?" +
-				"WHERE matricula ="+ result + "AND sala ="+ grades.getSala();
+				"WHERE matricula ="+ result + "AND sala ="+ r;
 		try(PreparedStatement ps = conn.prepareStatement(sql)){
 			ps.setInt(1, grades.getGap());
 			ps.setFloat(2,grades.getGrade());
@@ -403,6 +482,12 @@ public class ConnectJDCB {
 			desconect();
 		}
 	}
+
+	/**
+	 * Deleta um aluno
+	 * @param classmate
+	 * @throws infoBancoExeption
+	 */
 	public static void deleteClassmate(Classmate classmate) throws infoBancoExeption {
 		connect();
 		int end = -1;
@@ -451,6 +536,10 @@ public class ConnectJDCB {
 		}
 	}
 
+	/**
+	 * altera um aluno
+	 * @throws infoBancoExeption
+	 */
 	public static void updateClassmate(Classmate classmate, String name, String cpf) throws infoBancoExeption {
 		connect();
 		String result = "\""+ classmate.getRegistration()+"\"";
@@ -466,6 +555,11 @@ public class ConnectJDCB {
 			desconect();
 		}
 	}
+
+	/**
+	 * Obem todos os endereços para a instancia
+	 * @throws infoBancoExeption
+	 */
 	public static void getAllAdress() throws infoBancoExeption {
 		connect();
 		Address address = null;
@@ -492,6 +586,10 @@ public class ConnectJDCB {
 			desconect();
 		}
 	}
+	/**
+	 * Obem todos as notas para a instancia
+	 * @throws infoBancoExeption
+	 */
     public static void getAllGrades() throws infoBancoExeption {
         connect();
         Grades grades = null;
@@ -524,6 +622,10 @@ public class ConnectJDCB {
             desconect();
         }
     }
+	/**
+	 * Obem todos os alunos para a instancia
+	 * @throws infoBancoExeption
+	 */
 	public static void getAllClassmates() throws infoBancoExeption{
 		connect();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -574,6 +676,10 @@ public class ConnectJDCB {
 			desconect();
 		}
 	}
+	/**
+	 * Obem todos as materias para a instancia
+	 * @throws infoBancoExeption
+	 */
 	public static void getAllSupplies() throws infoBancoExeption {
 		connect();
 		Supplies supplies = null;
@@ -621,6 +727,10 @@ public class ConnectJDCB {
 		}
 	}
 
+	/**
+	 * Obem todos os professores para a instancia
+	 * @throws infoBancoExeption
+	 */
 	public static void getAllTeachers() throws infoBancoExeption {
 		connect();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -649,6 +759,10 @@ public class ConnectJDCB {
 			desconect();
 		}
 	}
+	/**
+	 * Obem todos os cursos para a instancia
+	 * @throws infoBancoExeption
+	 */
 	public static void getAllCourses() throws infoBancoExeption, SQLException {
 		connect();
 		Course course = null;
@@ -670,6 +784,10 @@ public class ConnectJDCB {
 		}
 
 	}
+	/**
+	 * Obem todos as salas para a instancia
+	 * @throws infoBancoExeption
+	 */
 	public static void getAllClassrooms() throws infoBancoExeption {
 		connect();
 		Classroom classroom = null;
@@ -701,6 +819,10 @@ public class ConnectJDCB {
 		}
 
 	}
+	/**
+	 * Gera a tabela de ligação muitos para muitos
+	 * @throws infoBancoExeption
+	 */
 	public static void generateClass(String classroom, String matricula, Grades grades) throws infoBancoExeption {
 		connect();
 		PreparedStatement ps =null;
@@ -736,6 +858,10 @@ public class ConnectJDCB {
         }
 		}
 
+	/**
+	 * Cria uma nova tabela
+	 * @throws infoBancoExeption
+	 */
 	public static void creatNewTable(String string) throws infoBancoExeption {
     	connect();
     	try {
@@ -748,9 +874,12 @@ public class ConnectJDCB {
 			desconect();
 		}
     }
-    
-    
-    @NotNull
+
+	/**
+	 * Obtem a query de criação de tabela de endereços
+	 * @return String
+	 */
+	@NotNull
     public static String generateAdressTable() {
 		String sb = "CREATE TABLE IF NOT EXISTS `Endereco` (" + "\n" +
 				"`cidade` VARCHAR(30)  NOT NULL," + "\n" +
@@ -764,6 +893,11 @@ public class ConnectJDCB {
 				")";
 		return sb;
     }
+
+	/**
+	 * Obtem a query de criação de tabela de alunos
+	 * @return String
+	 */
 	@NotNull
 	public static String generateClassmateTable() {
 		String sb = "create table if not exists Alunos (" + "\n" +
@@ -781,6 +915,11 @@ public class ConnectJDCB {
 				"foreign key (id_endereco) references Endereco(id));" ;
 		return sb;
 	}
+
+	/**
+	 * Obtem a query de criação de tabela de materias
+	 * @return String
+	 */
     @NotNull
     public static String generateSuppliesTable() {
         String sb = "create table if not exists Materias (" + "\n" +
@@ -794,6 +933,10 @@ public class ConnectJDCB {
         return sb;
     }
 
+	/**
+	 * Obtem a query de criação de tabela de professores
+	 * @return String
+	 */
     public static String generateTeacherTable(){
 		String sb = "create table if not exists Professores (" + "\n" +
 				"nome varchar(30) not null," + "\n" +
@@ -806,6 +949,11 @@ public class ConnectJDCB {
 				"salario integer default null);" + "\n" ;
 		return sb;
 	}
+
+	/**
+	 * Obtem a query de criação de tabela de cursos
+	 * @return String
+	 */
 	public static String generateCourseTable(){
 		String sb = "create table if not exists Cursos (" + "\n" +
 				"nome varchar(30) not null," + "\n" +
@@ -813,6 +961,11 @@ public class ConnectJDCB {
 				"id integer not null primary key autoincrement);";
 		return sb;
 	}
+
+	/**
+	 * Obtem a query de criação de tabela de salas
+	 * @return String
+	 */
 	public static String generateClassroomTable(){
 		String sb = "create table if not exists Turma (" + "\n" +
 				"nome varchar(30) not null," + "\n" +
@@ -822,6 +975,11 @@ public class ConnectJDCB {
 				"foreign key(materia) references Materias(codigo));";
 		return sb;
 	}
+
+	/**
+	 * Obtem a query de criação de tabela de notas
+	 * @return String
+	 */
 	public static String generateGradeTable(){
 		String sb = "create table if not exists Notas (" + "\n" +
 				"nome varchar(30) default null," + "\n" +
@@ -837,6 +995,11 @@ public class ConnectJDCB {
                 "foreign key(sala) references Turma(id));";
 		return sb;
 	}
+
+	/**
+	 * Obtem a query de criação de tabela de relacionamentos
+	 * @return String
+	 */
 	public static String generateRelashipTable(){
 		String sb = "create table if not exists Relacionamento (" + "\n" +
 				"id_turma varchar(30) not null," + "\n" +

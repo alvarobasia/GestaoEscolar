@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 
-import entities.enums.Gender;
 import entities.enums.Nomination;
 import entities.exeptions.DataExeption;
 import entities.exeptions.InvalidCharacterExeption;
@@ -28,8 +27,13 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import entities.exeptions.infoBancoExeption;
 
+/**
+ * @author alvaro Basilio
+ * Classe de controller , utilizando padroes mvc
+ * @version 1.0
+ * @see javafx.fxml.Initializable
+ */
 public class TeacherRegistrationController implements Initializable{
 
 
@@ -113,13 +117,18 @@ public class TeacherRegistrationController implements Initializable{
 
     private ObservableList<Supplies> put;
 
-
+    /**
+     *Verifica se os campos estão preenchidos
+     * @return boolean verificaçao de preenchimento
+     */
     private boolean fieldsValidate(){
         return !(fieldName.getText().isEmpty() || filedNick.getText().isEmpty() || data.getValue() == null ||
                 cpf.getText().isEmpty() || !Gender.getSelectedToggle().isSelected());
     }
 
-
+    /**
+     * Modifica o botão dependendo dos campos preenchidos
+     */
     @FXML
    private void register(){
         if(fieldsValidate())
@@ -128,6 +137,12 @@ public class TeacherRegistrationController implements Initializable{
             register.setDisable(true);
     }
 
+    /**
+     * Coloca o nome corretamente dependendo da nomeação e genero
+     * @param Gender gender
+     * @param RadioButton grau
+     * @return
+     */
     @FXML
     private String getCorectName(RadioButton gender, RadioButton grau){
         String name = null;
@@ -145,6 +160,9 @@ public class TeacherRegistrationController implements Initializable{
         return name;
     }
 
+    /**
+     * Registra um novo professor
+     */
     @FXML
     private void registerTeacher(){
         erroName.setVisible(false);
@@ -229,7 +247,9 @@ public class TeacherRegistrationController implements Initializable{
 
     }
 
-
+    /**
+     * Povoa a listView com as materias ministradas
+     */
     @FXML
     private void colocarMateria(){
         List<Supplies> supplies = disponivel.getSelectionModel().getSelectedItems();
@@ -243,6 +263,9 @@ public class TeacherRegistrationController implements Initializable{
         }
     }
 
+    /**
+     * Retira materias do listView
+     */
     @FXML
     private void retirarMateria(){
         List<Supplies> supplies = selecionadas.getSelectionModel().getSelectedItems();
@@ -252,6 +275,11 @@ public class TeacherRegistrationController implements Initializable{
             disponivel.getItems().add(s);
         }
     }
+
+    /**
+     * Povoa o listView de matrias disponivies
+     * @throws infoBancoExeption
+     */
     private void fillListView() throws infoBancoExeption {
             SaveSupplie saveSupplie = SaveSupplie.getInstance();
             List<Supplies> t =  saveSupplie.getRegister();
@@ -263,7 +291,9 @@ public class TeacherRegistrationController implements Initializable{
             }
     }
 
-
+    /**
+     * Formata o cpf com uma mascara
+     */
     @FXML
     void cpfFormatador() {
     	TextFieldFormatter tff = new TextFieldFormatter();
@@ -273,6 +303,9 @@ public class TeacherRegistrationController implements Initializable{
     	tff.formatter();
     }
 
+    /**
+     * Formata o salario com uma data
+     */
     @FXML
     void salarioFormatador() {
     	TextFieldFormatter t = new TextFieldFormatter();
@@ -281,6 +314,11 @@ public class TeacherRegistrationController implements Initializable{
     	t.setTf(salary);
     	t.formatter();
     }
+
+    /**
+     * Retorna ao modulo de professor
+     * @throws IOException
+     */
     @FXML
     void voltarMenu() throws IOException {
     	//Stage sc = (Stage) voltar.getScene().getWindow();
@@ -294,6 +332,9 @@ public class TeacherRegistrationController implements Initializable{
 
     }
 
+    /**
+     * Método que sobreescreve da interface Initialize, ela é executada quando a cena é carregada
+     */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
         for (Supplies s : disponivel.getItems()){

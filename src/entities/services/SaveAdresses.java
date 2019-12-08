@@ -6,6 +6,10 @@ import org.jetbrains.annotations.Contract;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Utilizando o modelo singthom, registra as endereços
+ * @author Alvaro Basilio
+ */
 public class SaveAdresses {
     private List<Address> adressList = new ArrayList<>();
     private static final SaveAdresses INSTANCE  = new SaveAdresses();

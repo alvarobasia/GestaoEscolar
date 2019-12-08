@@ -2,7 +2,6 @@ package controllers;
 
 import entities.exeptions.InvalidCharacterExeption;
 import entities.exeptions.NumbersExeption;
-import entities.exeptions.infoBancoExeption;
 import entities.models.Course;
 import entities.services.ConnectJDCB;
 import entities.services.SaveCourses;
@@ -21,7 +20,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
+/**
+ * @author alvaro Basilio
+ * Classe de controller , utilizando padroes mvc
+ * @version 1.0
+ * @see javafx.fxml.Initializable
+ */
 public class CourseRegistrationController implements Initializable {
     @FXML
     private Label texts;
@@ -50,16 +54,26 @@ public class CourseRegistrationController implements Initializable {
     @FXML
     private Button backButton;
 
+    /**
+     * Valida os campos
+     */
     @FXML
     private void textValidate(){
         if(validator())
             cadastro.setDisable(false);
     }
 
+    /**
+     *
+     * @return boolean - verifica o preechimento dos campos
+     */
     private boolean validator(){
         return !fieldseme.getText().isEmpty() && !fieldcourse.getText().isEmpty();
     }
 
+    /**
+     * Registra um novo curso
+     */
     @FXML
     private void register(){
         erroName.setVisible(false);
@@ -97,12 +111,21 @@ public class CourseRegistrationController implements Initializable {
         }
     }
 
+    /**
+     * Retorna ao modulo de cursos
+     * @throws IOException
+     */
     @FXML
     private void voltarMenu() throws IOException {
         Parent root = (BorderPane) FXMLLoader.load(getClass().getResource("../view/CourseModel.fxml"));
         AssistentScene.getScene(backButton,root);
     }
 
+    /**
+     * Método que sobreescreve da interface Initialize, ela é executada quando a cena é carregada
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         erroName.setVisible(false);

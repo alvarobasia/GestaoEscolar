@@ -1,9 +1,7 @@
 package controllers;
 
-import entities.models.Classmate;
 import entities.models.Teacher;
 import entities.services.ConnectJDCB;
-import entities.services.SaveClassemate;
 import entities.services.SaveTeachers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,13 +16,18 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.util.converter.FloatStringConverter;
-import javafx.util.converter.IntegerStringConverter;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * @author avaro Basilio
+ * Classe de controller , utilizando padroes mvc
+ * @version 1.0
+ * @see javafx.fxml.Initializable
+ */
 public class AltTeacherController implements Initializable {
 
     @FXML
@@ -62,12 +65,17 @@ public class AltTeacherController implements Initializable {
 
     private ObservableList<Teacher> list;
 
+    /**
+     * Metodo para povoar a tabela
+     */
     private void fillList(){
         List<Teacher> c = SaveTeachers.getInstance().getRegister();
         list =  FXCollections.observableArrayList(c);
         tabela.setItems(list);
     }
-
+    /**
+     * Médoto construtor das células na tabela
+     */
     private void table(){
         fillList();
         nome.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -77,6 +85,9 @@ public class AltTeacherController implements Initializable {
         editCols();
     }
 
+    /**
+     * Torna as celulas editaveis
+     */
     private void editCols(){
         Nomeacao.setEditable(false);
         nome.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -92,12 +103,21 @@ public class AltTeacherController implements Initializable {
             e.getTableView().getItems().get(e.getTablePosition().getRow()).setSalary(e.getNewValue());
         });
     }
+    /**
+     * Médoto para retorar ao modulo
+     * @throws IOException
+     */
     @FXML
     void voltarMenu() throws IOException {
         Parent root = (BorderPane) FXMLLoader.load(getClass().getResource("../view/TeacherModel.fxml"));
         AssistentScene.getScene(backButton,root);
     }
 
+    /**
+     * Método que sobreescreve da interface Initialize, ela é executada quando a cena é carregada
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         table();

@@ -1,18 +1,17 @@
 package entities.models;
 
-import java.awt.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import entities.enums.Gender;
-import entities.exeptions.infoBancoExeption;
 import entities.services.ConnectJDCB;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
 
-
+/**
+ * Entidade Aluno
+ * @author Alvaro Basilio
+ */
 public class Classmate extends Person{
 	
     private String registration;
@@ -96,30 +95,12 @@ public class Classmate extends Person{
 		this.registration = registration;
 	}
 
-	@Override
-	public Person removePerson(List<Person> p, int id) {
-		return null;
-	}
-
-	@Override
-	public Integer searchPersonByID(List<? extends Person> list, int id) {
-		return null;
-	}
-
-	@Override
-	public Integer searchPersonByName(List<? extends Person> list, String name) {
-		return null;
-	}
 
 	@Override
 	protected int generateID() {
 		return 0;
 	}
 
-	@Override
-	public Integer searchPersonByCPF(List<? extends Person> list, String cpf) {
-		return null;
-	}
 
     @Override
 	public String toString() {

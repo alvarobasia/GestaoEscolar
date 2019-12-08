@@ -3,20 +3,9 @@ package app;
 
 
 
-
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import entities.enums.Gender;
-import entities.enums.Nomination;
 import entities.exeptions.infoBancoExeption;
-import entities.models.Course;
-import entities.models.Supplies;
-import entities.models.Teacher;
 import entities.services.ConnectJDCB;
-import entities.services.SaveSupplie;
-import entities.services.SaveTeachers;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -26,9 +15,13 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import org.jetbrains.annotations.NotNull;
 
-
+/**
+ *
+ * Esta classe carrega as informações do lauch do java fx
+ * @see javafx.application.Application
+ * @author alvaro Basilio
+ */
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
@@ -43,7 +36,6 @@ public class Main extends Application {
             Parent root = (BorderPane)FXMLLoader.load(getClass().getResource("../view/Sample.fxml"));
             Scene scene = new Scene(root,primaryStage.getWidth(),primaryStage.getHeight());
             scene.getStylesheets().add(getClass().getResource("../view/application.css").toExternalForm());
-            //primaryStage.initStyle(StageStyle.UNIFIED);
             primaryStage.setScene(scene);
             primaryStage.setTitle("Gestão Escolar");
             primaryStage.show();
@@ -52,6 +44,11 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * Este é p clinete , pega o lauch do java fx e exibe na tela alem de carregar os bancos e gerar as tabelas
+     * utilizando o JDBC
+     * @throws infoBancoExeption
+     */
     public static void main(String[] args) throws infoBancoExeption, SQLException {
         String[] table = {ConnectJDCB.generateCourseTable(), ConnectJDCB.generateTeacherTable(), ConnectJDCB.generateClassmateTable(),
                 ConnectJDCB.generateSuppliesTable(), ConnectJDCB.generateAdressTable(), ConnectJDCB.generateClassroomTable(),

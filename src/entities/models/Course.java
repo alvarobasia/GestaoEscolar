@@ -1,11 +1,12 @@
 package entities.models;
 
-import entities.exeptions.infoBancoExeption;
+
 import entities.services.ConnectJDCB;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * Entidade Curso
+ * @author Alvaro Basilio
+ */
 public class Course {
 	
 	private String courseName;

@@ -6,6 +6,10 @@ import org.jetbrains.annotations.Contract;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Utilizando o modelo singthom, registra os professors
+ * @author Alvaro Basilio
+ */
 public class SaveTeachers {
     private List<Teacher> teachersList = new ArrayList<>();
     private static final SaveTeachers INSTANCE  = new SaveTeachers();

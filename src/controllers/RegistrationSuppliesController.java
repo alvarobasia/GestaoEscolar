@@ -22,14 +22,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
+
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Line;
-import javafx.stage.Stage;
 
+/**
+ * @author alvaro Basilio
+ * Classe de controller , utilizando padroes mvc
+ * @version 1.0
+ * @see javafx.fxml.Initializable
+ */
 public class RegistrationSuppliesController implements Initializable{
 	
 	@FXML
@@ -93,7 +97,10 @@ public class RegistrationSuppliesController implements Initializable{
 	private ComboBox<Teacher> fieldTeacher;
 	
 	private ObservableList<Teacher> lists;
-	
+
+	/**
+	 * Povoa o comboBox com professores
+	 */
 	public void TeacherList() {
 		SaveTeachers saveTeachers = SaveTeachers.getInstance();
 		List<Teacher> t = (List<Teacher>) saveTeachers.getRegister();
@@ -101,14 +108,21 @@ public class RegistrationSuppliesController implements Initializable{
 		fieldTeacher.setItems(lists);
 	}
 
+	/**
+	 *
+	 * Verifica os campos
+	 */
 	 @FXML
-	 void textValidate() throws InvalidCharacterExeption, NumbersExeption {
+	 void textValidate()  {
 		if(validateFields())
 			cadastro.setDisable(false);
 		else
 			cadastro.setDisable(true);
 	}
 
+	/**
+	 * Registra uma nova materia
+	 */
 	@FXML
 	void registerSupplies(){
 		erroGap.setVisible(false);
@@ -157,6 +171,10 @@ public class RegistrationSuppliesController implements Initializable{
 		}
 	}
 
+	/**
+	 * Verifica se os campos estão preenchidos corretamente
+	 * @return boolean - preenchimento
+	 */
 	 private boolean validateFields(){
 		Teacher teacher = fieldTeacher.getValue();
 		if(fieldSupplie.getText().isEmpty() || fieldId.getText().isEmpty() || gepsField.getText().isEmpty() ||
@@ -165,6 +183,10 @@ public class RegistrationSuppliesController implements Initializable{
 		return true;
 	 }
 
+	/**
+	 * Retorna ao modulo de cursos
+	 * @throws IOException
+	 */
 	@FXML
 	void backToModel() throws IOException {
 		Parent root = (BorderPane) FXMLLoader.load(getClass().getResource("../view/CourseModel.fxml"));
@@ -172,6 +194,9 @@ public class RegistrationSuppliesController implements Initializable{
 
 	}
 
+	/**
+	 * Método que sobreescreve da interface Initialize, ela é executada quando a cena é carregada
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		cadastro.setDisable(true);

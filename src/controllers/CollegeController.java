@@ -1,20 +1,14 @@
 package controllers;
 
 import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfVersion;
 import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.kernel.pdf.WriterProperties;
-import com.itextpdf.kernel.pdf.action.PdfTarget;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Tab;
 import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.element.Text;
 import entities.enums.Situation;
 import entities.models.*;
 import entities.services.*;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -32,16 +26,19 @@ import javafx.scene.layout.Pane;
 import javafx.util.StringConverter;
 import javafx.util.converter.FloatStringConverter;
 import javafx.util.converter.IntegerStringConverter;
-import org.w3c.dom.*;
-
 import java.awt.*;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * @author alvaro Basilio
+ * Classe de controller , utilizando padroes mvc
+ * @version 1.0
+ * @see javafx.fxml.Initializable
+ */
 public class CollegeController implements Initializable {
     @FXML
     private AnchorPane ba;
@@ -95,6 +92,10 @@ public class CollegeController implements Initializable {
 
     private ObservableList<Classroom> sup;
 
+    /**
+     * Povoa a tabela de acordo com testes
+     * @param String sala - o codigo da sala para comparação
+     */
     private void fillList(String sala){
         List<Grades> c = SaveGrades.getInstance().getRegister();
         list =  FXCollections.observableArrayList(c);
@@ -104,6 +105,9 @@ public class CollegeController implements Initializable {
         }
     }
 
+    /**
+     * Povoa a ComboBox
+     */
     private void fillListView(){
         SaveClassrooms saveClassrooms = SaveClassrooms.getInstance();
         List<Classroom> t =  saveClassrooms.getRegister();
@@ -113,18 +117,22 @@ public class CollegeController implements Initializable {
         }
     }
 
-    @FXML
-    void textValidate( ) {
-
-    }
-
+    /**
+     * Valida os campos e altera o botao
+     */
     @FXML
     void validate(){
         if(disci.getValue() != null)
             initTable(disci.getValue().getID());
     }
+
+    /**
+     * Inicia a tabela
+     * @param String sala - codigo da sala para passagem para futuros metodos
+     */
     @FXML
     void initTable(String sala){
+       tabela.getItems().clear();
         fillList(sala);
         nome.setCellValueFactory(new PropertyValueFactory<>("name"));
         matricula.setCellValueFactory(new PropertyValueFactory<>("matricula"));
@@ -134,6 +142,9 @@ public class CollegeController implements Initializable {
         editCols();
     }
 
+    /**
+     * Torna as celulas editaveis
+     */
     void editCols(){
         nome.setCellFactory(TextFieldTableCell.forTableColumn());
         nome.setEditable(false);
@@ -149,16 +160,21 @@ public class CollegeController implements Initializable {
         });
     }
 
+    /**
+     * Retorna ao menu
+     * @throws IOException
+     */
     @FXML
     void voltarMenu() throws IOException {
         Parent root = (BorderPane) FXMLLoader.load(getClass().getResource("../view/Sample.fxml"));
         AssistentScene.getScene(backButton,root);
     }
 
-    @FXML
-    void register( ) {
-
-    }
+    /**
+     * Método que sobreescreve da interface Initialize, ela é executada quando a cena é carregada
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         fillListView();

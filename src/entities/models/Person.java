@@ -1,15 +1,16 @@
 package entities.models;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Entidade abstrada Pessoa, pai de Aluno e Professor
+ * @author Alvaro Basilio
+ */
 import entities.enums.Gender;
-import entities.interfaces.PersonOperations;
-
-public abstract class Person implements PersonOperations{
+public abstract class Person {
 	protected final DateTimeFormatter SDF = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	
 	private int ID;

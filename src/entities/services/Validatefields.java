@@ -1,11 +1,23 @@
 package entities.services;
 
+/**
+ * Classe abstrata que valida os campos
+ * @author Alvaro Basilio
+ */
 public abstract class Validatefields {
 
+	/**
+	 * Analisa se são apenas letras
+	 */
 	public static boolean isAllLettes(String string) {
 		return string.matches("[A-Z a-z ÇçáÁéÉíÍÓóÚúãÃõÕ]{" + string.length() + "}");
 	}
 
+	/**
+	 * Verifica se o cpf é valido
+	 * @param string
+	 * @return
+	 */
 	public static boolean isCpfValid(String string) {
 		if (string.length() == 15)
 			string = string.substring(0, string.length() - 1);
@@ -64,7 +76,12 @@ public abstract class Validatefields {
 				}
 		return true;
 	}
-	
+
+	/**
+	 * Verifica se o telefone é válido
+	 * @param string
+	 * @return
+	 */
 	public static boolean isTelValid(String string) {
 		if(string.length() == 0 || string.length() < 14)
 			return false;
@@ -74,11 +91,21 @@ public abstract class Validatefields {
 			return false;
 		return true;
 	}
-	
+
+	/**
+	 * Formata os numeros corretamente
+	 * @param string
+	 * @return
+	 */
 	public static String formatNumbers(String string) {
 		return string.replaceAll("[^0-9]", "");
 	}
-	
+
+	/**
+	 * verifica se são apenas numeros
+	 * @param string
+	 * @return
+	 */
 	public static boolean isOnlyNumbers(String string) {
 		try {
 			Integer.parseInt(string);

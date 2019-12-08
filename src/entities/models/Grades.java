@@ -4,6 +4,10 @@ import entities.enums.Situation;
 
 import java.util.Objects;
 
+/**
+ * Entidade Notas
+ * @author Alvaro Basilio
+ */
 public class Grades {
 	
 	Float grade;

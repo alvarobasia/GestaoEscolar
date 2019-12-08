@@ -1,12 +1,15 @@
 package entities.services;
 
 import entities.models.Course;
-import entities.models.Supplies;
 import org.jetbrains.annotations.Contract;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Utilizando o modelo singthom, registra os cursos
+ * @author Alvaro Basilio
+ */
 public class SaveCourses {
     private List<Course> courselist = new ArrayList<>();
     private final static SaveCourses INSTANCE = new SaveCourses();

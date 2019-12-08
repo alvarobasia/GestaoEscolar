@@ -1,14 +1,11 @@
 package controllers;
 
 import entities.enums.Turn;
-import entities.exeptions.infoBancoExeption;
 import entities.models.Classroom;
-import entities.models.Course;
 import entities.models.Supplies;
 import entities.models.Teacher;
 import entities.services.ConnectJDCB;
 import entities.services.SaveClassrooms;
-import entities.services.SaveCourses;
 import entities.services.SaveSupplie;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,7 +15,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
@@ -28,7 +24,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 
-
+/**
+ * @author Alvaro BasIlio
+ * Classe de controller , utilizando padroes mvc
+ * @version 1.0
+ * @see javafx.fxml.Initializable
+ */
 public class ClassroomRegistrationController implements Initializable {
 
     @FXML
@@ -101,7 +102,9 @@ public class ClassroomRegistrationController implements Initializable {
 
     private ObservableList<Supplies> lists;
 
-
+    /**
+     * Método que registra uma sala de aula
+     */
     @FXML
     void register() {
         Classroom classroom;
@@ -135,23 +138,37 @@ public class ClassroomRegistrationController implements Initializable {
         }
     }
 
+    /**
+     * Verificador
+     * @return boolean -Verifica se os campos estão preenchidos
+     */
     private boolean validator(){
         return !fieldClass.getText().isEmpty() && !filedID.getText().isEmpty() &&
                 suplliesOnComboBox.getValue() != null;
     }
 
+    /**
+     * Valida os campos e altera o botão registra
+     */
     @FXML
     void textValidate() {
         if(validator())
             register.setDisable(false);
     }
 
+    /**
+     * povoa a ComboBox com materias
+     */
     private void fillComboBox(){
         List<Supplies> supplies = SaveSupplie.getInstance().getRegister();
         lists = FXCollections.observableArrayList(supplies);
         suplliesOnComboBox.setItems(lists);
     }
 
+    /**
+     * Este metodo exibe na tela com ultilização
+     * do TextFlow, informações sobre professor e materia
+     */
     @FXML
     private void fillTaxtFlow(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -192,12 +209,21 @@ public class ClassroomRegistrationController implements Initializable {
         infoDiciplina.getChildren().add(infodis);
     }
 
+    /**
+     * Retorna ao modulo de cursos
+     * @throws IOException
+     */
     @FXML
     void voltarMenu() throws IOException {
         Parent root = (BorderPane) FXMLLoader.load(getClass().getResource("../view/CourseModel.fxml"));
         AssistentScene.getScene(backButton,root);
     }
 
+    /**
+     * Método que sobreescreve da interface Initialize, ela é executada quando a cena é carregada
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         t1 = new Label("Essa diciplina não possui professor!");

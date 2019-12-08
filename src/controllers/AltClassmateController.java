@@ -1,11 +1,8 @@
 package controllers;
 
-import entities.exeptions.infoBancoExeption;
 import entities.models.Classmate;
-import entities.models.Person;
 import entities.services.ConnectJDCB;
 import entities.services.SaveClassemate;
-import entities.services.TextFieldFormatter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,15 +15,18 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * @author alvaro Basilio
+ * Classe de controller , utilizando padroes mvc
+ * @version 1.0
+ * @see javafx.fxml.Initializable
+ */
 public class AltClassmateController implements Initializable {
     @FXML
     private Label texts;
@@ -71,22 +71,29 @@ public class AltClassmateController implements Initializable {
 
     private ObservableList<Classmate> list;
 
+    /**
+     * Metodo para povoar a tabela
+     */
     private void fillList(){
         List<Classmate> c = SaveClassemate.getInstance().getRegister();
         list =  FXCollections.observableArrayList(c);
         tabela.setItems( list);
     }
-    @FXML
-    void register() {
 
-    }
 
+    /**
+     * Médoto para retorar ao modulo
+     * @throws IOException
+     */
     @FXML
     void voltarMenu() throws IOException {
         Parent root = (BorderPane) FXMLLoader.load(getClass().getResource("../view/ClassmateModel.fxml"));
         AssistentScene.getScene(backButton,root);
     }
 
+    /**
+     * Médoto construtor das células na tabela
+     */
     private void table(){
         fillList();
         nome.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -96,6 +103,10 @@ public class AltClassmateController implements Initializable {
         curso.setCellValueFactory(new PropertyValueFactory<>("course"));
         editcols();
     }
+
+    /**
+     * Método que torna as celulas editáveis
+     */
     private void editcols() {
         nome.setCellFactory(TextFieldTableCell.forTableColumn());
         nome.setOnEditCommit(e -> {
@@ -112,6 +123,12 @@ public class AltClassmateController implements Initializable {
             e.getTableView().getItems().get(e.getTablePosition().getRow()).setName(e.getNewValue());
         });
     }
+
+    /**
+     * Método que sobreescreve da interface Initialize, ela é executada quando a cena é carregada
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

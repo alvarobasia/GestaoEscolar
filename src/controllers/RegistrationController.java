@@ -5,7 +5,6 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
-import app.Main;
 import entities.enums.Gender;
 import entities.exeptions.*;
 import entities.models.Address;
@@ -18,16 +17,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
-import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * @author alvaro Basilio
+ * Classe de controller , utilizando padroes mvc
+ * @version 1.0
+ * @see javafx.fxml.Initializable
+ */
 public class RegistrationController implements Initializable {
 
 
@@ -162,12 +164,18 @@ public class RegistrationController implements Initializable {
 
 	private ObservableList<Course> lists;
 
+	/**
+	 * Povoa o combo box de Cursos
+	 */
 	public void CourseList() {
 		List<Course> courses = SaveCourses.getInstance().getRegister();
 		lists = FXCollections.observableArrayList(courses);
 		cursesOnComboBox.setItems(lists);
 	}
 
+	/**
+	 * Formata o cpf utlizando uma mascara
+	 */
 	@FXML
 	void cpfFormatador() {
 		TextFieldFormatter tff = new TextFieldFormatter();
@@ -178,6 +186,9 @@ public class RegistrationController implements Initializable {
 
 	}
 
+	/**
+	 * Formata o telefone utlizando uma mascara
+	 */
 	@FXML
 	void telFormatador() {
 		TextFieldFormatter tff = new TextFieldFormatter();
@@ -187,14 +198,21 @@ public class RegistrationController implements Initializable {
 		tff.formatter();
 	}
 
+	/**
+	 * Retorna ao modulo de alunos
+	 * @throws IOException
+	 */
 	@FXML
 	void voltarMenu() throws IOException {
 		Parent root = (BorderPane) FXMLLoader.load(getClass().getResource("../view/ClassmateModel.fxml"));
 		AssistentScene.getScene(backButton,root);
-
-
 	}
 
+	/**
+	 * Preenche os campos rua, bairro e cidade pelo cep ultilizando a api ViaCep
+	 * @link https://viacep.com.br/
+	 * @return boolean - atesta o preenchimento
+	 */
 	private boolean preencher(){
 		try {
 			errorCep.setVisible(false);
@@ -209,6 +227,10 @@ public class RegistrationController implements Initializable {
 			return false;
 		}
 	}
+
+	/**
+	 * Valida os campos
+	 */
 	@FXML
 	private void textValidate() {
 		if (fieldCep.getText().length() == 8) {
@@ -227,20 +249,31 @@ public class RegistrationController implements Initializable {
 			register.setDisable(true);
 	}
 
+	/**
+	 * Campos sem o endereço
+	 * @return boolean verifica se os campos estao preenchidos
+	 */
 	private boolean registerValidateWithoutAdress(){
 	    if (!fieldName.getText().isEmpty() && (fieldCpf.getText().length() == 14 || fieldCpf.getText().length() == 15)
 				&& !fieldNickName.getText().isEmpty() && data.getValue() != null && cursesOnComboBox.getValue() != null)
 	        return true;
 	    return false;
     }
-    private boolean registerValidateAdress() {
+
+	/**
+	 * Verifica o endereço
+	 * @return boolean verifica se os campos estao preenchidos
+	 */
+	private boolean registerValidateAdress() {
         if (fieldCity.getText().isEmpty() && fieldCep.getText().isEmpty() && fieldDistrict.getText().isEmpty()
 					&& fieldStreet.getText().isEmpty() && fieldNumber.getText().isEmpty())
             return true;
         return false;
     }
 
-
+	/**
+	 * Encaminha o registro do aluno
+	 */
     @FXML
 	private void register(){
 		errorCpf.setVisible(false);
@@ -307,6 +340,11 @@ public class RegistrationController implements Initializable {
 		}
 	}
 
+	/**
+	 * Verifica as formas do construtor de alunos podendo ser:
+	 * sendo 1 para se contem aquele campo e 0 para não contem
+	 * @return int[] - array com imformações
+	 */
 	private int[] registrationOptionsClassmate() {
 		int[] result = new int[3];
 		
@@ -329,7 +367,17 @@ public class RegistrationController implements Initializable {
 			System.out.println(a);
 		return result;
 	}
-		
+
+	/**
+	 * Registra o aluno com endereço
+	 * @param int[] array com as opcões de construção
+	 * @param String o nome
+	 * @param String cpf
+	 * @param LocalDate nascimento
+	 * @param Course curso
+	 * @param Gender genero
+	 * @throws infoBancoExeption
+	 */
 	private void registerWithAdressClassmate(@NotNull int[] op , String name, String cpf, LocalDate date, Course course, RadioButton gender) throws infoBancoExeption {
 		Address address;
 		Classmate classmate;
@@ -390,7 +438,17 @@ public class RegistrationController implements Initializable {
             saveClassemate.add(classmate);
 		}
 	}
-	
+
+	/**
+	 *Registra o aluno se endereço
+	 * @param int[] array com as opcões de construção
+	 * @param String o nome
+	 * @param String cpf
+	 * @param LocalDate nascimento
+	 * @param Course curso
+	 * @param Gender genero
+	 * @throws infoBancoExeption
+	 */
 	private void registerWithoutAdressClassmate(int[] op ,String name, String cpf, LocalDate date, Course course, RadioButton gender) throws infoBancoExeption {
 		Classmate classmate;
         SaveClassemate saveClassemate = SaveClassemate.getInstance();
@@ -407,7 +465,9 @@ public class RegistrationController implements Initializable {
             saveClassemate.add(classmate);
 		}
 	}
-	
+	/**
+	 * Método que sobreescreve da interface Initialize, ela é executada quando a cena é carregada
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		register.setDisable(true);

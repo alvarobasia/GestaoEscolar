@@ -5,7 +5,6 @@ import entities.exeptions.infoBancoExeption;
 import entities.models.Classmate;
 import entities.models.Classroom;
 import entities.models.Grades;
-import entities.models.Supplies;
 import entities.services.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,11 +20,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+
+/**
+ * @author alvaro Basilio
+ * Classe de controller , utilizando padroes mvc
+ * @version 1.0
+ * @see javafx.fxml.Initializable
+ */
 
 public class AltClassroomController implements Initializable {
     @FXML
@@ -68,12 +73,18 @@ public class AltClassroomController implements Initializable {
 
     private ObservableList<Classroom> sup;
 
+    /**
+     * Metodo para povoar a tabela
+     */
     private void fillList(){
         List<Classmate> c = SaveClassemate.getInstance().getRegister();
         list =  FXCollections.observableArrayList(c);
         tabela.setItems( list);
     }
 
+    /**
+     * Método para povoar o comboBox
+     */
     private void fillListView(){
         SaveClassrooms saveClassrooms = SaveClassrooms.getInstance();
         List<Classroom> t =  saveClassrooms.getRegister();
@@ -82,6 +93,9 @@ public class AltClassroomController implements Initializable {
             disci.getItems().add(s);
         }
     }
+    /**
+     * Médoto construtor das células na tabela
+     */
     private void table() {
         fillList();
         nome.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -89,10 +103,18 @@ public class AltClassroomController implements Initializable {
         matricula.setCellValueFactory(new PropertyValueFactory<>("registration"));
     }
 
+    /**
+     *
+     * @return boolean - se a tabela esta selecionada e disciplina no combobox tambem
+     */
     private boolean iscorrety(){
         ObservableList<Classmate> c = tabela.getSelectionModel().getSelectedItems();
         return c.size()> 0&& disci.getValue() != null;
     }
+
+    /**
+     * Valida os campos
+     */
     @FXML
     void textValidate(){
         if(iscorrety()){
@@ -100,10 +122,13 @@ public class AltClassroomController implements Initializable {
         }
     }
 
+    /**
+     * Registra as alterações
+     */
     @FXML
     void register() {
         try {
-            ObservableList<Classmate> result = tabela.getItems();
+            ObservableList<Classmate> result = tabela.getSelectionModel().getSelectedItems();
             Classroom cl = disci.getValue();
             Grades grades = null;
             for (Classmate c : result) {
@@ -123,12 +148,21 @@ public class AltClassroomController implements Initializable {
             alert.show();
         }
     }
+    /**
+     * Médoto para retorar ao modulo
+     * @throws IOException
+     */
     @FXML
     void voltarMenu() throws IOException {
         Parent root = (BorderPane) FXMLLoader.load(getClass().getResource("../view/CourseModel.fxml"));
         AssistentScene.getScene(backButton,root);
     }
 
+    /**
+     * Método que sobreescreve da interface Initialize, ela é executada quando a cena é carregada
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tabela.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);

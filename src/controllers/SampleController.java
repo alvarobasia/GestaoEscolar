@@ -11,15 +11,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-
+/**
+ * @author alvaro Basilio
+ * Classe de controller , utilizando padroes mvc
+ * @version 1.0
+ * @see javafx.fxml.Initializable
+ */
 public class SampleController implements Initializable{
 
 
@@ -53,19 +56,29 @@ public class SampleController implements Initializable{
 	public SampleController() {
 	}
 
-
+	/**
+	 * Encerra a aplicação
+	 */
 	@FXML
 	void closeApplication() {
 		Stage stage = (Stage) close.getScene().getWindow();
 		stage.close();
 	}
 
+	/**
+	 * Vai para o modulo de alunos
+	 * @throws IOException
+	 */
 	@FXML
 	void moduloAluno() throws IOException {
 		Parent root = (BorderPane) FXMLLoader.load(getClass().getResource("../view/ClassmateModel.fxml"));
 		AssistentScene.getScene(classmate,root);
 	}
-	
+
+	/**
+	 * Vai para o modulo de professores
+	 * @throws IOException
+	 */
 	@FXML
 	void moduloProfessor() throws IOException {
 		Parent root = (BorderPane) FXMLLoader.load(getClass().getResource("../view/TeacherModel.fxml"));
@@ -73,6 +86,10 @@ public class SampleController implements Initializable{
 
 	}
 
+	/**
+	 * Vai para o modulo colegiado
+	 * @throws IOException
+	 */
 	@FXML
 	void moduloColegiado() throws IOException {
 		Parent root = (BorderPane) FXMLLoader.load(getClass().getResource("../view/College.fxml"));
@@ -80,6 +97,10 @@ public class SampleController implements Initializable{
 
 	}
 
+	/**
+	 * Vai para o modulo de cursos
+	 * @throws IOException
+	 */
 	@FXML
 	void moduloCursos() throws IOException {
 		Stage sc = (Stage) teacher.getScene().getWindow();
@@ -90,6 +111,9 @@ public class SampleController implements Initializable{
 		sc.show();
 	}
 
+	/**
+	 * Método que sobreescreve da interface Initialize, ela é executada quando a cena é carregada
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		infoTeacher.setShowDelay(new Duration(500));

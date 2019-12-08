@@ -2,6 +2,10 @@ package entities.models;
 
 import entities.enums.Turn;
 
+/**
+ * Entidade Sala
+ * @author Alvaro Basilio
+ */
 public class Classroom {
     private String room;
     private String ID;

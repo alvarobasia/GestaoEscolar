@@ -19,7 +19,7 @@
                   <Font name="Liberation Sans Bold" size="45.0" />
                </font>
             </Label>
-            <TableView fx:id="tabela" editable="true" layoutX="6.0" layoutY="124.0" onMouseClicked="#textValidate" onSort="#textValidate" prefHeight="343.0" prefWidth="542.0" tableMenuButtonVisible="true">
+            <TableView fx:id="tabela" editable="true" layoutX="6.0" layoutY="124.0" prefHeight="343.0" prefWidth="542.0" tableMenuButtonVisible="true">
               <columns>
                 <TableColumn fx:id="nome" prefWidth="123.0" text="Nome" />
                   <TableColumn fx:id="matricula" prefWidth="131.0" text="Matrícula" />
@@ -28,7 +28,7 @@
                   <TableColumn fx:id="sit" prefWidth="109.0" text="Situação" />
               </columns>
             </TableView>
-            <Button fx:id="registrar" layoutX="62.0" layoutY="484.0" mnemonicParsing="false" onAction="#register" prefHeight="53.0" prefWidth="167.0" styleClass="cadastro" stylesheets="@Registration.css" text="Confirmar">
+            <Button fx:id="registrar" layoutX="62.0" layoutY="484.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="167.0" styleClass="cadastro" stylesheets="@Registration.css" text="Confirmar">
                <font>
                   <Font size="24.0" />
                </font>
@@ -38,18 +38,18 @@
                   <Font size="22.0" />
                </font>
             </Label>
-            <ComboBox fx:id="disci" layoutX="570.0" layoutY="173.0" onAction="#validate" onContextMenuRequested="#textValidate" onMouseClicked="#textValidate" prefWidth="150.0" />
+            <ComboBox fx:id="disci" layoutX="570.0" layoutY="173.0" onAction="#validate"  prefWidth="150.0" />
             <Label fx:id="texts11" layoutX="559.0" layoutY="137.0" prefHeight="36.0" prefWidth="236.0" styleClass="texts" stylesheets="@Registration.css" text="Selecione a turma:">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
-            <Button fx:id="deletar" layoutX="254.0" layoutY="484.0" mnemonicParsing="false" onAction="#register" prefHeight="53.0" prefWidth="167.0" styleClass="voltar" stylesheets="@Registration.css" text="Deletar">
+            <Button fx:id="deletar" layoutX="254.0" layoutY="484.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="167.0" styleClass="voltar" stylesheets="@Registration.css" text="Deletar">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button fx:id="info" layoutX="440.0" layoutY="484.0" mnemonicParsing="false" onAction="#register" prefHeight="53.0" prefWidth="167.0" styleClass="cadastro" stylesheets="@Registration.css" text="Informações">
+            <Button fx:id="info" layoutX="440.0" layoutY="484.0" mnemonicParsing="false"  prefHeight="53.0" prefWidth="167.0" styleClass="cadastro" stylesheets="@Registration.css" text="Informações">
                <font>
                   <Font size="24.0" />
                </font>

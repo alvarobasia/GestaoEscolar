@@ -1,12 +1,15 @@
 package entities.services;
 
-import entities.models.Address;
 import entities.models.Grades;
 import org.jetbrains.annotations.Contract;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Utilizando o modelo singthom, registra as notas
+ * @author Alvaro Basilio
+ */
 public class SaveGrades {
     private List<Grades> gradesList = new ArrayList<>();
     private static final SaveGrades INSTANCE  = new SaveGrades();
