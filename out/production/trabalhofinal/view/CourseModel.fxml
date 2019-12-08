@@ -14,15 +14,7 @@
                <font>
                   <Font name="Liberation Sans" size="22.0" />
                </font></Button>
-            <Button fx:id="deleteAndChangeCourse" layoutX="78.0" layoutY="497.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="292.0" styleClass="btn" stylesheets="@application.css" text="Alterar/excluir um curso">
-               <font>
-                  <Font name="Liberation Sans" size="22.0" />
-               </font></Button>
             <Button fx:id="newSupplie" layoutX="77.0" layoutY="107.0" mnemonicParsing="false" onAction="#addSupplie" prefHeight="41.0" prefWidth="295.0" styleClass="btn" stylesheets="@application.css" text="Adicionar uma materia">
-               <font>
-                  <Font name="Liberation Sans" size="22.0" />
-               </font></Button>
-            <Button fx:id="deleteAndChangeSupplie" layoutX="78.0" layoutY="410.0" mnemonicParsing="false" styleClass="btn" stylesheets="@application.css" text="Alterar/excluir uma materia">
                <font>
                   <Font name="Liberation Sans" size="22.0" />
                </font></Button>
@@ -35,7 +27,7 @@
                   <Font name="Liberation Sans" size="22.0" />
                </font>
             </Button>
-            <Button fx:id="deleteAndChangeClassroom" layoutX="78.0" layoutY="334.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="294.0" styleClass="btn" stylesheets="@application.css" text="Alterar/excluir uma sala">
+            <Button fx:id="deleteAndChangeClassroom" layoutX="78.0" layoutY="334.0" mnemonicParsing="false" onAction="#changeClassroom" prefHeight="41.0" prefWidth="294.0" styleClass="btn" stylesheets="@application.css" text="Alterar/excluir uma sala">
                <font>
                   <Font name="Liberation Sans" size="22.0" />
                </font>

@@ -1,46 +1,63 @@
 package entities.models;
 
+import entities.enums.Situation;
+
 public class Grades {
 	
-	float firstTest;
-	float secondTest;
-	float thirdTest;
-	Supplies supplies;
-	
-	public Grades(){
-		
+	Float grade;
+	Integer gap;
+	String matricula;
+	String sala;
+	Situation situation;
+	public Grades(Float grade, String matricula, String sala,Integer gap, Situation situation){
+		this.grade = grade;
+		this.gap = gap;
+		this.matricula = matricula;
+		this.sala = sala;
+		this.situation = situation;
 	}
 
-	public float getFirstTest() {
-		return firstTest;
+	public Grades( String matricula, String sala){
+		this.matricula = matricula;
+		this.sala = sala;
+	}
+	public String getMatricula() {
+		return matricula;
 	}
 
-	public void setFirstTest(float firstTest) {
-		this.firstTest = firstTest;
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
 	}
 
-	public float getSecondTest() {
-		return secondTest;
+	public String getSala() {
+		return sala;
 	}
 
-	public void setSecondTest(float secondTest) {
-		this.secondTest = secondTest;
+	public void setSala(String sala) {
+		this.sala = sala;
 	}
 
-	public float getThirdTest() {
-		return thirdTest;
+	public Float getGrade() {
+		return grade;
 	}
 
-	public void setThirdTest(float thirdTest) {
-		this.thirdTest = thirdTest;
+	public void setGrade(Float grade) {
+		this.grade = grade;
 	}
 
-	public Supplies getSupplies() {
-		return supplies;
+	public Situation getSituation() {
+		return situation;
 	}
 
-	public void setCourse(Supplies supplies) {
-		this.supplies = supplies;
+	public void setSituation(Situation situation) {
+		this.situation = situation;
 	}
-	
+
+	public Integer getGap() {
+		return gap;
+	}
+
+	public void setGap(Integer gap) {
+		this.gap = gap;
+	}
 }

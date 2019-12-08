@@ -62,4 +62,9 @@ public class Classroom {
     public void setTurn(Turn turn) {
         this.turn = turn;
     }
+
+    @Override
+    public String toString() {
+        return this.room;
+    }
 }
