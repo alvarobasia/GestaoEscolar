@@ -72,7 +72,14 @@ public class SampleController implements Initializable{
 		AssistentScene.getScene(teacher,root);
 
 	}
-	
+
+	@FXML
+	void moduloColegiado() throws IOException {
+		Parent root = (BorderPane) FXMLLoader.load(getClass().getResource("../view/College.fxml"));
+		AssistentScene.getScene(teacher,root);
+
+	}
+
 	@FXML
 	void moduloCursos() throws IOException {
 		Stage sc = (Stage) teacher.getScene().getWindow();

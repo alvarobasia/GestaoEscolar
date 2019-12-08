@@ -10,6 +10,7 @@ import java.util.List;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import entities.enums.Gender;
 import entities.enums.Nomination;
+import entities.enums.Situation;
 import entities.enums.Turn;
 import entities.exeptions.infoBancoExeption;
 import entities.models.*;
@@ -106,7 +107,7 @@ public class ConnectJDCB {
 		int insertRows = 0;
 		PreparedStatement ps = null;
 		String sql = "INSERT INTO Alunos(nome,matricula,nascimento,data_de_entrada," +
-				"cpf,genero,curso,id_curso,id_turma,id_endereco,tel) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+				"cpf,genero,curso,id_curso,id_endereco,tel) VALUES(?,?,?,?,?,?,?,?,?,?)";
 		System.out.println(classmate.getID());
 		try {
 			ps = conn.prepareStatement(sql);
@@ -118,9 +119,8 @@ public class ConnectJDCB {
 			ps.setString(6, classmate.getGender().toString());
 			ps.setString(7, classmate.getCourse().toString());
 			ps.setInt(8,classmate.getCourse().getId());
-			ps.setInt(9, 8);
-			ps.setInt(10, endereco);
-			ps.setString(11, number);
+			ps.setInt(9, endereco);
+			ps.setString(10, number);
 			insertRows = ps.executeUpdate();
 			System.out.println(insertRows);
 		} catch (SQLException e) {
@@ -337,6 +337,19 @@ public class ConnectJDCB {
 		}
 	}
 
+	public static void deleteGrade(Grades grades) throws infoBancoExeption {
+		connect();
+		String result = "\""+ grades.getMatricula()+"\"";
+		String sql = "DELETE FROM Notas WHERE sala ="+ grades.getSala() + " AND matricula ="+ result;
+		System.out.println(sql);
+		try(PreparedStatement ps = conn.prepareStatement(sql)){
+			ps.executeUpdate();
+		}catch (SQLException e){
+			e.printStackTrace();
+		}finally {
+			desconect();
+		}
+	}
 	public static void deleteTeacher(Teacher teacher) throws infoBancoExeption {
 		connect();
 		String t = "UPDATE Materias SET  id_prof  = NULL, Materias.professor_nome = NULL " +
@@ -358,6 +371,7 @@ public class ConnectJDCB {
 		}
 	}
 
+
 	public static void updateTeacher(Teacher teacher) throws infoBancoExeption {
 		connect();
 		String sql = "UPDATE Professores SET  nome = ?, cpf = ?, salario = ?" +
@@ -366,6 +380,22 @@ public class ConnectJDCB {
 			ps.setString(1, teacher.getName());
 			ps.setString(2,teacher.getCpf());
 			ps.setFloat(3,teacher.getSalary());
+			ps.executeUpdate();
+		}catch (SQLException e){
+			e.printStackTrace();
+		}finally {
+			desconect();
+		}
+	}
+	public static void updateGrade(Grades grades) throws infoBancoExeption {
+		connect();
+		String result = "\""+ grades.getMatricula()+"\"";
+		String sql = "UPDATE Notas SET  faltas = ?, nota = ?, situacao = ?" +
+				"WHERE matricula ="+ result + "AND sala ="+ grades.getSala();
+		try(PreparedStatement ps = conn.prepareStatement(sql)){
+			ps.setInt(1, grades.getGap());
+			ps.setFloat(2,grades.getGrade());
+			ps.setString(3, grades.getSituation().toString());
 			ps.executeUpdate();
 		}catch (SQLException e){
 			e.printStackTrace();
@@ -462,6 +492,38 @@ public class ConnectJDCB {
 			desconect();
 		}
 	}
+    public static void getAllGrades() throws infoBancoExeption {
+        connect();
+        Grades grades = null;
+        List<Grades> a = SaveGrades.getInstance().getRegister();
+        SaveGrades saveGrades = SaveGrades.getInstance();
+        String sql =  "SELECT * FROM Notas";
+        List<Supplies> sup = SaveSupplie.getInstance().getRegister();
+        Supplies ss = null;
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)){
+            while (rs.next()){
+                Float nota = rs.getFloat("nota");
+                Integer faltas = rs.getInt("faltas");
+                String mat = rs.getString("matricula");
+                String sala = rs.getString("sala");
+                String disci = rs.getString("disciplina");
+                String situacao = rs.getString("situacao");
+				String nome = rs.getString("nome");
+                for(Supplies s : sup){
+                    if(s.getSupplieID().equals(disci))
+                        ss = s;
+                }
+                grades = new Grades(nome,nota,mat,ss,sala,faltas, Situation.valueOf(situacao));
+                if(!a.contains(grades))
+                    saveGrades.add(grades);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            desconect();
+        }
+    }
 	public static void getAllClassmates() throws infoBancoExeption{
 		connect();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -608,7 +670,7 @@ public class ConnectJDCB {
 		}
 
 	}
-	public static void getAllClassrooms() throws infoBancoExeption, SQLException {
+	public static void getAllClassrooms() throws infoBancoExeption {
 		connect();
 		Classroom classroom = null;
 		SaveClassrooms saveClassrooms = SaveClassrooms.getInstance();
@@ -623,7 +685,8 @@ public class ConnectJDCB {
 				String id_materia = rs.getString("materia");
 				String turno = rs.getString("turno");
 				for(Supplies supplies1 :supplie.getRegister()){
-					if(supplies1.getSupplieID() == id_materia){
+					if(supplies1.getSupplieID().equals(id_materia)){
+                        System.out.println("GGGG");
 						supplies = supplies1;
 						break;
 					}
@@ -638,7 +701,7 @@ public class ConnectJDCB {
 		}
 
 	}
-	public static void generateClass(String classroom, String matricula) throws infoBancoExeption {
+	public static void generateClass(String classroom, String matricula, Grades grades) throws infoBancoExeption {
 		connect();
 		PreparedStatement ps =null;
 		String sql ="INSERT INTO Relacionamento(id_turma, id_aluno)" +
@@ -653,6 +716,24 @@ public class ConnectJDCB {
 			} finally {
 				desconect();
 			}
+        connect();
+        String s ="INSERT INTO Notas(nome,nota, faltas,matricula,sala, disciplina,situacao)" +
+                "VALUES(?,?,?,?,?,?,?)";
+        try{
+            ps = conn.prepareStatement(s);
+            ps.setString(1,grades.getName());
+            ps.setFloat(2, grades.getGrade());
+            ps.setInt(3,grades.getGap());
+            ps.setString(4,matricula);
+            ps.setString(5,classroom);
+            ps.setString(6,grades.getDisciplina().getSupplieID());
+            ps.setString(7, grades.getSituation().toString());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            desconect();
+        }
 		}
 
 	public static void creatNewTable(String string) throws infoBancoExeption {
@@ -694,7 +775,6 @@ public class ConnectJDCB {
 				"genero varchar(1) not null," + "\n" +
 				"curso varchar(1) not null," + "\n" +
 				"id_curso integer default null," + "\n" +
-		       "id_turma integer default null," + "\n" +
 				"id_endereco integer default null," + "\n" +
 				"tel varchar(20) default null," + "\n" +
 		       "id integer not null primary key autoincrement," + "\n"+
@@ -744,12 +824,17 @@ public class ConnectJDCB {
 	}
 	public static String generateGradeTable(){
 		String sb = "create table if not exists Notas (" + "\n" +
+				"nome varchar(30) default null," + "\n" +
 				"nota integer default null," + "\n" +
 				"faltas integer default null," + "\n" +
 				"matricula varchar(30) default null," + "\n" +
 				"sala varchar(30) default null," + "\n" +
+                "disciplina varchar(30) default null," + "\n" +
 				"situacao varchar(30) default null," + "\n" +
-				"id integer not null primary key autoincrement);";
+				"id integer not null primary key autoincrement," + "\n" +
+                "foreign key(matricula) references Aluno(matricula)," + "\n" +
+                "foreign key(disciplina) references Materia(codigo)," + "\n" +
+                "foreign key(sala) references Turma(id));";
 		return sb;
 	}
 	public static String generateRelashipTable(){

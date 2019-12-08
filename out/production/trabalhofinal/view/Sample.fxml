@@ -60,7 +60,7 @@
                   <Font name="Liberation Sans Bold" size="22.0" />
                </font>
             </Button>
-            <Button id="btn" fx:id="btn" layoutX="251.0" layoutY="534.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="299.0" styleClass="btn" stylesheets="@application.css" text="Colegiado" textAlignment="CENTER">
+            <Button id="btn" fx:id="btn" layoutX="251.0" layoutY="534.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="299.0" onAction="#moduloColegiado" styleClass="btn" stylesheets="@application.css" text="Colegiado" textAlignment="CENTER">
                <font>
                   <Font name="Liberation Sans" size="22.0" />
                </font>

@@ -69,6 +69,7 @@ public class Main extends Application {
         ConnectJDCB.getAllSupplies();
         ConnectJDCB.getAllClassmates();
         ConnectJDCB.getAllClassrooms();
+        ConnectJDCB.getAllGrades();
         launch(args);
     }
 }

@@ -195,19 +195,24 @@ public class RegistrationController implements Initializable {
 
 	}
 
-	@FXML
-	private void textValidate() {
+	private boolean preencher(){
 		try {
-			if (fieldCep.getText().length() == 8) {
-				errorCep.setVisible(false);
-				ViaCEP vC = new ViaCEP(fieldCep.getText());
-				fieldCity.setText(vC.getLocalidade());
-				fieldDistrict.setText(vC.getBairro());
-				fieldStreet.setText(vC.getLogradouro());
-			} 
+			errorCep.setVisible(false);
+			ViaCEP vC = new ViaCEP(fieldCep.getText());
+			fieldCity.setText(vC.getLocalidade());
+			fieldDistrict.setText(vC.getBairro());
+			fieldStreet.setText(vC.getLogradouro());
+			return true;
 		} catch (ViaCEPException e) {
 			errorCep.setText(e.getMessage());
 			errorCep.setVisible(true);
+			return false;
+		}
+	}
+	@FXML
+	private void textValidate() {
+		if (fieldCep.getText().length() == 8) {
+			preencher();
 		}
 		if (registerValidateWithoutAdress())
 			if (registerValidateAdress())

@@ -1,14 +1,12 @@
 package controllers;
 
+import entities.enums.Situation;
 import entities.exeptions.infoBancoExeption;
 import entities.models.Classmate;
 import entities.models.Classroom;
 import entities.models.Grades;
 import entities.models.Supplies;
-import entities.services.ConnectJDCB;
-import entities.services.SaveClassemate;
-import entities.services.SaveClassrooms;
-import entities.services.SaveSupplie;
+import entities.services.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -107,8 +105,11 @@ public class AltClassroomController implements Initializable {
         try {
             ObservableList<Classmate> result = tabela.getItems();
             Classroom cl = disci.getValue();
+            Grades grades = null;
             for (Classmate c : result) {
-                ConnectJDCB.generateClass(cl.getID(), c.getRegistration());
+                grades = new Grades(c.getName(),0f, c.getRegistration(),cl.getSupplies(),cl.getID(),0, Situation.PENDENTE );
+                SaveGrades.getInstance().add(grades);
+                ConnectJDCB.generateClass(cl.getID(), c.getRegistration(), grades);
             }
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Cadastro de turma");
